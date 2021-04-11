@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Users>
-     <store_clerks>
-          <store_clerk>
+     <StoreClerks>
+          <StoreClerk>
                <first_name>Abc</first_name>
                <last_name>Xyz</last_name>
                <contact_num>1234567890</contact_num>
@@ -26,10 +26,10 @@
                          <year>2021</year>
                     </date>
                </sale_history>
-          </store_clerk>
-     </store_clerks>
-     <delivery_companies>
-          <delivery_company>
+          </StoreClerk>
+     </StoreClerks>
+     <DeliveryCompanies>
+          <DeliveryCompany>
                <company_name>companyA</company_name>
                <orders>
                     <order>
@@ -51,25 +51,25 @@
                          <total>12</total>
                     </order>
                </orders>
-          </delivery_company>
-     </delivery_companies>
+          </DeliveryCompany>
+     </DeliveryCompanies>
      <Customers>
           <Customer>
-               <FirstName>Abc</FirstName>
-               <LastName>Xyz</LastName>
-               <ContactNum>1234567890</ContactNum>
-               <Email>abc@xyz.com</Email>
-               <Address>123-45 67th Ave, Qwerty, US</Address>
-               <PaymentInfo>
-                    <Bank>Chase</Bank>
-                    <CardHolderName>Abc Xyz</CardHolderName>
-                    <CardNum>12345678</CardNum>
-                    <SecurityNum>123</SecurityNum>
-               </PaymentInfo>
-               <Cart>
+               <first_name>Abc</first_name>
+               <last_name>Xyz</last_name>
+               <contact_num>1234567890</contact_num>
+               <email>abc@xyz.com</email>
+               <address>123-45 67th Ave, Qwerty, US</address>
+               <payment_info>
+                    <bank>Chase</bank>
+                    <card_holder_name>Abc Xyz</card_holder_name>
+                    <card_num>12345678</card_num>
+                    <security_num>123</security_num>
+               </payment_info>
+               <cart>
                     <item_num>124</item_num>
                     <item_num>125</item_num>
-               </Cart>
+               </cart>
                <PurchaseHistory>
                     <item_num>123</item_num>
                     <date>
