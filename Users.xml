@@ -1,54 +1,64 @@
 <?xml version="1.0"?>
 <Users>
-  <Vendor>
-      <FirstName>Abc</FirstName>
-      <LastName>Xyz</LastName>
-      <ContactNum>1234567890</ContactNum>
-      <Email>abc@xyz.com</Email>
-      <Address>123-45 67th Ave, Qwerty, US</Address>
-      <PaymentInfo>
-           <Bank>Chase</Bank>
-           <CardHolderName>Abc Xyz</CardHolderName>
-           <CardNum>12345678</CardNum>
-           <SecurityNum>123</SecurityNum>
-           <Money>5000</Money>
-      </PaymentInfo>
-      <ItemForSale>
-           <ItemNum>124</ItemNum>
-           <ItemNum>125</ItemNum>
-      </ItemForSale>
-      <SaleHistory>
-           <ItemNum>123</ItemNum>
-                <Date>
-                    <Month>1</Month>
-                    <Day>1</Day>
-                    <Year>2021</Year>
-                </Date>
-      </SaleHistory>
-  </Vendor>
-  <Customer>
-      <FirstName>Abc</FirstName>
-      <LastName>Xyz</LastName>
-      <ContactNum>1234567890</ContactNum>
-      <Email>abc@xyz.com</Email>
-      <Address>123-45 67th Ave, Qwerty, US</Address>
-      <PaymentInfo>
-           <Bank>Chase</Bank>
-           <CardHolderName>Abc Xyz</CardHolderName>
-           <CardNum>12345678</CardNum>
-           <SecurityNum>123</SecurityNum>
-      </PaymentInfo>
-      <Cart>
-           <ItemNum>124</ItemNum>
-           <ItemNum>125</ItemNum>
-      </Cart>
-      <PurchaseHistory>
-           <ItemNum>123</ItemNum>
-                <Date>
-                    <Month>1</Month>
-                    <Day>1</Day>
-                    <Year>2021</Year>
-                </Date>
-      </PurchaseHistory>
-  </Customer>
+     <Delivery_Companies>
+          <Delivery_Company>
+               <FirstName>Abc</FirstName>
+               <LastName>Xyz</LastName>
+               <ContactNum>1234567890</ContactNum>
+               <Email>abc@xyz.com</Email>
+               <Address>123-45 67th Ave, Qwerty, US</Address>
+               <PaymentInfo>
+                    <Bank>Chase</Bank>
+                    <CardHolderName>Abc Xyz</CardHolderName>
+                    <CardNum>12345678</CardNum>
+                    <SecurityNum>123</SecurityNum>
+                    <Money>5000</Money>
+               </PaymentInfo>
+               <ItemForSale>
+                    <ItemNum>124</ItemNum>
+                    <ItemNum>125</ItemNum>
+               </ItemForSale>
+               <SaleHistory>
+                    <ItemNum>123</ItemNum>
+                         <Date>
+                              <Month>1</Month>
+                              <Day>1</Day>
+                              <Year>2021</Year>
+                         </Date>
+               </SaleHistory>
+          </Delivery_Company>
+     <Delivery_Companies>
+     <Customers>
+          <Customer>
+               <FirstName>Abc</FirstName>
+               <LastName>Xyz</LastName>
+               <ContactNum>1234567890</ContactNum>
+               <Email>abc@xyz.com</Email>
+               <Address>123-45 67th Ave, Qwerty, US</Address>
+               <PaymentInfo>
+                    <Bank>Chase</Bank>
+                    <CardHolderName>Abc Xyz</CardHolderName>
+                    <CardNum>12345678</CardNum>
+                    <SecurityNum>123</SecurityNum>
+               </PaymentInfo>
+               <Cart>
+                    <ItemNum>124</ItemNum>
+                    <ItemNum>125</ItemNum>
+               </Cart>
+               <PurchaseHistory>
+                    <ItemNum>123</ItemNum>
+                         <Date>
+                              <Month>1</Month>
+                              <Day>1</Day>
+                              <Year>2021</Year>
+                         </Date>
+               </PurchaseHistory>
+          </Customer>
+     <Customers>
+     <Clerks>
+          <Clerk>
+               
+          <Clerk>
+     <Clerks>
+
 </Users>
