@@ -1,33 +1,58 @@
 <?xml version="1.0"?>
 <Users>
-     <Delivery_Companies>
-          <Delivery_Company>
-               <FirstName>Abc</FirstName>
-               <LastName>Xyz</LastName>
-               <ContactNum>1234567890</ContactNum>
-               <Email>abc@xyz.com</Email>
-               <Address>123-45 67th Ave, Qwerty, US</Address>
-               <PaymentInfo>
-                    <Bank>Chase</Bank>
-                    <CardHolderName>Abc Xyz</CardHolderName>
-                    <CardNum>12345678</CardNum>
-                    <SecurityNum>123</SecurityNum>
-                    <Money>5000</Money>
-               </PaymentInfo>
-               <ItemForSale>
-                    <ItemNum>124</ItemNum>
-                    <ItemNum>125</ItemNum>
-               </ItemForSale>
-               <SaleHistory>
-                    <ItemNum>123</ItemNum>
-                         <Date>
-                              <Month>1</Month>
-                              <Day>1</Day>
-                              <Year>2021</Year>
-                         </Date>
-               </SaleHistory>
-          </Delivery_Company>
-     <Delivery_Companies>
+     <store_clerks>
+          <store_clerk>
+               <first_name>Abc</first_name>
+               <last_name>Xyz</last_name>
+               <contact_num>1234567890</contact_num>
+               <email>abc@xyz.com</email>
+               <address>123-45 67th Ave, Qwerty, US</address>
+               <payment_info>
+                    <bank>Chase</bank>
+                    <card_holder_name>Abc Xyz</card_holder_name>
+                    <card_num>12345678</card_num>
+                    <security_num>123</security_num>
+                    <money>5000</money>
+               </payment_info>
+               <item_for_sale>
+                    <item_num>124</item_num>
+                    <item_num>125</item_num>
+               </item_for_sale>
+               <sale_history>
+                    <item_num>123</item_num>
+                    <date>
+                         <month>1</month>
+                         <day>1</day>
+                         <year>2021</year>
+                    </date>
+               </sale_history>
+          </store_clerk>
+     </store_clerks>
+     <delivery_companies>
+          <delivery_company>
+               <company_name>companyA</company_name>
+               <orders>
+                    <order>
+                         <order_date>
+                              <month>1</month>
+                              <day>1</day>
+                              <year>2021</year>
+                         </order_date>
+                         <arrival_date>
+                              <month>1</month>
+                              <day>4</day>
+                              <year>2021</year>
+                         </arrival_date>
+                         <tracking_num>123</tracking_num>
+                         <shipping_address>123-45 67th Ave, Qwerty, US</shipping_address>
+                         <subtotal>10</subtotal>
+                         <shipping_cost>1</shipping_cost>
+                         <tax>1</tax>
+                         <total>12</total>
+                    </order>
+               </orders>
+          </delivery_company>
+     </delivery_companies>
      <Customers>
           <Customer>
                <FirstName>Abc</FirstName>
@@ -42,23 +67,17 @@
                     <SecurityNum>123</SecurityNum>
                </PaymentInfo>
                <Cart>
-                    <ItemNum>124</ItemNum>
-                    <ItemNum>125</ItemNum>
+                    <item_num>124</item_num>
+                    <item_num>125</item_num>
                </Cart>
                <PurchaseHistory>
-                    <ItemNum>123</ItemNum>
-                         <Date>
-                              <Month>1</Month>
-                              <Day>1</Day>
-                              <Year>2021</Year>
-                         </Date>
+                    <item_num>123</item_num>
+                    <date>
+                         <month>1</month>
+                         <day>1</day>
+                         <year>2021</year>
+                    </date>
                </PurchaseHistory>
           </Customer>
-     <Customers>
-     <Clerks>
-          <Clerk>
-               
-          <Clerk>
-     <Clerks>
-
+     </Customers>
 </Users>

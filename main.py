@@ -10,5 +10,5 @@ class Login(qtw.QDialog):
 
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
-    w = MainWindow(windowTitle='hello world')
+    w = Login(windowTitle='hello world')
     app.exec_()
