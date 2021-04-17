@@ -1,6 +1,5 @@
-# Major overhaul in constructor logic:
-# I switched from using **kwargs to what it is now.
-# Check out this stackoverflow post: https://stackoverflow.com/questions/9728243/is-self-dict-updatekwargs-good-or-poor-style
+# I used kwargs in a similar manner as the solution to this post:
+# https://stackoverflow.com/questions/9728243/is-self-dict-updatekwargs-good-or-poor-style
 class DeliveryCompany():
     pass
 
@@ -19,14 +18,14 @@ class Person():
         self.address = address
 
 
-class StoreClerk():
-    def __init__(self):
-        super().__init__(self)
+class StoreClerk(Person):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
 
 class Customer(Person):
-    def __init__(self, card_number=None, bank=None, security_num=None, balance=None, purchase=None, cart=None, orders=None):
-        super().__init__(self)
+    def __init__(self, card_number=None, bank=None, security_num=None, balance=None, purchases=None, cart=None, orders=None, **kwargs):
+        super().__init__(**kwargs)
         # Payment information
         self.card_number = card_number
         self.bank = bank
