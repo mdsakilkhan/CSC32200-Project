@@ -26,11 +26,9 @@ class StoreClerk(Person):
 class Customer(Person):
     def __init__(self, card_number=None, bank=None, security_num=None, balance=None, purchases=None, cart=None, orders=None, **kwargs):
         super().__init__(**kwargs)
-        # Payment information
         self.card_number = card_number
         self.bank = bank
         self.security_num = security_num
-
         self.balance = balance
         self.purchases = purchases
         self.cart = cart
