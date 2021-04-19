@@ -1,4 +1,4 @@
-import xml.dom.minidom
+from lxml import etree, objectify
 import sys
 import Users
 from datetime import datetime
@@ -9,3 +9,6 @@ customer1 = Users.Customer(first_name="Joshua",
                            email='Joshua.chang998@gmail.com')
 
 print(customer1.date_of_birth)
+
+tree = etree.parse("Users.xml")
+print(etree.tostring(tree, pretty_print=True))

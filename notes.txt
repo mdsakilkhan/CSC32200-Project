@@ -1,0 +1,35 @@
+Useful commands
+
+VIRTUAL ENVIRONMENTS
+	Activate virtual environment: 
+		(environment name)\Script\activate.bat
+	Deactivate virtual environment: 
+		deactivate
+
+PyQt
+	- QApplication object is needed for mainloop()
+	
+	Master PyQt5 part3: Hand-coding a GUI
+		- When hand-coding GUIs, define widget objects, then add them to a layout, and set the layout property of the instance of the MainWindow class to 
+		the layout with all of the widgets that were just added to them.
+		Example: 
+			button = qtw.QPushButton('text')
+			layout = qtw.QHBoxLayout()
+			layout.addWidget(button)
+			self.setLayout(layout)
+		- Widgets cannot be added to widgets, they can only be added to layouts.
+		- Layouts can be added to layouts or widgets.
+	
+	Master PyQt5 part 4: Introduction to Signals and Slots
+		- In a GUI we create objects, e.g. buttons, lineedits, other widgets...
+		- We define functionality with those widgets.
+		- There is an event loop 
+		- In a nutshell: Do a whole bunch of setup, get into infinite event loop until program terminates.
+
+		- Look at signals and slots qt documentation
+		- We can connect any signal to any callable--e.g. function, signal, slot, etc...
+		- A signal is emitted when a particular event happens. This signal can be connected to a slot. A slot is a function that is called in response
+		  to a particular signal. 
+
+	Master PyQt5 part 5: Moving data between windows
+		- 
