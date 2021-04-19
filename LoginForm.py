@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'login.ui'
+# Form implementation generated from reading ui file 'LoginForm.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.2
 #
@@ -11,25 +11,29 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(700, 500)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
+class Ui_LoginForm(object):
+    def setupUi(self, LoginForm):
+        LoginForm.setObjectName("LoginForm")
+        LoginForm.resize(700, 500)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(Dialog.sizePolicy().hasHeightForWidth())
-        Dialog.setSizePolicy(sizePolicy)
-        Dialog.setMinimumSize(QtCore.QSize(700, 500))
-        Dialog.setMaximumSize(QtCore.QSize(700, 500))
-        Dialog.setStyleSheet("")
-        self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
+        sizePolicy.setHeightForWidth(
+            LoginForm.sizePolicy().hasHeightForWidth())
+        LoginForm.setSizePolicy(sizePolicy)
+        LoginForm.setMinimumSize(QtCore.QSize(700, 500))
+        LoginForm.setMaximumSize(QtCore.QSize(700, 500))
+        LoginForm.setStyleSheet("")
+        self.verticalLayout = QtWidgets.QVBoxLayout(LoginForm)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.label = QtWidgets.QLabel(Dialog)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        self.label = QtWidgets.QLabel(LoginForm)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(30)
@@ -41,14 +45,14 @@ class Ui_Dialog(object):
         self.horizontalLayout_2.setContentsMargins(20, 20, 20, 20)
         self.horizontalLayout_2.setSpacing(30)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.label_5 = QtWidgets.QLabel(Dialog)
+        self.label_5 = QtWidgets.QLabel(LoginForm)
         font = QtGui.QFont()
         font.setPointSize(20)
         self.label_5.setFont(font)
         self.label_5.setAlignment(QtCore.Qt.AlignCenter)
         self.label_5.setObjectName("label_5")
         self.horizontalLayout_2.addWidget(self.label_5)
-        self.lineEdit_username = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit_username = QtWidgets.QLineEdit(LoginForm)
         self.lineEdit_username.setMaximumSize(QtCore.QSize(400, 16777215))
         font = QtGui.QFont()
         font.setPointSize(20)
@@ -60,14 +64,14 @@ class Ui_Dialog(object):
         self.horizontalLayout_3.setContentsMargins(20, 20, 20, 20)
         self.horizontalLayout_3.setSpacing(30)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.label_6 = QtWidgets.QLabel(Dialog)
+        self.label_6 = QtWidgets.QLabel(LoginForm)
         font = QtGui.QFont()
         font.setPointSize(20)
         self.label_6.setFont(font)
         self.label_6.setAlignment(QtCore.Qt.AlignCenter)
         self.label_6.setObjectName("label_6")
         self.horizontalLayout_3.addWidget(self.label_6)
-        self.lineEdit_passowrd = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit_passowrd = QtWidgets.QLineEdit(LoginForm)
         self.lineEdit_passowrd.setMaximumSize(QtCore.QSize(400, 46))
         font = QtGui.QFont()
         font.setPointSize(20)
@@ -77,11 +81,13 @@ class Ui_Dialog(object):
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.pButton_newUser = QtWidgets.QPushButton(Dialog)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Fixed)
+        self.pButton_newUser = QtWidgets.QPushButton(LoginForm)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pButton_newUser.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.pButton_newUser.sizePolicy().hasHeightForWidth())
         self.pButton_newUser.setSizePolicy(sizePolicy)
         self.pButton_newUser.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
@@ -90,11 +96,13 @@ class Ui_Dialog(object):
         self.pButton_newUser.setAutoDefault(False)
         self.pButton_newUser.setObjectName("pButton_newUser")
         self.horizontalLayout.addWidget(self.pButton_newUser)
-        self.pButton_login = QtWidgets.QPushButton(Dialog)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Fixed)
+        self.pButton_login = QtWidgets.QPushButton(LoginForm)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pButton_login.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.pButton_login.sizePolicy().hasHeightForWidth())
         self.pButton_login.setSizePolicy(sizePolicy)
         self.pButton_login.setMaximumSize(QtCore.QSize(200, 16777215))
         font = QtGui.QFont()
@@ -104,11 +112,13 @@ class Ui_Dialog(object):
         self.pButton_login.setObjectName("pButton_login")
         self.horizontalLayout.addWidget(self.pButton_login)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        self.pButton_specialUser = QtWidgets.QPushButton(Dialog)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Fixed)
+        self.pButton_specialUser = QtWidgets.QPushButton(LoginForm)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Maximum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pButton_specialUser.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.pButton_specialUser.sizePolicy().hasHeightForWidth())
         self.pButton_specialUser.setSizePolicy(sizePolicy)
         self.pButton_specialUser.setMinimumSize(QtCore.QSize(200, 0))
         self.pButton_specialUser.setMaximumSize(QtCore.QSize(200, 16777215))
@@ -117,27 +127,29 @@ class Ui_Dialog(object):
         self.pButton_specialUser.setFont(font)
         self.pButton_specialUser.setAutoDefault(False)
         self.pButton_specialUser.setObjectName("pButton_specialUser")
-        self.verticalLayout.addWidget(self.pButton_specialUser, 0, QtCore.Qt.AlignHCenter)
+        self.verticalLayout.addWidget(
+            self.pButton_specialUser, 0, QtCore.Qt.AlignHCenter)
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(LoginForm)
+        QtCore.QMetaObject.connectSlotsByName(LoginForm)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, LoginForm):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.label.setText(_translate("Dialog", "Login"))
-        self.label_5.setText(_translate("Dialog", "Username"))
-        self.label_6.setText(_translate("Dialog", "Password"))
-        self.pButton_newUser.setText(_translate("Dialog", "New User"))
-        self.pButton_login.setText(_translate("Dialog", "Login"))
-        self.pButton_specialUser.setText(_translate("Dialog", "Special User"))
+        LoginForm.setWindowTitle(_translate("LoginForm", "Dialog"))
+        self.label.setText(_translate("LoginForm", "Login"))
+        self.label_5.setText(_translate("LoginForm", "Username"))
+        self.label_6.setText(_translate("LoginForm", "Password"))
+        self.pButton_newUser.setText(_translate("LoginForm", "New User"))
+        self.pButton_login.setText(_translate("LoginForm", "Login"))
+        self.pButton_specialUser.setText(
+            _translate("LoginForm", "Special User"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    LoginForm = QtWidgets.QDialog()
+    ui = Ui_LoginForm()
+    ui.setupUi(LoginForm)
+    LoginForm.show()
     sys.exit(app.exec_())
