@@ -3,6 +3,9 @@ import Users
 from PyQt5 import QtWidgets as qtw
 from PyQt5.uic import loadUi
 
+from lxml import etree
+from lxml import objectify
+
 from LoginForm import Ui_LoginForm
 
 
@@ -46,20 +49,48 @@ class NewUserForm(qtw.QDialog):
         self.ui.lineEdit_cardNumber.textChanged.connect(self.enable_create_button)
         self.ui.lineEdit_bankName.textChanged.connect(self.enable_create_button)
         self.ui.lineEdit_cvv.textChanged.connect(self.enable_create_button)
+
+        self.ui.pButton_create.clicked.connect(self.create_user)
         
         self.ui.show()
 
     def enable_create_button(self):
-        if (not self.ui.lineEdit_firstName.text()
-            and not self.ui.lineEdit_lastName.text()
-            and not self.ui.lineEdit_DOB.text()
-            and not self.ui.lineEdit_contactNumber.text()
-            and not self.ui.lineEdit_emailAddress.text()
-            and not self.ui.lineEdit_address.text()
-            and not self.ui.lineEdit_cardNumber.text()
-            and not self.ui.lineEdit_bankName.text()
-            and not self.ui.lineEdit_cvv.text()):
+        if (len(self.ui.lineEdit_firstName.text())
+            and len(self.ui.lineEdit_lastName.text())
+            and len(self.ui.lineEdit_DOB.text())
+            and len(self.ui.lineEdit_contactNumber.text())
+            and len(self.ui.lineEdit_emailAddress.text())
+            and len(self.ui.lineEdit_address.text())
+            and len(self.ui.lineEdit_cardNumber.text())
+            and len(self.ui.lineEdit_bankName.text())
+            and len(self.ui.lineEdit_cvv.text())):
             self.ui.pButton_create.setEnabled(True)
+        else:
+            self.ui.pButton_create.setEnabled(False)
+
+    def create_user(self):
+        root = objectify.Element("Users")
+        Customers = objectify.SubElement(root,"Customers")
+        customer = Users.Customer(first_name="Joshua")
+        Customers.append(Users.Utilities.create_xml(customer))
+        StoreClerks = []
+        Vendors = []
+        DeliveryCompanies = []
+
+        # remove lxml annotation
+        objectify.deannotate(root)
+        etree.cleanup_namespaces(root)
+
+        # create the xml string
+        obj_xml = etree.tostring(root,
+                                 pretty_print=True,
+                                 xml_declaration=True)
+
+        try:
+            with open("test.xml", "wb") as xml_writer:
+                xml_writer.write(obj_xml)
+        except IOError:
+            pass
 
 
 if __name__ == '__main__':
