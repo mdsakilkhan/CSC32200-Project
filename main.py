@@ -18,7 +18,7 @@ class Main(qtw.QWidget):
 class LoginForm(qtw.QDialog):
     def __init__(self):
         super().__init__()
-
+        # self.load_users()
         # Member variables
         self.ui = loadUi("LoginForm.ui")
         self.newUserForm = None
@@ -30,6 +30,22 @@ class LoginForm(qtw.QDialog):
 
     def show_new_user_form(self):
         self.newUserForm = NewUserForm(self.ui)
+
+    def load_users(self):
+    
+        try:
+            with open("Users2.xml") as file:
+                users = file.read()
+        except:
+            print('file not found')
+
+        root = objectify.fromstring(users)
+        customers = etree.find
+        
+        self.Customers = []
+        self.StoreClerks = []
+        self.Vendors = []
+        self.DeliveryCompanies = []
 
 
 class NewUserForm(qtw.QDialog):
@@ -72,25 +88,23 @@ class NewUserForm(qtw.QDialog):
         root = objectify.Element("Users")
         Customers = objectify.SubElement(root,"Customers")
         customer = Users.Customer(first_name="Joshua")
-        Customers.append(Users.Utilities.create_xml(customer))
-        StoreClerks = []
-        Vendors = []
-        DeliveryCompanies = []
+        Customers.append(Users.Utilities.serialize_to_xml(customer))
 
         # remove lxml annotation
         objectify.deannotate(root)
         etree.cleanup_namespaces(root)
 
         # create the xml string
-        obj_xml = etree.tostring(root,
-                                 pretty_print=True,
-                                 xml_declaration=True)
+        obj_xml = etree.tostring(root, pretty_print=True, xml_declaration=True)
 
         try:
-            with open("test.xml", "wb") as xml_writer:
+            with open("Users2.xml", "wb") as xml_writer:
                 xml_writer.write(obj_xml)
         except IOError:
             pass
+
+
+        
 
 
 if __name__ == '__main__':
