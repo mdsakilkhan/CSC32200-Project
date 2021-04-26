@@ -29,9 +29,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>60</y>
+     <y>140</y>
      <width>981</width>
-     <height>681</height>
+     <height>601</height>
     </rect>
    </property>
    <property name="autoFillBackground">
@@ -71,6 +71,89 @@
     <attribute name="title">
      <string>Cart</string>
     </attribute>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>971</width>
+       <height>571</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>969</width>
+        <height>569</height>
+       </rect>
+      </property>
+      <widget class="QTextBrowser" name="textBrowser">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>969</width>
+         <height>109</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QTextBrowser" name="textBrowser_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>110</y>
+         <width>969</width>
+         <height>109</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QTextBrowser" name="textBrowser_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>220</y>
+         <width>969</width>
+         <height>109</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QTextBrowser" name="textBrowser_4">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>330</y>
+         <width>969</width>
+         <height>109</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QTextBrowser" name="textBrowser_5">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>440</y>
+         <width>969</width>
+         <height>109</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QTextBrowser" name="textBrowser_6">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>550</y>
+         <width>969</width>
+         <height>109</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
+    </widget>
    </widget>
    <widget class="QWidget" name="History">
     <attribute name="title">
@@ -96,42 +179,91 @@
     <string>Logout</string>
    </property>
   </widget>
-  <widget class="QLabel" name="CustomerIcon">
-   <property name="geometry">
-    <rect>
-     <x>14</x>
-     <y>15</y>
-     <width>31</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap>../../../Desktop/laptop-user-1-1179329.png</pixmap>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
-  </widget>
   <widget class="QLabel" name="CustomerName">
    <property name="geometry">
     <rect>
-     <x>54</x>
-     <y>15</y>
-     <width>801</width>
-     <height>31</height>
+     <x>140</x>
+     <y>10</y>
+     <width>721</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Nirmala UI</family>
      <pointsize>22</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
     </font>
    </property>
    <property name="text">
     <string>Md Sakil Khan</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="CustomerName_2">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>100</y>
+     <width>841</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Nirmala UI</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Balance: $100.00 Chase Bank *1234</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="CustomerIcon">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>121</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>userIcon.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="CustomerName_3">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>60</y>
+     <width>841</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Nirmala UI</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>123-12 123st, Qwerty, NY 12345</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
    </property>
   </widget>
  </widget>
