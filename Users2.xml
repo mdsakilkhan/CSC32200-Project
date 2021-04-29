@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='ASCII'?>
+<Users>
+  <Customers>
+    <Customer>
+      <first_name>Joshua</first_name>
+      <last_name></last_name>
+      <date_of_birth></date_of_birth>
+      <contact_num></contact_num>
+      <email_address></email_address>
+      <address></address>
+      <card_number></card_number>
+      <bank></bank>
+      <security_num></security_num>
+      <balance></balance>
+      <purchases></purchases>
+      <cart></cart>
+      <orders></orders>
+    </Customer>
+  </Customers>
+</Users>
