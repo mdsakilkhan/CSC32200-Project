@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='ASCII'?>
+<Items>
+  <Item id="100">
+    <item_name>CPU 1</item_name>
+    <item_type>CPU</item_type>
+    <item_price>12.96</item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+  <Item id="101">
+    <item_name>CPU 2</item_name>
+    <item_type>CPU</item_type>
+    <item_price>24.96</item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+  <Item id="102">
+    <item_name>CPU 3</item_name>
+    <item_type>CPU</item_type>
+    <item_price>124.96</item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+  <Item id="103">
+    <item_name>CPU 4</item_name>
+    <item_type>CPU</item_type>
+    <item_price>1240.96</item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+  <Item id="104">
+    <item_name>CPU 5</item_name>
+    <item_type>CPU</item_type>
+    <item_price>2400.96</item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+  <Item id="105">
+    <item_name>GPU 1</item_name>
+    <item_type>GPU</item_type>
+    <item_price>45.96"></item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+  <Item id="106">
+    <item_name>GPU 2</item_name>
+    <item_type>GPU</item_type>
+    <item_price>134.96"></item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+  <Item id="107">
+    <item_name>GPU 3</item_name>
+    <item_type>GPU</item_type>
+    <item_price>424.96"></item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+  <Item id="108">
+    <item_name>GPU 4</item_name>
+    <item_type>GPU</item_type>
+    <item_price>724.96"></item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+  <Item id="109">
+    <item_name>GPU 5</item_name>
+    <item_type>GPU</item_type>
+    <item_price>1024.96"></item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+
+  <RAM>"RAM 1" price="134.96">110</RAM>
+  <RAM>"RAM 2" price="194.96">111</RAM>
+  <RAM>"RAM 3" price="204.96">112</RAM>
+  <RAM>"RAM 4" price="400.96">113</RAM>
+  <RAM>"RAM 5" price="1240.96">114</RAM>
+  
+  <hard_drive>"Hard drive 128 gb" price="24.96">115</hard_drive>
+  <hard_drive>"Hard drive 1 tb" price="120.96">116</hard_drive>
+  <hard_drive>"Hard drive 2 tb" price="140.96">117</hard_drive>
+  <hard_drive>"Hard drive 4 tb" price="400.96">118</hard_drive>
+  <hard_drive>"Hard drive 10 tb" price="1204.96">119</hard_drive>
+</Items>
