@@ -1,8 +1,6 @@
 # I used kwargs in a similar manner as the solution to this post:
 # https://stackoverflow.com/questions/9728243/is-self-dict-updatekwargs-good-or-poor-style
 
-import Utilities
-
 class DeliveryCompany():
     pass
 
@@ -25,7 +23,6 @@ class StoreClerk(Person):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-
 class Customer(Person):
     def __init__(self, card_number=None, bank=None, security_num=None, balance=None, purchases=None, cart=None, orders=None, **kwargs):
         super().__init__(**kwargs)
@@ -36,8 +33,6 @@ class Customer(Person):
         self.purchases = purchases
         self.cart = cart
         self.orders = orders
-
-
 
 class Order():
     def __init__(self, items=None, purchase_date=None, subtotal=None, total=None):

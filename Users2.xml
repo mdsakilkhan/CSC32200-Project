@@ -1,3 +1,20 @@
-<?xml version='1.0' encoding='ASCII'?>
-<Users>
-<Customers><Customer><first_name>q</first_name><last_name>q</last_name><date_of_birth>q</date_of_birth><contact_num>q</contact_num><email_address>q</email_address><address>q</address><card_number>q</card_number><bank>q</bank><security_num>q</security_num><balance></balance><purchases></purchases><cart></cart><orders></orders></Customer></Customers></Users>
+<?xml version="1.0"?>
+<test>
+  <Customers>
+    <Customer>
+      <first_name>qawesg</first_name>
+      <last_name>qawesg</last_name>
+      <date_of_birth>qasdfgasfgaw</date_of_birth>
+      <contact_num>q</contact_num>
+      <email_address>q</email_address>
+      <address>qsadfwe</address>
+      <card_number>q</card_number>
+      <bank>q</bank>
+      <security_num>qsdafawsegwweg</security_num>
+      <balance></balance>
+      <purchases></purchases>
+      <cart></cart>
+      <orders></orders>
+    </Customer>
+  </Customers>
+</test>

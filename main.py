@@ -1,10 +1,11 @@
 import sys
-import Users
+from lxml import etree
+from lxml import objectify
 from PyQt5 import QtWidgets as qtw
 from PyQt5.uic import loadUi
 
-from lxml import etree
-from lxml import objectify
+import Users
+import Utilities as Utils
 
 from LoginForm import Ui_LoginForm
 
@@ -107,7 +108,7 @@ class LoginForm(qtw.QDialog):
     def load_users(self):
     
         try:
-            with open("Users2.xml") as file:
+            with open("Users2new.xml") as file:
                 users = file.read()
         except:
             print('file not found')
@@ -158,12 +159,12 @@ class NewUserForm(qtw.QDialog):
             self.ui.pButton_create.setEnabled(False)
 
     def create_user(self):
-        xml_header = '''<?xml version="1.0" ?>
+        xml_header = '''<?xml version="1.0"?>
         <Users>
         </Users>
         '''
         # Create root tag
-        root = objectify.fromstring(xml_header)
+        root = objectify.Element("test")
         # Append Customers tag under root
         Customers = objectify.SubElement(root,"Customers")
         # Construct customer object
@@ -176,7 +177,7 @@ class NewUserForm(qtw.QDialog):
                                   card_number=self.ui.lineEdit_cardNumber.text(),
                                   bank=self.ui.lineEdit_bankName.text(),
                                   security_num=self.ui.lineEdit_cvv.text())
-        Customers.append(Users.Utilities.serialize_to_xml(customer))
+        Customers.append(Utils.serialize_to_xml(customer))
 
         # remove lxml annotation
         objectify.deannotate(root)
@@ -186,10 +187,14 @@ class NewUserForm(qtw.QDialog):
         obj_xml = etree.tostring(root, pretty_print=True, xml_declaration=True)
 
         try:
-            with open("Users2.xml", "wb") as xml_writer:
+            with open("Users2temp.xml", "wb") as xml_writer:
                 xml_writer.write(obj_xml)
         except IOError:
             pass
+
+        # Remove encoding declaration--was such a bitch... 
+        # The encoding declaration renders the lxml module unable to read it. Hence it had to be removed.
+        Utils.remove_encoding_dec("Users2temp.xml","Users2.xml")
 
 
 if __name__ == '__main__':
