@@ -1,3 +1,3 @@
 <?xml version='1.0' encoding='ASCII'?>
-<zUsers>
-        <Customers><Customer><first_name>q</first_name><last_name>q</last_name><date_of_birth>q</date_of_birth><contact_num>qq</contact_num><email_address>q</email_address><address>q</address><card_number>q</card_number><bank>q</bank><security_num>q</security_num><balance></balance><purchases></purchases><cart></cart><orders></orders></Customer></Customers></zUsers>
+<Users>
+<Customers><Customer><first_name>q</first_name><last_name>q</last_name><date_of_birth>q</date_of_birth><contact_num>q</contact_num><email_address>q</email_address><address>q</address><card_number>q</card_number><bank>q</bank><security_num>q</security_num><balance></balance><purchases></purchases><cart></cart><orders></orders></Customer></Customers></Users>

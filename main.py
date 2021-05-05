@@ -14,7 +14,7 @@ class Main(qtw.QWidget):
         super().__init__(*args, **kwargs)
         self.loginForm = LoginForm()
 
-class Homepage(qtw.Qwidget):
+class Homepage(qtw.QWidget):
     def __init__(self):
         super().__init__()
         self.ui = loadUI("Homepage.ui")
@@ -158,8 +158,7 @@ class NewUserForm(qtw.QDialog):
             self.ui.pButton_create.setEnabled(False)
 
     def create_user(self):
-        xml_header = 
-        '''<?xml version="1.0" ?>
+        xml_header = '''<?xml version="1.0" ?>
         <Users>
         </Users>
         '''
