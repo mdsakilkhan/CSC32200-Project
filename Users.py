@@ -11,14 +11,14 @@ class ComputerPartCompany():
 
 class Person():
     def __init__(self, first_name=None, last_name=None, date_of_birth=None, contact_num=None, email_address=None, address=None):
+        self.id = email_address
         self.first_name = first_name
         self.last_name = last_name
         self.date_of_birth = date_of_birth
         self.contact_num = contact_num
         self.email_address = email_address
         self.address = address
-
-
+        
 class StoreClerk(Person):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
