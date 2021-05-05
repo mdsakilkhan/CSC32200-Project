@@ -14,6 +14,79 @@ class Main(qtw.QWidget):
         super().__init__(*args, **kwargs)
         self.loginForm = LoginForm()
 
+class Homepage(qtw.Qwidget):
+    def __init__(self):
+        super().__init__()
+        self.ui = loadUI("Homepage.ui")
+
+        # EDIT HERE**************************************************************************
+        # Connect signals with slots (custom-defined methods)
+        # Nana START
+
+
+
+
+
+        # Nana END
+        # Joshua START
+
+
+
+
+
+        # Joshua END
+        # Huihong START
+
+
+
+
+
+        # Huihong END
+        # Sakil START
+
+
+
+
+
+        # Sakil END
+        # EDIT HERE**************************************************************************
+
+        self.ui.show()
+
+    
+    # EDIT HERE**************************************************************************
+
+    # Define custom methods here. 
+    # Nana START
+
+
+
+
+
+    # Nana END
+    # Joshua START
+
+
+
+
+
+    # Joshua END
+    # Huihong START
+
+
+
+
+
+    # Huihong END
+    # Sakil START
+
+
+
+
+
+    # Sakil END
+    # EDIT HERE**************************************************************************
+
 
 class LoginForm(qtw.QDialog):
     def __init__(self):
@@ -85,9 +158,25 @@ class NewUserForm(qtw.QDialog):
             self.ui.pButton_create.setEnabled(False)
 
     def create_user(self):
-        root = objectify.Element("Users")
+        xml_header = 
+        '''<?xml version="1.0" ?>
+        <Users>
+        </Users>
+        '''
+        # Create root tag
+        root = objectify.fromstring(xml_header)
+        # Append Customers tag under root
         Customers = objectify.SubElement(root,"Customers")
-        customer = Users.Customer(first_name="Joshua")
+        # Construct customer object
+        customer = Users.Customer(first_name=self.ui.lineEdit_lastName.text(),
+                                  last_name=self.ui.lineEdit_lastName.text(),
+                                  date_of_birth=self.ui.lineEdit_DOB.text(),
+                                  contact_num=self.ui.lineEdit_contactNumber.text(),
+                                  email_address=self.ui.lineEdit_emailAddress.text(),
+                                  address=self.ui.lineEdit_address.text(),
+                                  card_number=self.ui.lineEdit_cardNumber.text(),
+                                  bank=self.ui.lineEdit_bankName.text(),
+                                  security_num=self.ui.lineEdit_cvv.text())
         Customers.append(Users.Utilities.serialize_to_xml(customer))
 
         # remove lxml annotation
@@ -102,9 +191,6 @@ class NewUserForm(qtw.QDialog):
                 xml_writer.write(obj_xml)
         except IOError:
             pass
-
-
-        
 
 
 if __name__ == '__main__':
