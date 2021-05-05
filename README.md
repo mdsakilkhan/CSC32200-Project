@@ -7,5 +7,6 @@ Please use the naming convention described in the link: https://namingconvention
 
 These good xml resources: 
   https://www.python101.pythonlibrary.org/chapter31_lxml.html
+  
   https://lxml.de/tutorial.html
 
