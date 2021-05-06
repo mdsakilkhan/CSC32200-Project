@@ -111,10 +111,11 @@ class LoginForm(qtw.QDialog):
         try:
             with open("Customers.xml") as file:
                 xml = file.read()
+                root_xml = objectify.fromstring(xml)
         except:
-            print('file not found')
+            print('No users exist')
+            return
 
-        root_xml = objectify.fromstring(xml)
         customers_xml = root_xml.getchildren()
         self.cust_attrs = {}
         for customer in customers_xml:
@@ -126,6 +127,7 @@ class LoginForm(qtw.QDialog):
                                            date_of_birth=self.cust_attrs.get('date_of_birth'), 
                                            contact_num=self.cust_attrs.get('contact_num'), 
                                            email_address=self.cust_attrs.get('email_address'), 
+                                           password=self.cust_attrs.get('password'),
                                            address=self.cust_attrs.get('address'),
                                            card_number=self.cust_attrs.get('card_number'), 
                                            bank=self.cust_attrs.get('bank'), 
@@ -150,11 +152,13 @@ class NewUserForm(qtw.QDialog):
         self.ui = loadUi("newUserForm.ui")
         self.ui.pButton_create.setEnabled(False)
         # Connect signals and slots
+        self.ui.lineEdit_emailAddress.textChanged.connect(self.__enable_create_button)
+        self.ui.lineEdit_password.textChanged.connect(self.__enable_create_button)
+        self.ui.lineEdit_confirmPassword.textChanged.connect(self.__enable_create_button)
         self.ui.lineEdit_firstName.textChanged.connect(self.__enable_create_button)
         self.ui.lineEdit_lastName.textChanged.connect(self.__enable_create_button)
         self.ui.lineEdit_DOB.textChanged.connect(self.__enable_create_button)
         self.ui.lineEdit_contactNumber.textChanged.connect(self.__enable_create_button)
-        self.ui.lineEdit_emailAddress.textChanged.connect(self.__enable_create_button)
         self.ui.lineEdit_address.textChanged.connect(self.__enable_create_button)
         self.ui.lineEdit_cardNumber.textChanged.connect(self.__enable_create_button)
         self.ui.lineEdit_bankName.textChanged.connect(self.__enable_create_button)
@@ -165,11 +169,13 @@ class NewUserForm(qtw.QDialog):
         self.ui.show()
 
     def __enable_create_button(self):
-        if (len(self.ui.lineEdit_firstName.text())
+        if (len(self.ui.lineEdit_emailAddress.text())
+            and len(self.ui.lineEdit_password.text())
+            and len(self.ui.lineEdit_confirmPassword.text())
+            and len(self.ui.lineEdit_firstName.text())
             and len(self.ui.lineEdit_lastName.text())
             and len(self.ui.lineEdit_DOB.text())
             and len(self.ui.lineEdit_contactNumber.text())
-            and len(self.ui.lineEdit_emailAddress.text())
             and len(self.ui.lineEdit_address.text())
             and len(self.ui.lineEdit_cardNumber.text())
             and len(self.ui.lineEdit_bankName.text())
@@ -179,27 +185,44 @@ class NewUserForm(qtw.QDialog):
             self.ui.pButton_create.setEnabled(False)
 
     def __create_customer(self):
-        
-        if (self.ui.lineEdit_emailAddress.text() in self.loginForm.customer_dict):
-            pass
-            # self.show_popup(True)
+        # Prepare popup message
+        msg = qtw.QMessageBox()
+        msg.setWindowTitle("Message")
+        # Check if user already exists
+        customer_already_exists = self.ui.lineEdit_emailAddress.text() in self.loginForm.customer_dict
+        if (customer_already_exists):
+            msg.setText("A customer has already been created with this email.")
+            msg.setIcon(qtw.QMessageBox.Warning)
+            x = msg.exec_()
+            return
+        # Check if password.text matches confirmPassowrd.text
+        password_confirmed = self.ui.lineEdit_password.text() == self.ui.lineEdit_confirmPassword.text()
+        if (not password_confirmed):
+            msg.setText("Please make sure that password and confirm password match.")
+            msg.setIcon(qtw.QMessageBox.Warning)
+            x = msg.exec_()
+            return                   
         else:
+            # Prepare success message
+            msg.setText("Account registration successful!")
+            msg.setIcon(qtw.QMessageBox.Information)
             # Create root tag
             root = objectify.Element("Customers")
             # Append existing users 
             for c in self.loginForm.customer_dict.values():
-                root.append(Utils.serialize_to_xml(c))
+                root.append(Utils.serialize_object(c))
             # Construct customer object
-            customer = Users.Customer(first_name=self.ui.lineEdit_lastName.text(),
+            customer = Users.Customer(email_address=self.ui.lineEdit_emailAddress.text(),
+                                    password=self.ui.lineEdit_password.text(),
+                                    first_name=self.ui.lineEdit_lastName.text(),
                                     last_name=self.ui.lineEdit_lastName.text(),
                                     date_of_birth=self.ui.lineEdit_DOB.text(),
                                     contact_num=self.ui.lineEdit_contactNumber.text(),
-                                    email_address=self.ui.lineEdit_emailAddress.text(),
                                     address=self.ui.lineEdit_address.text(),
                                     card_number=self.ui.lineEdit_cardNumber.text(),
                                     bank=self.ui.lineEdit_bankName.text(),
                                     security_num=self.ui.lineEdit_cvv.text())
-            root.append(Utils.serialize_to_xml(customer))
+            root.append(Utils.serialize_object(customer))
             # remove lxml annotation
             objectify.deannotate(root)
             etree.cleanup_namespaces(root)
@@ -215,28 +238,8 @@ class NewUserForm(qtw.QDialog):
             Utils.remove_encoding_dec("CustomersTemp.xml","Customers.xml")
             # Refresh customers
             self.loginForm.load_customers()
-    
-    # def show_popup(self, customer_exists):
-    #     if customer_exists:
-    #         showDialog()
-    #     else: 
-    #         showDialog()
-
-    #     def showDialog(self):
-    #         msgBox = QMessageBox()
-    #         msgBox.setIcon(QMessageBox.Information)
-    #         msgBox.setText("Message box pop up window")
-    #         msgBox.setWindowTitle("QMessageBox Example")
-    #         msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-    #         msgBox.buttonClicked.connect(msgButtonClick)
-
-    #         returnValue = msgBox.exec()
-    #         if returnValue == QMessageBox.Ok:
-    #             print('OK clicked')
-   
-    #     def msgButtonClick(i):
-    #         print("Button clicked is:",i.text())
-
+            # Show success message
+            x = msg.exec_()
 
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)

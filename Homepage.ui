@@ -202,7 +202,7 @@
       </font>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -1066,7 +1066,7 @@ p, li { white-space: pre-wrap; }
               <rect>
                <x>160</x>
                <y>50</y>
-               <width>301</width>
+               <width>302</width>
                <height>631</height>
               </rect>
              </property>
