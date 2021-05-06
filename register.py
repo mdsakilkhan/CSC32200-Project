@@ -14,16 +14,13 @@ class Example(QWidget):
         self.label_tp = QLabel(self)
         self.label_tp.setFixedSize(200, 80)
         self.label_tp.move(0, 0)
-        self.label_tp.setStyleSheet("QLabel{background:rgb(300,300,300,120,0.3);}"
-                                    "QLabel{color:rgb(300,300,300,120,0.3);font-size:20px;font-weight:bold;font-family:Times New Roman;}"
-                                    )
+
 
 
 
         label_bj = 'border-width:1px;border-style:solid;font-size:25px;border-color:rgb(255,255,255,0.5);background-color:rgb(255,255,255,0.3);'
         self.label = QLabel(self)
         self.label.setText("Register")
-
         self.label.move(100, 100)
         self.label.setFixedSize(600, 50)
         self.label.setStyleSheet(label_bj)
