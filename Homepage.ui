@@ -59,7 +59,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="pButton_logIn">
            <property name="maximumSize">
             <size>
              <width>150</width>
@@ -77,7 +77,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="pButton_logOut">
            <property name="maximumSize">
             <size>
              <width>150</width>
@@ -112,7 +112,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_4">
+          <widget class="QPushButton" name="pButton_account">
            <property name="maximumSize">
             <size>
              <width>150</width>
@@ -130,7 +130,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QPushButton" name="pButton_register">
            <property name="maximumSize">
             <size>
              <width>150</width>
@@ -165,7 +165,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_5">
+          <widget class="QPushButton" name="pButton_deliverySystem">
            <property name="maximumSize">
             <size>
              <width>150</width>

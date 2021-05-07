@@ -34,4 +34,55 @@
     <cart></cart>
     <orders></orders>
   </Customer>
+  <Customer>
+    <id>some email</id>
+    <first_name>awel;rkgfjlk</first_name>
+    <last_name>awel;rkgfjlk</last_name>
+    <date_of_birth>sd;lfkgjlk</date_of_birth>
+    <contact_num>q</contact_num>
+    <email_address>some email</email_address>
+    <address>qlkqwjlk</address>
+    <password>123</password>
+    <card_number>qjwlk</card_number>
+    <bank>jj</bank>
+    <security_num>lkj</security_num>
+    <balance></balance>
+    <purchases></purchases>
+    <cart></cart>
+    <orders></orders>
+  </Customer>
+  <Customer>
+    <id>q</id>
+    <first_name>q</first_name>
+    <last_name>q</last_name>
+    <date_of_birth>q</date_of_birth>
+    <contact_num>q</contact_num>
+    <email_address>q</email_address>
+    <address>q</address>
+    <password>q</password>
+    <card_number>q</card_number>
+    <bank>q</bank>
+    <security_num>q</security_num>
+    <balance></balance>
+    <purchases></purchases>
+    <cart></cart>
+    <orders></orders>
+  </Customer>
+  <Customer>
+    <id>a</id>
+    <first_name>q</first_name>
+    <last_name>q</last_name>
+    <date_of_birth>q</date_of_birth>
+    <contact_num>q</contact_num>
+    <email_address>a</email_address>
+    <address>q</address>
+    <password>q</password>
+    <card_number>q</card_number>
+    <bank>q</bank>
+    <security_num>q</security_num>
+    <balance></balance>
+    <purchases></purchases>
+    <cart></cart>
+    <orders></orders>
+  </Customer>
 </Customers>
