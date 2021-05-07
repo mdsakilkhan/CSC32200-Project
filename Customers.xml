@@ -1,6 +1,58 @@
 <?xml version="1.0"?>
 <Customers>
   <Customer>
+    <id>email1</id>
+    <first_name>first1</first_name>
+    <last_name>last1</last_name>
+    <date_of_birth>dob1</date_of_birth>
+    <contact_num>phone1</contact_num>
+    <email_address>email1</email_address>
+    <address>address1</address>
+    <password></password>
+    <card_number>card1</card_number>
+    <bank>bank1</bank>
+    <security_num>cvv1</security_num>
+    <balance>money1</balance>
+    <purchases></purchases>
+    <cart></cart>
+    <orders></orders>
+  </Customer>
+  <Customer>
+    <id>email2</id>
+    <first_name>first2</first_name>
+    <last_name>last2</last_name>
+    <date_of_birth>dob2</date_of_birth>
+    <contact_num>phone2</contact_num>
+    <email_address>email2</email_address>
+    <address>address2</address>
+    <password></password>
+    <card_number>card2</card_number>
+    <bank>bank2</bank>
+    <security_num>cvv2</security_num>
+    <balance>money2</balance>
+    <purchases></purchases>
+    <cart></cart>
+    <orders></orders>
+  </Customer>
+  <Customer>
+    <id>email3</id>
+    <first_name>first3</first_name>
+    <last_name>last3</last_name>
+    <date_of_birth>dob3</date_of_birth>
+    <contact_num>phone3</contact_num>
+    <email_address>email3</email_address>
+    <address>address3</address>
+    <password></password>
+    <card_number>card3</card_number>
+    <bank>bank3</bank>
+    <security_num>cvv3</security_num>
+    <balance>money3</balance>
+    <purchases></purchases>
+    <cart></cart>
+    <orders>
+      </orders>
+  </Customer>
+  <Customer>
     <id>q</id>
     <first_name>q</first_name>
     <last_name>q</last_name>
@@ -8,41 +60,27 @@
     <contact_num>q</contact_num>
     <email_address>q</email_address>
     <address>q</address>
+    <password>q</password>
     <card_number>q</card_number>
     <bank>q</bank>
     <security_num>q</security_num>
-    <balance>1000</balance>
-    <purchases></purchases>
-    <cart></cart>
-    <orders></orders>
-  </Customer>
-  <Customer>
-    <id>a</id>
-    <first_name>a</first_name>
-    <last_name>a</last_name>
-    <date_of_birth>a</date_of_birth>
-    <contact_num>a</contact_num>
-    <email_address>a</email_address>
-    <address>a</address>
-    <card_number>a</card_number>
-    <bank>a</bank>
-    <security_num>a</security_num>
     <balance></balance>
     <purchases></purchases>
     <cart></cart>
     <orders></orders>
   </Customer>
   <Customer>
-    <id>s</id>
-    <first_name>s</first_name>
-    <last_name>s</last_name>
-    <date_of_birth>s</date_of_birth>
-    <contact_num>s</contact_num>
-    <email_address>s</email_address>
-    <address>s</address>
-    <card_number>s</card_number>
-    <bank>s</bank>
-    <security_num>s</security_num>
+    <id>d</id>
+    <first_name>d</first_name>
+    <last_name>d</last_name>
+    <date_of_birth>d</date_of_birth>
+    <contact_num>d</contact_num>
+    <email_address>d</email_address>
+    <address>d</address>
+    <password>d</password>
+    <card_number>d</card_number>
+    <bank>d</bank>
+    <security_num>d</security_num>
     <balance></balance>
     <purchases></purchases>
     <cart></cart>
