@@ -2,31 +2,39 @@ import sys
 from lxml import etree
 from lxml import objectify
 from PyQt5 import QtWidgets as qtw
+
 from PyQt5.uic import loadUi
 
 import Users
 import Utilities as Utils
+#from LoginForm import Ui_LoginForm
 
-from LoginForm import Ui_LoginForm
-
-
+'''
 class Main(qtw.QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.loginForm = LoginForm()
-
+'''
 class Homepage(qtw.QWidget):
     def __init__(self):
         super().__init__()
-        self.ui = loadUI("Homepage.ui")
+        self.ui = loadUi("/Users/nanabonsu/Documents/CSC32200-Project/Homepage.ui")
 
         # EDIT HERE**************************************************************************
         # Connect signals with slots (custom-defined methods)
         # Nana START
 
+        listOfDicts = self.parse("/Users/nanabonsu/Documents/CSC32200-Project/Items.xml")
+       # print(listOfDicts)
+        listOfItemCategories = self.returnItemCategories(listOfDicts)
+        
+        for itemName in listOfItemCategories:
+            self.ui.listWidget_2.addItem(itemName)
 
+       # self.ui.listWidget_2.item(0).connect(self.print)
 
-
+    def print(self):
+        print("Item 1 clicked")
 
         # Nana END
         # Joshua START
@@ -59,10 +67,30 @@ class Homepage(qtw.QWidget):
 
     # Define custom methods here. 
     # Nana START
+    def parse(self,xmlFile):
 
+        with open(xmlFile) as opedml:
+            xml = opedml.read().encode()
+    
+        root = etree.fromstring(xml)
+        items_dict = {}
+        itemsgotten = []
+        for item in root.getchildren():
+            for elem in item.getchildren():
+                if elem.text:
+                    text = elem.text
+                items_dict[elem.tag] = text
+            if item.tag == "Item":
+                itemsgotten.append(items_dict)
+                items_dict = {}
+        return itemsgotten
 
-
-
+    def returnItemCategories(self,itemsDict):
+        listOfCategories = []
+        for item in itemsDict:
+            if (listOfCategories.count(item['item_type']) == 0):
+                listOfCategories.append(item['item_type'])
+        return listOfCategories
 
     # Nana END
     # Joshua START
@@ -88,7 +116,12 @@ class Homepage(qtw.QWidget):
     # Sakil END
     # EDIT HERE**************************************************************************
 
+if __name__ == '__main__':
+    app = qtw.QApplication(sys.argv)
+    w = Homepage()
+    app.exec_()
 
+'''
 class LoginForm(qtw.QDialog):
     def __init__(self):
         super().__init__()
@@ -242,3 +275,4 @@ if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
     w = Main(windowTitle='Login')
     app.exec_()
+'''
