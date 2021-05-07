@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1671</width>
+    <width>1665</width>
     <height>1120</height>
    </rect>
   </property>
@@ -59,6 +59,13 @@
           </spacer>
          </item>
          <item>
+          <widget class="QLabel" name="label_currentlyVisiting">
+           <property name="text">
+            <string>(Currently Visiting)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="pButton_logIn">
            <property name="maximumSize">
             <size>
@@ -94,6 +101,24 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="pButton_register">
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Register</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
@@ -126,24 +151,6 @@
            </property>
            <property name="text">
             <string>Account</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pButton_register">
-           <property name="maximumSize">
-            <size>
-             <width>150</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Register</string>
            </property>
           </widget>
          </item>

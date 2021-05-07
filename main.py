@@ -60,7 +60,7 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_logIn.clicked.connect(self.goto_login_form)
         self.ui.pButton_register.clicked.connect(self.goto_new_user_form)
         self.ui.pButton_logOut.clicked.connect(self.logout)
-
+        self.ui.label_currentlyVisiting.mouseReleaseEvent = self.test
         # Joshua END
         # Huihong START
 
@@ -70,7 +70,7 @@ class Homepage(qtw.QWidget):
 
         # Huihong END
         # Sakil START
-
+        self.ui.pButton_account.clicked.connect(self.goto_account_page)
 
 
 
@@ -89,6 +89,9 @@ class Homepage(qtw.QWidget):
 
     # Nana END
     # Joshua START
+    def test(self, event):
+        print("label clicked")
+
     def goto_new_user_form(self):
         self.newUserForm = NewUserForm(self) # Pass in current instance of homepage
 
@@ -135,6 +138,7 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_logOut.setEnabled(False)
         self.enable_or_diable_register()
         msg = qtw.QMessageBox.information(self, '', 'Log out successful')
+        self.ui.label_currentlyVisiting.show()
 
     def enable_or_diable_register(self):
         if self.customer_logged_in == False:
@@ -150,14 +154,14 @@ class Homepage(qtw.QWidget):
 
     # Huihong END
     # Sakil START
-
+    def goto_account_page(self):
+        self.accountPage = AccountPage(self)
 
 
 
 
     # Sakil END
     # EDIT HERE**************************************************************************
-
 
 class LoginForm(qtw.QDialog):
     def __init__(self, homepage):
@@ -184,6 +188,7 @@ class LoginForm(qtw.QDialog):
             self.homepage.ui.pButton_logOut.setDisabled(False)
             self.homepage.enable_or_diable_register()
             msg = qtw.QMessageBox.information(self, '', 'Login Successful')
+            self.homepage.ui.label_currentlyVisiting.hide()
             self.ui.close()
         else:
             msg = qtw.QMessageBox.warning(self, '', 'Invalid credentials, please try again.')
@@ -193,8 +198,6 @@ class LoginForm(qtw.QDialog):
 
     def get_password(self):
         self.password = self.ui.lineEdit_password.text()
-
-    
 
 class NewUserForm(qtw.QDialog):
     def __init__(self, homepage):
@@ -289,6 +292,18 @@ class NewUserForm(qtw.QDialog):
     def return_to_homepage(self):
         self.homepage.ui.show()
         self.ui.close()
+
+class AccountPage(qtw.QWidget):
+    def __init__(self, homepage):
+        super().__init__()
+        # Create reference to homepage instance
+        self.homepage = homepage
+        self.ui = loadUi("accountPage.ui")
+        # Connect signals and slots
+       
+    
+        self.ui.show()
+
 
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
