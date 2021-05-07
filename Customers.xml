@@ -1,55 +1,56 @@
 <?xml version="1.0"?>
 <Customers>
   <Customer>
-    <id>joshua.chang998@gmail.com</id>
-    <first_name>chang</first_name>
-    <last_name>chang</last_name>
-    <date_of_birth>11-11-1111</date_of_birth>
-    <contact_num>111 111 1111</contact_num>
-    <email_address>joshua.chang998@gmail.com</email_address>
-    <address>aworhgawroi</address>
-    <password>123</password>
-    <card_number>1111 1111 1111 1111</card_number>
-    <bank>alksejf</bank>
-    <security_num>111</security_num>
-    <balance></balance>
+    <id>email1</id>
+    <first_name>first1</first_name>
+    <last_name>last1</last_name>
+    <date_of_birth>dob1</date_of_birth>
+    <contact_num>phone1</contact_num>
+    <email_address>email1</email_address>
+    <address>address1</address>
+    <password></password>
+    <card_number>card1</card_number>
+    <bank>bank1</bank>
+    <security_num>cvv1</security_num>
+    <balance>money1</balance>
     <purchases></purchases>
     <cart></cart>
     <orders></orders>
   </Customer>
   <Customer>
-    <id>huihongyu@gmail.com</id>
-    <first_name>Yu</first_name>
-    <last_name>Yu</last_name>
-    <date_of_birth>12345</date_of_birth>
-    <contact_num>123</contact_num>
-    <email_address>huihongyu@gmail.com</email_address>
-    <address>123</address>
-    <password>123</password>
-    <card_number>123</card_number>
-    <bank>123</bank>
-    <security_num>123</security_num>
-    <balance></balance>
+    <id>email2</id>
+    <first_name>first2</first_name>
+    <last_name>last2</last_name>
+    <date_of_birth>dob2</date_of_birth>
+    <contact_num>phone2</contact_num>
+    <email_address>email2</email_address>
+    <address>address2</address>
+    <password></password>
+    <card_number>card2</card_number>
+    <bank>bank2</bank>
+    <security_num>cvv2</security_num>
+    <balance>money2</balance>
     <purchases></purchases>
     <cart></cart>
     <orders></orders>
   </Customer>
   <Customer>
-    <id>some email</id>
-    <first_name>awel;rkgfjlk</first_name>
-    <last_name>awel;rkgfjlk</last_name>
-    <date_of_birth>sd;lfkgjlk</date_of_birth>
-    <contact_num>q</contact_num>
-    <email_address>some email</email_address>
-    <address>qlkqwjlk</address>
-    <password>123</password>
-    <card_number>qjwlk</card_number>
-    <bank>jj</bank>
-    <security_num>lkj</security_num>
-    <balance></balance>
+    <id>email3</id>
+    <first_name>first3</first_name>
+    <last_name>last3</last_name>
+    <date_of_birth>dob3</date_of_birth>
+    <contact_num>phone3</contact_num>
+    <email_address>email3</email_address>
+    <address>address3</address>
+    <password></password>
+    <card_number>card3</card_number>
+    <bank>bank3</bank>
+    <security_num>cvv3</security_num>
+    <balance>money3</balance>
     <purchases></purchases>
     <cart></cart>
-    <orders></orders>
+    <orders>
+      </orders>
   </Customer>
   <Customer>
     <id>q</id>
@@ -69,17 +70,17 @@
     <orders></orders>
   </Customer>
   <Customer>
-    <id>a</id>
-    <first_name>q</first_name>
-    <last_name>q</last_name>
-    <date_of_birth>q</date_of_birth>
-    <contact_num>q</contact_num>
-    <email_address>a</email_address>
-    <address>q</address>
-    <password>q</password>
-    <card_number>q</card_number>
-    <bank>q</bank>
-    <security_num>q</security_num>
+    <id>d</id>
+    <first_name>d</first_name>
+    <last_name>d</last_name>
+    <date_of_birth>d</date_of_birth>
+    <contact_num>d</contact_num>
+    <email_address>d</email_address>
+    <address>d</address>
+    <password>d</password>
+    <card_number>d</card_number>
+    <bank>d</bank>
+    <security_num>d</security_num>
     <balance></balance>
     <purchases></purchases>
     <cart></cart>

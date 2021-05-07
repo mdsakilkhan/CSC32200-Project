@@ -28,10 +28,12 @@ class Homepage(qtw.QWidget):
         # Joshua START
         self.customer_logged_in = False 
         self.current_customer = None # Current customer that is logged in
-        self.customer_dict = {} # Key: Username | Value: Password. Crucial for checking for login!
-        self.customer_list = [] # Used to keep track of existing customers.
-        self.load_customers() # Populates customer_dict
+        self.id_pword_dict = {} # Key: id | Value: Password. Crucial for checking for login!
+        self.id_customer_dict = {} # Used to keep track of existing customers.
+        self.load_customers() # Populates id_pword_dict and id_customer_dict
+        
         self.newUserForm = None
+        self.ui.pButton_logOut.setDisabled(True)
         # Joshua END
 
         # Huihong START
@@ -57,7 +59,7 @@ class Homepage(qtw.QWidget):
         # Joshua START
         self.ui.pButton_logIn.clicked.connect(self.goto_login_form)
         self.ui.pButton_register.clicked.connect(self.goto_new_user_form)
-
+        self.ui.pButton_logOut.clicked.connect(self.logout)
 
         # Joshua END
         # Huihong START
@@ -91,10 +93,9 @@ class Homepage(qtw.QWidget):
         self.newUserForm = NewUserForm(self) # Pass in current instance of homepage
 
     def goto_login_form(self):
-        self.loginForm = LoginForm(self.customer_dict)
+        self.loginForm = LoginForm(self)
 
     def load_customers(self):
-    
         try:
             with open("Customers.xml") as file:
                 xml = file.read()
@@ -123,11 +124,23 @@ class Homepage(qtw.QWidget):
                                            purchases=self.cust_attrs.get('purchases'), 
                                            cart=self.cust_attrs.get('cart'), 
                                            orders=self.cust_attrs.get('orders'))
-            self.customer_dict.update({incoming_cust.id : incoming_cust.password})   
-            self.customer_list.append(incoming_cust)  
+            self.id_pword_dict.update({incoming_cust.id : incoming_cust.password})   
+            self.id_customer_dict.update({incoming_cust.id : incoming_cust})
+        return
 
+    def logout(self):
+        self.current_customer = None
+        self.customer_logged_in = False
+        self.ui.pButton_logIn.setEnabled(True)
+        self.ui.pButton_logOut.setEnabled(False)
+        self.enable_or_diable_register()
+        msg = qtw.QMessageBox.information(self, '', 'Log out successful')
 
-
+    def enable_or_diable_register(self):
+        if self.customer_logged_in == False:
+            self.ui.pButton_register.setEnabled(True)
+        else:
+            self.ui.pButton_register.setEnabled(False)
     # Joshua END
     # Huihong START
 
@@ -147,12 +160,13 @@ class Homepage(qtw.QWidget):
 
 
 class LoginForm(qtw.QDialog):
-    def __init__(self, customer_dict):
+    def __init__(self, homepage):
         super().__init__()
         # Initialize member variables       
         self.ui = loadUi("LoginForm.ui")
-        self.customer_dict = customer_dict        
-        self.username = None
+        # Save reference to hompage object
+        self.homepage = homepage        
+        self.id = None
         self.password = None
 
         # Connect signals and slots
@@ -162,18 +176,25 @@ class LoginForm(qtw.QDialog):
 
         self.ui.show()
 
+    def verify_login(self):
+        if (self.id in self.homepage.id_pword_dict.keys() and self.password == self.homepage.id_pword_dict.get(self.id)):
+            self.homepage.customer_logged_in = True
+            self.homepage.current_customer = self.homepage.id_customer_dict.get(self.id)
+            self.homepage.ui.pButton_logIn.setDisabled(True)
+            self.homepage.ui.pButton_logOut.setDisabled(False)
+            self.homepage.enable_or_diable_register()
+            msg = qtw.QMessageBox.information(self, '', 'Login Successful')
+            self.ui.close()
+        else:
+            msg = qtw.QMessageBox.warning(self, '', 'Invalid credentials, please try again.')
+
     def get_username(self):
-        self.username = self.ui.lineEdit_username.text()
+        self.id = self.ui.lineEdit_username.text()
 
     def get_password(self):
         self.password = self.ui.lineEdit_password.text()
 
-    def verify_login(self):
-        if (self.username in self.customer_dict.keys() 
-            and self.password == self.customer_dict.get(self.username)):
-            msg = qtw.QMessageBox.information(self, '', 'Login Successful')
-        else:
-            msg = qtw.QMessageBox.warning(self, '', 'Invalid Credentials')
+    
 
 class NewUserForm(qtw.QDialog):
     def __init__(self, homepage):
@@ -184,24 +205,24 @@ class NewUserForm(qtw.QDialog):
         self.ui = loadUi("newUserForm.ui")
         self.ui.pButton_create.setEnabled(False)
         # Connect signals and slots
-        self.ui.lineEdit_emailAddress.textChanged.connect(self.__enable_create_button)
-        self.ui.lineEdit_password.textChanged.connect(self.__enable_create_button)
-        self.ui.lineEdit_confirmPassword.textChanged.connect(self.__enable_create_button)
-        self.ui.lineEdit_firstName.textChanged.connect(self.__enable_create_button)
-        self.ui.lineEdit_lastName.textChanged.connect(self.__enable_create_button)
-        self.ui.lineEdit_DOB.textChanged.connect(self.__enable_create_button)
-        self.ui.lineEdit_contactNumber.textChanged.connect(self.__enable_create_button)
-        self.ui.lineEdit_address.textChanged.connect(self.__enable_create_button)
-        self.ui.lineEdit_cardNumber.textChanged.connect(self.__enable_create_button)
-        self.ui.lineEdit_bankName.textChanged.connect(self.__enable_create_button)
-        self.ui.lineEdit_cvv.textChanged.connect(self.__enable_create_button)
+        self.ui.lineEdit_emailAddress.textChanged.connect(self.enable_create_button)
+        self.ui.lineEdit_password.textChanged.connect(self.enable_create_button)
+        self.ui.lineEdit_confirmPassword.textChanged.connect(self.enable_create_button)
+        self.ui.lineEdit_firstName.textChanged.connect(self.enable_create_button)
+        self.ui.lineEdit_lastName.textChanged.connect(self.enable_create_button)
+        self.ui.lineEdit_DOB.textChanged.connect(self.enable_create_button)
+        self.ui.lineEdit_contactNumber.textChanged.connect(self.enable_create_button)
+        self.ui.lineEdit_address.textChanged.connect(self.enable_create_button)
+        self.ui.lineEdit_cardNumber.textChanged.connect(self.enable_create_button)
+        self.ui.lineEdit_bankName.textChanged.connect(self.enable_create_button)
+        self.ui.lineEdit_cvv.textChanged.connect(self.enable_create_button)
 
-        self.ui.pButton_create.clicked.connect(self.__create_customer)
-        self.ui.pButton_cancel.clicked.connect(self.__return_to_homepage)
+        self.ui.pButton_create.clicked.connect(self.create_customer)
+        self.ui.pButton_cancel.clicked.connect(self.return_to_homepage)
         
         self.ui.show()
 
-    def __enable_create_button(self):
+    def enable_create_button(self):
         if (len(self.ui.lineEdit_emailAddress.text())
             and len(self.ui.lineEdit_password.text())
             and len(self.ui.lineEdit_confirmPassword.text())
@@ -217,32 +238,22 @@ class NewUserForm(qtw.QDialog):
         else:
             self.ui.pButton_create.setEnabled(False)
 
-    def __create_customer(self):
-        # Prepare popup message
-        msg = qtw.QMessageBox()
-        msg.setWindowTitle("Message")
+    def create_customer(self):
         # Check if user already exists
-        customer_already_exists = self.ui.lineEdit_emailAddress.text() in self.homepage.customer_dict
+        customer_already_exists = self.ui.lineEdit_emailAddress.text() in self.homepage.id_pword_dict
         if (customer_already_exists):
-            msg.setText("A customer has already been created with this email.")
-            msg.setIcon(qtw.QMessageBox.Warning)
-            x = msg.exec_()
+            msg = qtw.QMessageBox.information(self, '', 'A customer has already been created with this email.')
             return
         # Check if password.text matches confirmPassowrd.text
         password_confirmed = self.ui.lineEdit_password.text() == self.ui.lineEdit_confirmPassword.text()
         if (not password_confirmed):
-            msg.setText("Please make sure that password and confirm password match.")
-            msg.setIcon(qtw.QMessageBox.Warning)
-            x = msg.exec_()
+            msg = qtw.QMessageBox.warning(self, '', 'Password and confirm password do not match.')
             return                   
         else:
-            # Prepare success message
-            msg.setText("Account registration successful!")
-            msg.setIcon(qtw.QMessageBox.Information)
             # Create root tag
             root = objectify.Element("Customers")
             # Append existing users 
-            for existing_customer in self.homepage.customer_list:
+            for existing_customer in self.homepage.id_customer_dict.values():
                 root.append(Utils.serialize_object(existing_customer))
             # Construct customer object
             new_customer = Users.Customer(email_address=self.ui.lineEdit_emailAddress.text(),
@@ -272,10 +283,10 @@ class NewUserForm(qtw.QDialog):
             # Refresh customers
             self.homepage.load_customers()
             # Show success message
-            x = msg.exec_()
-            self.__return_to_homepage()
+            msg = qtw.QMessageBox.information(self, '', 'User registration successful')
+            self.return_to_homepage()
 
-    def __return_to_homepage(self):
+    def return_to_homepage(self):
         self.homepage.ui.show()
         self.ui.close()
 
