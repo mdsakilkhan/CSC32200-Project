@@ -34,8 +34,17 @@
      <height>601</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Nirmala UI</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
    <property name="autoFillBackground">
     <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="tabPosition">
     <enum>QTabWidget::North</enum>
@@ -71,120 +80,379 @@
     <attribute name="title">
      <string>Cart</string>
     </attribute>
-    <widget class="QScrollArea" name="scrollArea">
+    <widget class="QListWidget" name="ProductList">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>50</y>
+       <width>651</width>
+       <height>511</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 14pt &quot;Nirmala UI&quot;;</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>item 1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>item 2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>item 3</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="ItemImage">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>50</y>
+       <width>311</width>
+       <height>311</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>userIcon.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="RemoveFromList">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>500</y>
+       <width>311</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Remove From List</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ItemPrice">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>370</y>
+       <width>311</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Nirmala UI</family>
+       <pointsize>28</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>$50.00</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Title">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
        <width>971</width>
-       <height>571</height>
+       <height>41</height>
       </rect>
      </property>
-     <property name="widgetResizable">
-      <bool>true</bool>
+     <property name="font">
+      <font>
+       <family>Nirmala UI</family>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
      </property>
-     <widget class="QWidget" name="scrollAreaWidgetContents">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>969</width>
-        <height>569</height>
-       </rect>
-      </property>
-      <widget class="QTextBrowser" name="textBrowser">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>969</width>
-         <height>109</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QTextBrowser" name="textBrowser_2">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>110</y>
-         <width>969</width>
-         <height>109</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QTextBrowser" name="textBrowser_3">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>220</y>
-         <width>969</width>
-         <height>109</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QTextBrowser" name="textBrowser_4">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>330</y>
-         <width>969</width>
-         <height>109</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QTextBrowser" name="textBrowser_5">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>440</y>
-         <width>969</width>
-         <height>109</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QTextBrowser" name="textBrowser_6">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>550</y>
-         <width>969</width>
-         <height>109</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
+     <property name="text">
+      <string>Products</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ItemRating">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>430</y>
+       <width>311</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Nirmala UI</family>
+       <pointsize>20</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Rating: 4/5</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="History">
     <attribute name="title">
      <string>History</string>
     </attribute>
+    <widget class="QLabel" name="Title_h">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>971</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Nirmala UI</family>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Products</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+     </property>
+    </widget>
+    <widget class="QListWidget" name="ProductList_h">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>50</y>
+       <width>651</width>
+       <height>511</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 14pt &quot;Nirmala UI&quot;;</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>item 1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>item 2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>item 3</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="ItemPrice_h">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>370</y>
+       <width>311</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Nirmala UI</family>
+       <pointsize>28</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>$50.00</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ItemImage_h">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>50</y>
+       <width>311</width>
+       <height>311</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>userIcon.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="BuyAgain">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>500</y>
+       <width>311</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Buy Again</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="ReviewProduct">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>440</y>
+       <width>311</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Review Product</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="Track">
     <attribute name="title">
      <string>Track Order</string>
     </attribute>
+    <widget class="QListWidget" name="ProductList_t">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>50</y>
+       <width>651</width>
+       <height>511</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 14pt &quot;Nirmala UI&quot;;</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>item 1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>item 2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>item 3</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="Title_t">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>971</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Nirmala UI</family>
+       <pointsize>18</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Products</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="TextBox">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>50</y>
+       <width>311</width>
+       <height>311</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>No Items Available</string>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="CancelOrder">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>500</y>
+       <width>311</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Cancel Order</string>
+     </property>
+    </widget>
    </widget>
-  </widget>
-  <widget class="QPushButton" name="Logout">
-   <property name="geometry">
-    <rect>
-     <x>870</x>
-     <y>10</y>
-     <width>111</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Logout</string>
-   </property>
   </widget>
   <widget class="QLabel" name="CustomerName">
    <property name="geometry">
     <rect>
      <x>140</x>
      <y>10</y>
-     <width>721</width>
+     <width>691</width>
      <height>41</height>
     </rect>
    </property>
@@ -203,12 +471,12 @@
     <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
    </property>
   </widget>
-  <widget class="QLabel" name="CustomerName_2">
+  <widget class="QLabel" name="BalanceData">
    <property name="geometry">
     <rect>
      <x>140</x>
      <y>100</y>
-     <width>841</width>
+     <width>691</width>
      <height>31</height>
     </rect>
    </property>
@@ -244,12 +512,12 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="CustomerName_3">
+  <widget class="QLabel" name="CustomerInfo">
    <property name="geometry">
     <rect>
      <x>140</x>
      <y>60</y>
-     <width>841</width>
+     <width>691</width>
      <height>31</height>
     </rect>
    </property>
@@ -264,6 +532,25 @@
    </property>
    <property name="alignment">
     <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Logout">
+   <property name="geometry">
+    <rect>
+     <x>840</x>
+     <y>10</y>
+     <width>151</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Nirmala UI</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Logout</string>
    </property>
   </widget>
  </widget>
