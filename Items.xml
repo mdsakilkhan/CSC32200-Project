@@ -1,75 +1,211 @@
 <?xml version='1.0' encoding='ASCII'?>
 <Items>
   <Item id="100">
-    <item_name>CPU 1</item_name>
+    <item_name>AMD Ryzen 5 3600</item_name>
     <item_type>CPU</item_type>
-    <item_price>12.96</item_price>
-    <item_rating>4/5</item_rating>
+    <item_price>249.99</item_price>
+    <item_rating>5/5</item_rating>
   </Item>
   <Item id="101">
-    <item_name>CPU 2</item_name>
+    <item_name>AMD Ryzen 7 3700X</item_name>
     <item_type>CPU</item_type>
-    <item_price>24.96</item_price>
-    <item_rating>4/5</item_rating>
+    <item_price>329.99</item_price>
+    <item_rating>5/5</item_rating>
   </Item>
   <Item id="102">
-    <item_name>CPU 3</item_name>
+    <item_name>AMD Ryzen 9 5900X</item_name>
     <item_type>CPU</item_type>
-    <item_price>124.96</item_price>
-    <item_rating>4/5</item_rating>
+    <item_price>699.99</item_price>
+    <item_rating>5/5</item_rating>
   </Item>
   <Item id="103">
-    <item_name>CPU 4</item_name>
+    <item_name>Ryzen 3 3200G</item_name>
     <item_type>CPU</item_type>
-    <item_price>1240.96</item_price>
-    <item_rating>4/5</item_rating>
+    <item_price>139.99</item_price>
+    <item_rating>5/5</item_rating>
   </Item>
   <Item id="104">
-    <item_name>CPU 5</item_name>
+    <item_name>Intel i9-10850K</item_name>
     <item_type>CPU</item_type>
-    <item_price>2400.96</item_price>
-    <item_rating>4/5</item_rating>
+    <item_price>649.99</item_price>
+    <item_rating>5/5</item_rating>
   </Item>
+
   <Item id="105">
-    <item_name>GPU 1</item_name>
-    <item_type>GPU</item_type>
-    <item_price>45.96"></item_price>
-    <item_rating>4/5</item_rating>
+    <item_name>Intel i7-10700K</item_name>
+    <item_type>CPU</item_type>
+    <item_price>549.99</item_price>
+    <item_rating>5/5</item_rating>
   </Item>
   <Item id="106">
-    <item_name>GPU 2</item_name>
-    <item_type>GPU</item_type>
-    <item_price>134.96"></item_price>
-    <item_rating>4/5</item_rating>
-  </Item>
-  <Item id="107">
-    <item_name>GPU 3</item_name>
-    <item_type>GPU</item_type>
-    <item_price>424.96"></item_price>
-    <item_rating>4/5</item_rating>
-  </Item>
-  <Item id="108">
-    <item_name>GPU 4</item_name>
-    <item_type>GPU</item_type>
-    <item_price>724.96"></item_price>
-    <item_rating>4/5</item_rating>
-  </Item>
-  <Item id="109">
-    <item_name>GPU 5</item_name>
-    <item_type>GPU</item_type>
-    <item_price>1024.96"></item_price>
+    <item_name>Intel i5-11400</item_name>
+    <item_type>CPU</item_type>
+    <item_price>219.99</item_price>
     <item_rating>4/5</item_rating>
   </Item>
 
-  <RAM>"RAM 1" price="134.96">110</RAM>
-  <RAM>"RAM 2" price="194.96">111</RAM>
-  <RAM>"RAM 3" price="204.96">112</RAM>
-  <RAM>"RAM 4" price="400.96">113</RAM>
-  <RAM>"RAM 5" price="1240.96">114</RAM>
+
+
+
+  <Item id="107">
+    <item_name>RTX 3070</item_name>
+    <item_type>GPU</item_type>
+    <item_price>600.00"></item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+  <Item id="108">
+    <item_name>RTX 2070</item_name>
+    <item_type>GPU</item_type>
+    <item_price>400"></item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+  <Item id="109">
+    <item_name>GTX 1660 Super</item_name>
+    <item_type>GPU</item_type>
+    <item_price>249.99"></item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+  <Item id="110">
+    <item_name>RX 5700XT</item_name>
+    <item_type>GPU</item_type>
+    <item_price>349.99"></item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+  <Item id="111">
+    <item_name>RX 6700XT</item_name>
+    <item_type>GPU</item_type>
+    <item_price>809.99"></item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+
   
-  <hard_drive>"Hard drive 128 gb" price="24.96">115</hard_drive>
-  <hard_drive>"Hard drive 1 tb" price="120.96">116</hard_drive>
-  <hard_drive>"Hard drive 2 tb" price="140.96">117</hard_drive>
-  <hard_drive>"Hard drive 4 tb" price="400.96">118</hard_drive>
-  <hard_drive>"Hard drive 10 tb" price="1204.96">119</hard_drive>
+
+  <Item id="112">
+    <item_name>Crucial Ballistix Gaming 16GB</item_name>
+    <item_type>RAM</item_type>
+    <item_price>94.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+  <Item id="113">
+    <item_name>Corsair Vengeance RGB pro 32GB</item_name>
+    <item_type>RAM</item_type>
+    <item_price>209.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+  <Item id="114">
+    <item_name>G.Skill Ripjaws V 32GB</item_name>
+    <item_type>RAM</item_type>
+    <item_price>211.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+  <Item id="115">
+    <item_name>Crucial 8GB</item_name>
+    <item_type>RAM</item_type>
+    <item_price>49.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+
+  <Item id="116">
+    <item_name>Seagate BarraCuda 2TB</item_name>
+    <item_type>hard_drive</item_type>
+    <item_price>54.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+  <Item id="117">
+    <item_name>Toshiba MG 14TB </item_name>
+    <item_type>hard_drive</item_type>
+    <item_price>259.99</item_price>
+    <item_rating>2/5</item_rating>
+  </Item>
+  <Item id="118">
+    <item_name>WD Bluel 1TB</item_name>
+    <item_type>hard_drive</item_type>
+    <item_price>34.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+  <Item id="119">
+    <item_name>Western Digital Red Pro 8TB</item_name>
+    <item_type>hard_drive</item_type>
+    <item_price>299.99.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+
+
+  
+  <Item id="120">
+    <item_name>ASUS B550-F ROG Strix Gaming</item_name>
+    <item_type>mother_board</item_type>
+    <item_price>209.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+  <Item id="121">
+    <item_name>Gigabyte Aorus Elite</item_name>
+    <item_type>mother_board</item_type>
+    <item_price>229.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+  <Item id="122">
+    <item_name>MSI X570 MAG Tomahawk</item_name>
+    <item_type>mother_board</item_type>
+    <item_price>249.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+  <Item id="123">
+    <item_name>ASRock B450 PRO4</item_name>
+    <item_type>mother_board</item_type>
+    <item_price>89.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+
+
+  <Item id="124">
+    <item_name>PowerSpec 650W</item_name>
+    <item_type>PSU</item_type>
+    <item_price>74.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+  <Item id="125">
+    <item_name>Redragon 700W</item_name>
+    <item_type>PSU</item_type>
+    <item_price>109.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+  <Item id="126">
+    <item_name>EVGA SuperNOVA 850W</item_name>
+    <item_type>PSU</item_type>
+    <item_price>159.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+
+
+  <Item id="124">
+    <item_name>PowerSpec G437</item_name>
+    <item_type>PC</item_type>
+    <item_price>2199.99</item_price>
+    <item_rating>2/5</item_rating>
+  </Item>
+  <Item id="124">
+    <item_name>HP Pavillion Gaming Computer</item_name>
+    <item_type>PC</item_type>
+    <item_price>699.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+  <Item id="124">
+    <item_name>Acer Aspire</item_name>
+    <item_type>PC</item_type>
+    <item_price>549.99</item_price>
+    <item_rating>5/5</item_rating>
+  </Item>
+  <Item id="124">
+    <item_name>Dell Precision 5820</item_name>
+    <item_type>PC</item_type>
+    <item_price>3059.99</item_price>
+    <item_rating>4/5</item_rating>
+  </Item>
+  
+
+
+  
+  
+  
 </Items>
