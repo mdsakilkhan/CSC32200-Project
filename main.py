@@ -367,6 +367,7 @@ class AccountPage(qtw.QWidget):
         super().__init__()
         # Create reference to homepage instance
         self.homepage = homepage
+        self.homepage.ui.hide()
         self.ui = loadUi("UiFiles/accountPage.ui")
         
         try:
@@ -549,7 +550,8 @@ class AccountPage(qtw.QWidget):
                         print("order canceled")
 
     def Logout_clicked(self):
-        sys.exit()
+        self.ui.hide()
+        self.homepage.ui.show()
         #goto main page
 
 if __name__ == '__main__':
