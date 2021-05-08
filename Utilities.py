@@ -1,9 +1,9 @@
 from lxml.objectify import ElementMaker
 from os import remove
 
-def serialize_object(obj):
+def serialize_object(obj, obj_name):
     elem_maker = ElementMaker(annotate=False)
-    root = elem_maker("Customer")
+    root = elem_maker(obj_name)
     for key, val in obj.__dict__.items():
         if val == None:
             attr = elem_maker(key, "")

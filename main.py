@@ -22,7 +22,7 @@ class Homepage(qtw.QWidget):
         # EDIT HERE**************************************************************************
         
         # INITILIAZE MEMBER VAIRABLES
-        self.ui = loadUi("Homepage.ui")
+        self.ui = loadUi("UiFiles/Homepage.ui")
         # Nana START
         
         # Nana END
@@ -37,7 +37,7 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_logOut.setDisabled(True)
         # Joshua END
 
-        listOfDicts = self.parse("/Users/nanabonsu/Documents/CSC32200-Project/Items.xml")
+        listOfDicts = self.parse("Data/Items.xml")
        # print(listOfDicts)
         listOfItemCategories = self.returnItemCategories(listOfDicts)
         
@@ -47,7 +47,7 @@ class Homepage(qtw.QWidget):
        # self.ui.listWidget_2.item(0).connect(self.print)
 
         def print(self):
-        print("Item 1 clicked")
+            print("Item 1 clicked")
         # Huihong START
         self.loginForm = None
 
@@ -72,7 +72,7 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_logIn.clicked.connect(self.goto_login_form)
         self.ui.pButton_register.clicked.connect(self.goto_new_user_form)
         self.ui.pButton_logOut.clicked.connect(self.logout)
-
+        self.ui.label_currentlyVisiting.mouseReleaseEvent = self.test
         # Joshua END
         # Huihong START
 
@@ -82,14 +82,14 @@ class Homepage(qtw.QWidget):
 
         # Huihong END
         # Sakil START
-
+        self.ui.pButton_account.clicked.connect(self.goto_account_page)
 
 
 
 
         # Sakil END
         # EDIT HERE**************************************************************************
-    self.ui.show()    
+        self.ui.show()    
     # EDIT HERE**************************************************************************
 
     # DEFINE CUSTOM METHODS HERE
@@ -121,6 +121,9 @@ class Homepage(qtw.QWidget):
 
     # Nana END
     # Joshua START
+    def test(self, event):
+        print("label clicked")
+
     def goto_new_user_form(self):
         self.newUserForm = NewUserForm(self) # Pass in current instance of homepage
 
@@ -129,7 +132,7 @@ class Homepage(qtw.QWidget):
 
     def load_customers(self):
         try:
-            with open("Customers.xml") as file:
+            with open("Data/Customers.xml") as file:
                 xml = file.read()
                 root_xml = objectify.fromstring(xml)
         except:
@@ -167,6 +170,7 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_logOut.setEnabled(False)
         self.enable_or_diable_register()
         msg = qtw.QMessageBox.information(self, '', 'Log out successful')
+        self.ui.label_currentlyVisiting.show()
 
     def enable_or_diable_register(self):
         if self.customer_logged_in == False:
@@ -182,7 +186,8 @@ class Homepage(qtw.QWidget):
 
     # Huihong END
     # Sakil START
-
+    def goto_account_page(self):
+        self.accountPage = AccountPage(self)
 
 
 
@@ -190,17 +195,11 @@ class Homepage(qtw.QWidget):
     # Sakil END
     # EDIT HERE**************************************************************************
 
-if __name__ == '__main__':
-    app = qtw.QApplication(sys.argv)
-    w = Homepage()
-    app.exec_()
-
-'''
 class LoginForm(qtw.QDialog):
     def __init__(self, homepage):
         super().__init__()
         # Initialize member variables       
-        self.ui = loadUi("LoginForm.ui")
+        self.ui = loadUi("UiFiles/LoginForm.ui")
         # Save reference to hompage object
         self.homepage = homepage        
         self.id = None
@@ -221,6 +220,7 @@ class LoginForm(qtw.QDialog):
             self.homepage.ui.pButton_logOut.setDisabled(False)
             self.homepage.enable_or_diable_register()
             msg = qtw.QMessageBox.information(self, '', 'Login Successful')
+            self.homepage.ui.label_currentlyVisiting.hide()
             self.ui.close()
         else:
             msg = qtw.QMessageBox.warning(self, '', 'Invalid credentials, please try again.')
@@ -231,15 +231,13 @@ class LoginForm(qtw.QDialog):
     def get_password(self):
         self.password = self.ui.lineEdit_password.text()
 
-    
-
 class NewUserForm(qtw.QDialog):
     def __init__(self, homepage):
         super().__init__()
         # Save local reference to homepage object
         self.homepage = homepage
         self.homepage.ui.hide()
-        self.ui = loadUi("newUserForm.ui")
+        self.ui = loadUi("UiFiles/newUserForm.ui")
         self.ui.pButton_create.setEnabled(False)
         # Connect signals and slots
         self.ui.lineEdit_emailAddress.textChanged.connect(self.enable_create_button)
@@ -291,7 +289,7 @@ class NewUserForm(qtw.QDialog):
             root = objectify.Element("Customers")
             # Append existing users 
             for existing_customer in self.homepage.id_customer_dict.values():
-                root.append(Utils.serialize_object(existing_customer))
+                root.append(Utils.serialize_object(existing_customer, "Customer"))
             # Construct customer object
             new_customer = Users.Customer(email_address=self.ui.lineEdit_emailAddress.text(),
                                     password=self.ui.lineEdit_password.text(),
@@ -303,20 +301,20 @@ class NewUserForm(qtw.QDialog):
                                     card_number=self.ui.lineEdit_cardNumber.text(),
                                     bank=self.ui.lineEdit_bankName.text(),
                                     security_num=self.ui.lineEdit_cvv.text())
-            root.append(Utils.serialize_object(new_customer))
+            root.append(Utils.serialize_object(new_customer, "Customer"))
             # remove lxml annotation
             objectify.deannotate(root)
             etree.cleanup_namespaces(root)
             # create the xml string
             obj_xml = etree.tostring(root, pretty_print=True, xml_declaration=True)
             try:
-                with open("CustomersTemp.xml", "wb") as xml_writer:
+                with open("Data/CustomersTemp.xml", "wb") as xml_writer:
                     xml_writer.write(obj_xml)
             except IOError:
                 pass
             # Remove encoding declaration--was such a b*&%ch... 
             # The encoding declaration renders the lxml module unable to read it. Hence it had to be removed.
-            Utils.remove_encoding_dec("CustomersTemp.xml","Customers.xml")
+            Utils.remove_encoding_dec("Data/CustomersTemp.xml","Data/Customers.xml")
             # Refresh customers
             self.homepage.load_customers()
             # Show success message
@@ -327,8 +325,19 @@ class NewUserForm(qtw.QDialog):
         self.homepage.ui.show()
         self.ui.close()
 
+class AccountPage(qtw.QWidget):
+    def __init__(self, homepage):
+        super().__init__()
+        # Create reference to homepage instance
+        self.homepage = homepage
+        self.ui = loadUi("UiFiles/accountPage.ui")
+        # Connect signals and slots
+       
+    
+        self.ui.show()
+
+
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
     w = Main(windowTitle='Computer Store')
     app.exec_()
-'''
