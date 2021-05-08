@@ -1,16 +1,53 @@
 # Native and pip modules
+import os
 import sys
+from xml.etree import ElementTree
 from lxml import etree
 from lxml import objectify
-from PyQt5 import QtWidgets as qtw
-
+from PyQt5 import QtCore, QtGui, QtWidgets as qtw
 from PyQt5.uic import loadUi
 # Custom modules 
 import Users
 import Utilities as Utils
 from LoginForm import Ui_LoginForm
 
+UserData_fileName = 'Users3.xml'
+UserData_filePath = os.path.abspath(os.path.join('Data', UserData_fileName))
+UserData_Tree = ElementTree.parse(UserData_filePath)
+UserData_Root = UserData_Tree.getroot()
 
+ItemData_fileName = 'Items.xml'
+ItemData_filePath = os.path.abspath(os.path.join('Data', ItemData_fileName))
+ItemData_Tree = ElementTree.parse(ItemData_filePath)
+ItemData_Root = ItemData_Tree.getroot()
+
+login_email = "email2"
+
+firstName = ''
+lastName = ''
+userEmail = ''
+userBalance = ''
+bankName = ''
+bankNumber = ''
+
+cartList = None
+historyList = None
+trackList = None
+
+for x in UserData_Root.find('Customers').findall('Customer'):
+    if(x.get('id') == login_email):
+        firstName = x.find('first_name').text
+        lastName = x.find('last_name').text
+        userEmail = x.find('email_address').text
+        userBalance = x.find('balance').text
+        bankName = x.find('bank').text
+        bankNumber = x.find('card_number').text
+        if(len(x.find('cart').findall('item'))>0):
+            cartList = x.find('cart').findall('item')
+        if(len(x.find('purchases').findall('item'))>0):
+            historyList = x.find('purchases').findall('item')
+        if(len(x.find('orders').findall('item'))>0):
+            trackList = x.find('orders').findall('item')
 class Main(qtw.QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -331,11 +368,189 @@ class AccountPage(qtw.QWidget):
         # Create reference to homepage instance
         self.homepage = homepage
         self.ui = loadUi("UiFiles/accountPage.ui")
+        
+        try:
+            for x in cartList:
+                item = qtw.QListWidgetItem()
+                self.ui.ProductList.addItem(item)
+        except (AttributeError, TypeError):
+            pass
+        try:
+             self.ui.ProductList.clicked.connect(self.list_clicked)
+        except (TypeError):
+            pass  
+        # second try-catch
+        try:
+            for x in historyList:
+                item = qtw.QListWidgetItem()
+                self.ui.ProductList_h.addItem(item)
+        except (AttributeError, TypeError, NameError):
+            pass
+        try:
+             self.ui.ProductList_h.clicked.connect(self.list_h_clicked)
+        except (TypeError):
+            pass 
+        # third try catch
+        try:
+            for x in trackList:
+                item = qtw.QListWidgetItem()
+                self.ui.ProductList_t.addItem(item)
+        except (AttributeError, TypeError, NameError):
+            pass
+
+
+        # From retranslateui 
+        _translate = QtCore.QCoreApplication.translate
+        # self.setWindowTitle(_translate("AccountPage", "Computer Store : Account Page : " + firstName + ' ' + lastName))
+        # self.setWindowIcon(QtGui.QIcon('Images/User/userIcon.png'))
+        # 1st try- catch
+        try:
+            i = 0
+            for x in cartList:
+                item = self.ui.ProductList.item(0+i)
+                for y in ItemData_Root.findall('Item'):
+                    if(y.get('id') == x.text):
+                        item.setText(_translate("AccountPage", x.text + ": " + y.find('item_name').text))
+                i += 1
+        except (AttributeError, TypeError):
+            pass
+        # second try catch
+        try:
+            i = 0
+            for x in historyList:
+                item = self.ui.ProductList_h.item(0+i)
+                for y in ItemData_Root.findall('Item'):
+                    if(y.get('id') == x.text):
+                        item.setText(_translate("AccountPage", x.text + ": " + y.find('item_name').text + ' - ' + x.get('date')))
+                i += 1
+        except (AttributeError, TypeError):
+            pass
+        # third try catch
+        try:
+            i = 0
+            for x in trackList:
+                item = self.ui.ProductList_t.item(0+i)
+                for y in ItemData_Root.findall('Item'):
+                    if(y.get('id') == x.text):
+                        item.setText(_translate("AccountPage", x.text + ": " + y.find('item_name').text + ' - Estimated arrival date: ' + x.get('date')))
+                i += 1
+        except (AttributeError, TypeError):
+            pass
+        if (trackList==None):
+            self.TextBox.setText(_translate("AccountPage", "No Items Available"))
+        self.ui.CustomerName.setText(_translate("AccountPage", firstName + ' ' + lastName))
+        self.ui.BalanceData.setText(_translate("AccountPage", "Balance: $" + userBalance + ' ' + bankName + 'Bank ' + bankNumber))
+        self.ui.CustomerInfo.setText(_translate("AccountPage", userEmail))
+
+
         # Connect signals and slots
-       
+        self.ui.RemoveFromList.clicked.connect(self.RemoveFromList_clicked)
+        self.ui.Checkout.clicked.connect(self.Checkout_clicked)
+        self.ui.CashIn.clicked.connect(self.CashIn_clicked)
+        self.ui.CashOut.clicked.connect(self.CashOut_clicked)
+        self.ui.ReviewProduct.clicked.connect(self.ReviewProduct_clicked)
+        self.ui.BuyAgain.clicked.connect(self.BuyAgain_clicked)
+        self.ui.CancelOrder.clicked.connect(self.CancelOrder_clicked)
+        self.ui.Logout.clicked.connect(self.Logout_clicked)
     
         self.ui.show()
 
+    # Slots go here
+    def list_clicked(self):
+        item = self.ui.ProductList.currentItem()
+        product_num = item.text()[0:3]
+        for x in ItemData_Root.findall('Item'):
+            if(x.get('id') == product_num):
+                self.ItemPrice.setText("$" + x.find('item_price').text)
+                self.ItemRating.setText("Rating: " + x.find('item_rating').text)
+                self.ItemImage.setPixmap(QtGui.QPixmap("Images/Item/" + product_num + ".jpg"))
+                
+    def list_h_clicked(self):
+        item = self.ui.ProductList_h.currentItem()
+        product_num = item.text()[0:3]
+        for x in ItemData_Root.findall('Item'):
+            if(x.get('id') == product_num):
+                self.ItemPrice_h.setText("$" + x.find('item_price').text)
+                self.ItemImage_h.setPixmap(QtGui.QPixmap("Images/Item/" + product_num + ".jpg"))
+
+    def RemoveFromList_clicked(self):
+        item = self.ui.ProductList.currentItem()
+        if(item==None):
+            self.ui.ProductList.setCurrentRow(0)
+            item = self.ui.ProductList.currentItem()
+        product_num = item.text()[0:3]
+        for x in UserData_Root.find('Customers').findall('.//Customer'):
+            if(x.get('id')==userEmail):
+                for y in x.find('cart').findall('.//item'):
+                    if(y.text == product_num):
+                        x.find('cart').remove(y)
+                        UserData_Tree.write('new.xml')
+                        item = self.ui.ProductList.currentItem()
+                        self.ui.ProductList.takeItem(self.ui.ProductList.row(item))
+                        print("item removed")
+
+    def CashIn_clicked(self):
+        user_input = self.BalanceInput.text()
+        if(user_input==""):
+            user_input = "0"
+        num = bankNumber[0:4]+"*"
+        self.BalanceOutput.setText("$" + user_input + ' added from ' + bankName + ' Bank ' + num)
+
+    def CashOut_clicked(self):
+        user_input = self.BalanceInput.text()
+        if(user_input==""):
+            user_input = "0"
+        num = bankNumber[0:4]+"*"
+        self.BalanceOutput.setText("$" + user_input + ' sent to ' + bankName + ' Bank ' + num)
+
+    def Checkout_clicked(self):
+        pass
+        #goto transaction page
+
+    def ReviewProduct_clicked(self):
+        item = self.ui.ProductList_h.currentItem()
+        product_num = item.text()[0:3]
+        #goto discussion page
+
+    def BuyAgain_clicked(self):
+        item = self.ui.ProductList_h.currentItem()
+        if(item==None):
+            self.ui.ProductList_h.setCurrentRow(0)
+            item = self.ui.ProductList_h.currentItem()
+        product_num = item.text()[0:3]
+        for x in UserData_Root.find('Customers').findall('.//Customer'):
+            if(x.get('id')==userEmail):
+                for y in x.find('purchases').findall('.//item'):
+                    if(y.text == product_num):
+                        _translate = QtCore.QCoreApplication.translate
+                        product = ElementTree.SubElement(x.find('cart'), "item")
+                        product.text = product_num
+                        UserData_Tree.write('new.xml')
+                        item = qtw.QListWidgetItem()
+                        self.ui.ProductList.addItem(item)
+                        item.setText(_translate("AccountPage", product_num + ": " + "name"))
+                        print("item added to cart")
+                        #goto transaction page
+
+    def CancelOrder_clicked(self):
+        item = self.ui.ProductList_t.currentItem()
+        if(item==None):
+            self.ui.ProductList_t.setCurrentRow(0)
+            item = self.ui.ProductList_t.currentItem()
+        product_num = item.text()[0:3]
+        for x in UserData_Root.find('Customers').findall('.//Customer'):
+            if(x.get('id')==userEmail):
+                for y in x.find('orders').findall('.//item'):
+                    if(y.text == product_num):
+                        x.find('orders').remove(y)
+                        UserData_Tree.write('new.xml')
+                        item = self.ui.ProductList_t.currentItem()
+                        self.ui.ProductList_t.takeItem(self.ui.ProductList_t.row(item))
+                        print("order canceled")
+
+    def Logout_clicked(self):
+        sys.exit()
+        #goto main page
 
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
