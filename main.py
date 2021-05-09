@@ -4,50 +4,14 @@ import sys
 from xml.etree import ElementTree
 from lxml import etree
 from lxml import objectify
-from PyQt5 import QtCore, QtGui, QtWidgets as qtw
+from PyQt5 import QtCore as qtc, QtGui, QtWidgets as qtw
 from PyQt5.uic import loadUi
 # Custom modules 
 import Users
 import Utilities as Utils
 from LoginForm import Ui_LoginForm
 
-UserData_fileName = 'Users3.xml'
-UserData_filePath = os.path.abspath(os.path.join('Data', UserData_fileName))
-UserData_Tree = ElementTree.parse(UserData_filePath)
-UserData_Root = UserData_Tree.getroot()
 
-ItemData_fileName = 'Items.xml'
-ItemData_filePath = os.path.abspath(os.path.join('Data', ItemData_fileName))
-ItemData_Tree = ElementTree.parse(ItemData_filePath)
-ItemData_Root = ItemData_Tree.getroot()
-
-login_email = "email2"
-
-firstName = ''
-lastName = ''
-userEmail = ''
-userBalance = ''
-bankName = ''
-bankNumber = ''
-
-cartList = None
-historyList = None
-trackList = None
-
-for x in UserData_Root.find('Customers').findall('Customer'):
-    if(x.get('id') == login_email):
-        firstName = x.find('first_name').text
-        lastName = x.find('last_name').text
-        userEmail = x.find('email_address').text
-        userBalance = x.find('balance').text
-        bankName = x.find('bank').text
-        bankNumber = x.find('card_number').text
-        if(len(x.find('cart').findall('item'))>0):
-            cartList = x.find('cart').findall('item')
-        if(len(x.find('purchases').findall('item'))>0):
-            historyList = x.find('purchases').findall('item')
-        if(len(x.find('orders').findall('item'))>0):
-            trackList = x.find('orders').findall('item')
 class Main(qtw.QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -64,10 +28,12 @@ class Homepage(qtw.QWidget):
         
         # Nana END
         # Joshua START
+        self.clerk_logged_in = False
+        self.manager_logged_in = False
         self.customer_logged_in = False 
         self.current_customer = None # Current customer that is logged in
         self.id_pword_dict = {} # Key: id | Value: Password. Crucial for checking for login!
-        self.id_customer_dict = {} # Used to keep track of existing customers.
+        self.id_customer_dict = {} # Key: id | Value: Customer. Used to keep track of existing customers.
         self.load_customers() # Populates id_pword_dict and id_customer_dict
         
         self.newUserForm = None
@@ -90,7 +56,19 @@ class Homepage(qtw.QWidget):
 
         # Huihong END
         # Sakil START
+        # self.UserData_fileName = 'Customers2.xml'
+        # self.UserData_filePath = os.path.abspath(os.path.join('Data', UserData_fileName))
+        # self.UserData_Tree = ElementTree.parse(UserData_filePath)
+        # self.UserData_Root = UserData_Tree.getroot()
 
+        # self.ItemData_fileName = 'Items.xml'
+        # self.ItemData_filePath = os.path.abspath(os.path.join('Data', ItemData_fileName))
+        # self.ItemData_Tree = ElementTree.parse(ItemData_filePath)
+        # self.ItemData_Root = ItemData_Tree.getroot()
+
+        # cartList = None
+        # historyList = None
+        # trackList = None
         # Sakil End
         
 
@@ -180,7 +158,23 @@ class Homepage(qtw.QWidget):
         self.cust_attrs = {}
         for customer in customers_xml:
             for attribute in customer.getchildren() : # Iterate through customer's attributes
-                self.cust_attrs.update({attribute.tag: attribute.text})
+                purchases = []
+                cart = []
+                orders = []
+                if attribute.tag == "purchases" and len(attribute):
+                    for item in attribute.getchildren():
+                        purchases.append(item)
+                    self.cust_attrs.update({attribute.tag: purchases})
+                elif attribute.tag == "cart" and len(attribute):
+                    for item in attribute.getchildren():
+                        cart.append(item)
+                    self.cust_attrs.update({attribute.tag: cart})
+                elif attribute.tag == "orders" and len(attribute):
+                    for item in attribute.getchildren():
+                        orders.append(item)
+                    self.cust_attrs.update({attribute.tag: orders})
+                else:
+                    self.cust_attrs.update({attribute.tag: attribute.text})
             # Instantiate customer object
             incoming_cust = Users.Customer(first_name=self.cust_attrs.get('first_name'), 
                                            last_name=self.cust_attrs.get('last_name'), 
@@ -224,6 +218,7 @@ class Homepage(qtw.QWidget):
     # Huihong END
     # Sakil START
     def goto_account_page(self):
+        pass
         self.accountPage = AccountPage(self)
 
 
@@ -257,6 +252,18 @@ class LoginForm(qtw.QDialog):
             self.homepage.ui.pButton_logOut.setDisabled(False)
             self.homepage.enable_or_diable_register()
             msg = qtw.QMessageBox.information(self, '', 'Login Successful')
+
+            for x in self.homepage.UserData_Root.findall('Customer'):
+                if(x.get('id') == self.homepage.current_customer.id):
+                    if(len(x.find('cart').findall('item'))>0):
+                        self.cartList = x.find('cart').findall('item')
+                    if(len(x.find('purchases').findall('item'))>0):
+                        self.historyList = x.find('purchases').findall('item')
+                    if(len(x.find('orders').findall('item'))>0):
+                        self.trackList = x.find('orders').findall('item')
+            
+            
+
             self.homepage.ui.label_currentlyVisiting.hide()
             self.ui.close()
         else:
@@ -362,6 +369,7 @@ class NewUserForm(qtw.QDialog):
         self.homepage.ui.show()
         self.ui.close()
 
+'''
 class AccountPage(qtw.QWidget):
     def __init__(self, homepage):
         super().__init__()
@@ -401,7 +409,7 @@ class AccountPage(qtw.QWidget):
 
 
         # From retranslateui 
-        _translate = QtCore.QCoreApplication.translate
+        _translate = qtc.QCoreApplication.translate
         # self.setWindowTitle(_translate("AccountPage", "Computer Store : Account Page : " + firstName + ' ' + lastName))
         # self.setWindowIcon(QtGui.QIcon('Images/User/userIcon.png'))
         # 1st try- catch
@@ -523,7 +531,7 @@ class AccountPage(qtw.QWidget):
             if(x.get('id')==userEmail):
                 for y in x.find('purchases').findall('.//item'):
                     if(y.text == product_num):
-                        _translate = QtCore.QCoreApplication.translate
+                        _translate = qtc.QCoreApplication.translate
                         product = ElementTree.SubElement(x.find('cart'), "item")
                         product.text = product_num
                         UserData_Tree.write('new.xml')
@@ -553,6 +561,23 @@ class AccountPage(qtw.QWidget):
         self.ui.hide()
         self.homepage.ui.show()
         #goto main page
+'''
+
+class TransactionPage(qtw.QWidget):
+    # Inputs: current Customer
+    pass
+
+class CustomerListModel(qtc.QAbstractListModel):
+    def __init__(self, customer):
+        super.__init__(self)
+        self.customer = customer
+
+    def rowCount(self, parent):
+        return len(self.customer.__dict__)
+
+
+
+
 
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
