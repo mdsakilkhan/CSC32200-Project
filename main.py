@@ -6,6 +6,7 @@ from lxml import etree
 from lxml import objectify
 from PyQt5 import QtCore as qtc, QtGui, QtWidgets as qtw
 from PyQt5.uic import loadUi
+from PyQt5.QtGui import QPixmap
 # Custom modules 
 import Users
 import Utilities as Utils
@@ -23,9 +24,19 @@ class Homepage(qtw.QWidget):
         # EDIT HERE**************************************************************************
         
         # INITILIAZE MEMBER VAIRABLES
-        self.ui = loadUi("UiFiles/Homepage.ui")
+        self.ui = loadUi("Homepage.ui")
         # Nana START
+        self.componentPic = ["100.jpg","101.jpg","102.jpg","103.jpg","104.jpg","105.jpg","106.jpg","107.jpg","108.jpg","109.jpg","110.jpg","111.jpg","112.jpg","113.jpg","114.jpg","115.jpg","116.jpg","117.jpg","118.jpg","119.jpg","120.jpg","121.jpg","122.jpg","123.jpg","124.jpg","125.jpg","126.jpg","127.jpg","128.jpg","129.jpg","130.jpg",]
+        self.listOfDicts = self.parse("/Users/nanabonsu/Documents/CSC32200-Project/Data/Items.xml")
+        #print(self.listOfDicts)
+        listOfItemCategories = self.returnItemCategories(self.listOfDicts)
         
+        for itemName in listOfItemCategories:
+            self.ui.listWidget_2.addItem(itemName)
+
+        self.ui.listWidget_2.itemClicked.connect(self.showItemsInListView)
+
+        self.ui.listWidget_3.itemClicked.connect(self.showImagesandDescription)
         # Nana END
         # Joshua START
         self.clerk_logged_in = False
@@ -40,19 +51,7 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_logOut.setDisabled(True)
         # Joshua END
 
-        listOfDicts = self.parse("Data/Items.xml")
-       # print(listOfDicts)
-        listOfItemCategories = self.returnItemCategories(listOfDicts)
-        
-        for itemName in listOfItemCategories:
-            self.ui.listWidget_2.addItem(itemName)
-
-       # self.ui.listWidget_2.item(0).connect(self.print)
-
-        def print(self):
-            print("Item 1 clicked")
-        # Huihong START
-        self.loginForm = None
+       
 
         # Huihong END
         # Sakil START
@@ -90,7 +89,9 @@ class Homepage(qtw.QWidget):
         self.ui.label_currentlyVisiting.mouseReleaseEvent = self.test
         # Joshua END
         # Huihong START
-
+        
+ 
+ 
 
 
 
@@ -109,6 +110,14 @@ class Homepage(qtw.QWidget):
 
     # DEFINE CUSTOM METHODS HERE
     # Nana START
+
+    def showItemsInListView(self):
+        itemName = self.ui.listWidget_2.currentItem().text()
+        listofItems = self.returnListOfDictItems(itemName,self.listOfDicts)
+        self.ui.listWidget_3.clear()
+        for item in listofItems:
+            self.ui.listWidget_3.addItem(item['item_name'])
+
     def parse(self,xmlFile):
 
         with open(xmlFile) as opedml:
@@ -122,6 +131,7 @@ class Homepage(qtw.QWidget):
                 if elem.text:
                     text = elem.text
                 items_dict[elem.tag] = text
+            items_dict['id'] = item.attrib['id']
             if item.tag == "Item":
                 itemsgotten.append(items_dict)
                 items_dict = {}
@@ -133,6 +143,42 @@ class Homepage(qtw.QWidget):
             if (listOfCategories.count(item['item_type']) == 0):
                 listOfCategories.append(item['item_type'])
         return listOfCategories
+    
+    #returns list of items that matches category
+    def returnListOfDictItems(self,itemCategory,itemDictList):
+        listOfItems = []
+        for items in itemDictList:
+            if items['item_type'] == itemCategory:
+                listOfItems.append(items)
+        return listOfItems
+    
+    #want to return dictionary of that item
+    def returnSpecificItemByName(self,itemName):
+        itemdict = {}
+        for item in self.listOfDicts:
+            if (item['item_name'] == itemName):
+                itemdict = item
+        return itemdict
+
+    def showImagesandDescription(self):
+        itemPicked = self.ui.listWidget_3.currentItem().text()
+        specificItem = self.returnSpecificItemByName(itemPicked) # will be that item
+
+        itemId = specificItem['id'] # the itemItem
+        targetImage = ""
+        for pic in self.componentPic:
+            if itemId in pic:
+                targetImage = pic
+        
+        pixString = "/Users/nanabonsu/Documents/CSC32200-Project/Pics/" + targetImage
+        pixImage = QPixmap(pixString)
+        scaledPix = pixImage.scaled(150,150)
+        self.ui.label_11.setPixmap(scaledPix)
+
+        #now descriptuonn..
+
+
+        #find the id of that item?
 
     # Nana END
     # Joshua START
