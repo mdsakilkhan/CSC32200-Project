@@ -3,12 +3,12 @@ from xml.etree import ElementTree
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 UserData_fileName = 'Users3.xml'
-UserData_filePath = os.path.abspath(os.path.join('', UserData_fileName))
+UserData_filePath = os.path.abspath(os.path.join('Data', UserData_fileName))
 UserData_Tree = ElementTree.parse(UserData_filePath)
 UserData_Root = UserData_Tree.getroot()
 
 ItemData_fileName = 'Items.xml'
-ItemData_filePath = os.path.abspath(os.path.join('', ItemData_fileName))
+ItemData_filePath = os.path.abspath(os.path.join('Data', ItemData_fileName))
 ItemData_Tree = ElementTree.parse(ItemData_filePath)
 ItemData_Root = ItemData_Tree.getroot()
 

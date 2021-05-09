@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1665</width>
-    <height>1120</height>
+    <width>1022</width>
+    <height>800</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1022</width>
+    <height>1087</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -199,8 +211,8 @@
     <widget class="QTabWidget" name="tabWidget">
      <property name="maximumSize">
       <size>
-       <width>1663</width>
-       <height>16777215</height>
+       <width>1000</width>
+       <height>800</height>
       </size>
      </property>
      <property name="font">
@@ -256,14 +268,14 @@
             <widget class="QLabel" name="label_4">
              <property name="minimumSize">
               <size>
-               <width>300</width>
-               <height>300</height>
+               <width>130</width>
+               <height>100</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>300</width>
-               <height>300</height>
+               <width>100</width>
+               <height>100</height>
               </size>
              </property>
              <property name="text">
@@ -298,14 +310,14 @@
             <widget class="QLabel" name="label_6">
              <property name="minimumSize">
               <size>
-               <width>300</width>
-               <height>300</height>
+               <width>130</width>
+               <height>100</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>300</width>
-               <height>300</height>
+               <width>100</width>
+               <height>100</height>
               </size>
              </property>
              <property name="text">
@@ -320,14 +332,14 @@
             <widget class="QLabel" name="label_5">
              <property name="minimumSize">
               <size>
-               <width>300</width>
-               <height>300</height>
+               <width>130</width>
+               <height>100</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>300</width>
-               <height>300</height>
+               <width>100</width>
+               <height>100</height>
               </size>
              </property>
              <property name="text">
@@ -382,14 +394,14 @@
             <widget class="QLabel" name="label_7">
              <property name="minimumSize">
               <size>
-               <width>300</width>
-               <height>300</height>
+               <width>100</width>
+               <height>100</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>300</width>
-               <height>300</height>
+               <width>100</width>
+               <height>100</height>
               </size>
              </property>
              <property name="text">
@@ -424,14 +436,14 @@
             <widget class="QLabel" name="label_8">
              <property name="minimumSize">
               <size>
-               <width>300</width>
-               <height>300</height>
+               <width>100</width>
+               <height>100</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>300</width>
-               <height>300</height>
+               <width>100</width>
+               <height>100</height>
               </size>
              </property>
              <property name="text">
@@ -446,14 +458,14 @@
             <widget class="QLabel" name="label_9">
              <property name="minimumSize">
               <size>
-               <width>300</width>
-               <height>300</height>
+               <width>100</width>
+               <height>100</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>300</width>
-               <height>300</height>
+               <width>100</width>
+               <height>100</height>
               </size>
              </property>
              <property name="text">
@@ -492,14 +504,14 @@
         <widget class="QListWidget" name="listWidget">
          <property name="minimumSize">
           <size>
-           <width>500</width>
-           <height>700</height>
+           <width>300</width>
+           <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>500</width>
-           <height>700</height>
+           <width>300</width>
+           <height>500</height>
           </size>
          </property>
         </widget>
@@ -550,14 +562,14 @@
             <widget class="QLabel" name="label_10">
              <property name="minimumSize">
               <size>
-               <width>250</width>
-               <height>250</height>
+               <width>0</width>
+               <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>250</width>
-               <height>250</height>
+               <width>150</width>
+               <height>150</height>
               </size>
              </property>
              <property name="text">
@@ -608,14 +620,14 @@
             <widget class="QTextBrowser" name="textBrowser">
              <property name="minimumSize">
               <size>
-               <width>500</width>
-               <height>500</height>
+               <width>0</width>
+               <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>500</width>
-               <height>500</height>
+               <width>300</width>
+               <height>300</height>
               </size>
              </property>
              <property name="html">
@@ -746,8 +758,8 @@ p, li { white-space: pre-wrap; }
           <widget class="QListWidget" name="listWidget_2">
            <property name="minimumSize">
             <size>
-             <width>300</width>
-             <height>700</height>
+             <width>200</width>
+             <height>400</height>
             </size>
            </property>
            <property name="maximumSize">
@@ -815,8 +827,8 @@ p, li { white-space: pre-wrap; }
           <widget class="QListWidget" name="listWidget_3">
            <property name="minimumSize">
             <size>
-             <width>300</width>
-             <height>700</height>
+             <width>200</width>
+             <height>400</height>
             </size>
            </property>
            <property name="maximumSize">
@@ -888,14 +900,14 @@ p, li { white-space: pre-wrap; }
             <widget class="QLabel" name="label_11">
              <property name="minimumSize">
               <size>
-               <width>250</width>
-               <height>250</height>
+               <width>0</width>
+               <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
               <size>
-               <width>250</width>
-               <height>250</height>
+               <width>150</width>
+               <height>150</height>
               </size>
              </property>
              <property name="text">
@@ -946,8 +958,8 @@ p, li { white-space: pre-wrap; }
             <widget class="QTextBrowser" name="textBrowser_2">
              <property name="minimumSize">
               <size>
-               <width>500</width>
-               <height>500</height>
+               <width>200</width>
+               <height>0</height>
               </size>
              </property>
              <property name="maximumSize">
@@ -1051,13 +1063,13 @@ p, li { white-space: pre-wrap; }
           <widget class="QTabWidget" name="tabWidget_2">
            <property name="minimumSize">
             <size>
-             <width>1500</width>
-             <height>800</height>
+             <width>0</width>
+             <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>1500</width>
+             <width>800</width>
              <height>800</height>
             </size>
            </property>
@@ -1071,8 +1083,8 @@ p, li { white-space: pre-wrap; }
             <widget class="QWidget" name="layoutWidget_3">
              <property name="geometry">
               <rect>
-               <x>160</x>
-               <y>50</y>
+               <x>140</x>
+               <y>20</y>
                <width>302</width>
                <height>631</height>
               </rect>
@@ -1105,8 +1117,8 @@ p, li { white-space: pre-wrap; }
                <widget class="QListWidget" name="listWidget_4">
                 <property name="minimumSize">
                  <size>
-                  <width>300</width>
-                  <height>500</height>
+                  <width>0</width>
+                  <height>0</height>
                  </size>
                 </property>
                 <property name="maximumSize">
