@@ -39,6 +39,7 @@ class Homepage(qtw.QWidget):
         
         self.newUserForm = None
         self.ui.pButton_logOut.setDisabled(True)
+        self.ui.pButton_account.setDisabled(True)
         # Joshua END
 
         listOfDicts = self.parse("Data/Items.xml")
@@ -200,6 +201,7 @@ class Homepage(qtw.QWidget):
         self.customer_logged_in = False
         self.ui.pButton_logIn.setEnabled(True)
         self.ui.pButton_logOut.setEnabled(False)
+        self.ui.pButton_account.setEnabled(False)
         self.enable_or_diable_register()
         msg = qtw.QMessageBox.information(self, '', 'Log out successful')
         self.ui.label_currentlyVisiting.show()
@@ -251,6 +253,7 @@ class LoginForm(qtw.QDialog):
             self.homepage.current_customer = self.homepage.id_customer_dict.get(self.id)
             self.homepage.ui.pButton_logIn.setDisabled(True)
             self.homepage.ui.pButton_logOut.setDisabled(False)
+            self.homepage.ui.pButton_account.setDisabled(False)
             self.homepage.enable_or_diable_register()
             msg = qtw.QMessageBox.information(self, '', 'Login Successful')
 
