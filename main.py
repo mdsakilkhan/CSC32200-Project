@@ -31,7 +31,8 @@ class Homepage(qtw.QWidget):
         self.clerk_logged_in = False
         self.manager_logged_in = False
         self.customer_logged_in = False 
-        self.current_customer = None # Current customer that is logged in
+        self.current_customer = None # Current customer that is logged in 
+        # self.current_customer = self.id_customer_dict.get("sakil@gmail.com") # to test account page
         self.id_pword_dict = {} # Key: id | Value: Password. Crucial for checking for login!
         self.id_customer_dict = {} # Key: id | Value: Customer. Used to keep track of existing customers.
         self.load_customers() # Populates id_pword_dict and id_customer_dict
@@ -56,19 +57,19 @@ class Homepage(qtw.QWidget):
 
         # Huihong END
         # Sakil START
-        # self.UserData_fileName = 'Customers2.xml'
-        # self.UserData_filePath = os.path.abspath(os.path.join('Data', UserData_fileName))
-        # self.UserData_Tree = ElementTree.parse(UserData_filePath)
-        # self.UserData_Root = UserData_Tree.getroot()
+        self.UserData_fileName = 'Customers2.xml'
+        self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+        self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+        self.UserData_Root = self.UserData_Tree.getroot()
 
-        # self.ItemData_fileName = 'Items.xml'
-        # self.ItemData_filePath = os.path.abspath(os.path.join('Data', ItemData_fileName))
-        # self.ItemData_Tree = ElementTree.parse(ItemData_filePath)
-        # self.ItemData_Root = ItemData_Tree.getroot()
+        self.ItemData_fileName = 'Items.xml'
+        self.ItemData_filePath = os.path.abspath(os.path.join('Data', self.ItemData_fileName))
+        self.ItemData_Tree = ElementTree.parse("Data/Items.xml")
+        self.ItemData_Root = self.ItemData_Tree.getroot()
 
-        # cartList = None
-        # historyList = None
-        # trackList = None
+        cartList = None
+        historyList = None
+        self.trackList = None
         # Sakil End
         
 
@@ -366,7 +367,7 @@ class NewUserForm(qtw.QDialog):
     def return_to_homepage(self):
         self.homepage.ui.show()
         self.ui.close()
-'''
+
 class AccountPage(qtw.QWidget):
     def __init__(self, homepage):
         super().__init__()
@@ -374,6 +375,45 @@ class AccountPage(qtw.QWidget):
         self.homepage = homepage
         self.homepage.ui.hide()
         self.ui = loadUi("UiFiles/accountPage.ui")
+        
+        _translate = qtc.QCoreApplication.translate
+        
+        self.UserData_fileName = 'Customers2.xml'
+        self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+        self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+        self.UserData_Root = self.UserData_Tree.getroot()
+
+        self.ItemData_fileName = 'Items.xml'
+        self.ItemData_filePath = os.path.abspath(os.path.join('Data', self.ItemData_fileName))
+        self.ItemData_Tree = ElementTree.parse(self.ItemData_filePath)
+        self.ItemData_Root = self.ItemData_Tree.getroot()
+        ''' 
+        self.UserData_Tree = ElementTree.parse("Data/Customers2.xml")
+        self.UserData_Root = self.UserData_Tree.getroot()
+        self.ItemData_Tree = ElementTree.parse("Data/Items.xml")
+        self.ItemData_Root = self.ItemData_Tree.getroot()
+        '''
+        self.login_email = homepage.current_customer.email_address
+
+        self.firstName = homepage.current_customer.first_name
+        self.lastName = homepage.current_customer.last_name
+        self.userEmail = homepage.current_customer.email_address
+        self.userBalance = homepage.current_customer.balance
+        self.bankName = homepage.current_customer.bank
+        self.bankNumber = homepage.current_customer.card_number
+
+        cartList = None
+        historyList = None
+        self.trackList = None
+
+        for x in self.UserData_Root.findall('Customer'):
+            if(x.get('id') == self.login_email):
+                if(len(x.find('cart').findall('item'))>0):
+                    cartList = x.find('cart').findall('item')
+                if(len(x.find('purchases').findall('item'))>0):
+                    historyList = x.find('purchases').findall('item')
+                if(len(x.find('orders').findall('item'))>0):
+                    self.trackList = x.find('orders').findall('item')
         
         try:
             for x in cartList:
@@ -385,7 +425,17 @@ class AccountPage(qtw.QWidget):
              self.ui.ProductList.clicked.connect(self.list_clicked)
         except (TypeError):
             pass  
-        # second try-catch
+        try:
+            i = 0
+            for x in cartList:
+                item = self.ui.ProductList.item(0+i)
+                for y in self.ItemData_Root.findall('Item'):
+                    if(y.get('id') == x.text):
+                        item.setText(_translate("AccountPage", x.text + ": " + y.find('item_name').text))
+                i += 1
+        except (AttributeError, TypeError):
+            pass
+
         try:
             for x in historyList:
                 item = qtw.QListWidgetItem()
@@ -396,59 +446,56 @@ class AccountPage(qtw.QWidget):
              self.ui.ProductList_h.clicked.connect(self.list_h_clicked)
         except (TypeError):
             pass 
-        # third try catch
         try:
-            for x in trackList:
+            i = 0
+            for x in historyList:
+                item = self.ui.ProductList_h.item(0+i)
+                for y in self.ItemData_Root.findall('Item'):
+                    if(y.get('id') == x.text):
+                        item.setText(_translate("AccountPage", x.text + ": " + y.find('item_name').text + " - " + x.get('date')))
+                i += 1
+        except (AttributeError, TypeError):
+            pass
+
+        try:
+            for x in self.trackList:
                 item = qtw.QListWidgetItem()
                 self.ui.ProductList_t.addItem(item)
         except (AttributeError, TypeError, NameError):
             pass
-
-
-        # From retranslateui 
-        _translate = qtc.QCoreApplication.translate
-        # self.setWindowTitle(_translate("AccountPage", "Computer Store : Account Page : " + firstName + ' ' + lastName))
-        # self.setWindowIcon(QtGui.QIcon('Images/User/userIcon.png'))
-        # 1st try- catch
+        try:
+             self.ui.ProductList_t.clicked.connect(self.list_t_clicked)
+        except (TypeError):
+            pass 
         try:
             i = 0
-            for x in cartList:
-                item = self.ui.ProductList.item(0+i)
-                for y in ItemData_Root.findall('Item'):
+            for x in self.trackList:
+                item = self.ui.ProductList_t.item(0+i)
+                for y in self.ItemData_Root.findall('Item'):
                     if(y.get('id') == x.text):
                         item.setText(_translate("AccountPage", x.text + ": " + y.find('item_name').text))
                 i += 1
         except (AttributeError, TypeError):
             pass
-        # second try catch
-        try:
-            i = 0
-            for x in historyList:
-                item = self.ui.ProductList_h.item(0+i)
-                for y in ItemData_Root.findall('Item'):
-                    if(y.get('id') == x.text):
-                        item.setText(_translate("AccountPage", x.text + ": " + y.find('item_name').text + ' - ' + x.get('date')))
-                i += 1
-        except (AttributeError, TypeError):
-            pass
-        # third try catch
-        try:
-            i = 0
-            for x in trackList:
-                item = self.ui.ProductList_t.item(0+i)
-                for y in ItemData_Root.findall('Item'):
-                    if(y.get('id') == x.text):
-                        item.setText(_translate("AccountPage", x.text + ": " + y.find('item_name').text + ' - Estimated arrival date: ' + x.get('date')))
-                i += 1
-        except (AttributeError, TypeError):
-            pass
-        if (trackList==None):
-            self.TextBox.setText(_translate("AccountPage", "No Items Available"))
-        self.ui.CustomerName.setText(_translate("AccountPage", firstName + ' ' + lastName))
-        self.ui.BalanceData.setText(_translate("AccountPage", "Balance: $" + userBalance + ' ' + bankName + 'Bank ' + bankNumber))
-        self.ui.CustomerInfo.setText(_translate("AccountPage", userEmail))
 
-
+        # From retranslateui 
+        self.ui.setWindowTitle(_translate("AccountPage", "Computer Store : Account Page : " + self.firstName + ' ' + self.lastName))
+        self.ui.setWindowIcon(QtGui.QIcon('Images/User/userIcon.png'))        
+        self.ui.CustomerName.setText(_translate("AccountPage", self.firstName + ' ' + self.lastName))
+        self.ui.BalanceData.setText(_translate("AccountPage", "Balance: $" + self.userBalance))
+        self.ui.CustomerInfo.setText(_translate("AccountPage", self.login_email))
+        self.ui.CustomerIcon.setPixmap(QtGui.QPixmap("Images/User/userIcon.png"))
+        self.ui.ItemImage.setText(_translate("AccountPage", "Select Item"))
+        self.ui.ItemImage_h.setText(_translate("AccountPage", "Select Item"))
+        self.ui.TextBox.setText(_translate("AccountPage", "Select Item"))
+        
+        if (cartList==None):
+            self.ui.ItemImage.setText(_translate("AccountPage", "No Items Available"))
+        if (historyList==None):
+            self.ui.ItemImage_h.setText(_translate("AccountPage", "No Items Available"))
+        if (self.trackList==None):
+            self.ui.TextBox.setText(_translate("AccountPage", "No Items Available"))
+        
         # Connect signals and slots
         self.ui.RemoveFromList.clicked.connect(self.RemoveFromList_clicked)
         self.ui.Checkout.clicked.connect(self.Checkout_clicked)
@@ -462,103 +509,143 @@ class AccountPage(qtw.QWidget):
         self.ui.show()
 
     # Slots go here
+    
     def list_clicked(self):
         item = self.ui.ProductList.currentItem()
         product_num = item.text()[0:3]
-        for x in ItemData_Root.findall('Item'):
+        for x in self.ItemData_Root.findall('Item'):
             if(x.get('id') == product_num):
-                self.ItemPrice.setText("$" + x.find('item_price').text)
-                self.ItemRating.setText("Rating: " + x.find('item_rating').text)
-                self.ItemImage.setPixmap(QtGui.QPixmap("Images/Item/" + product_num + ".jpg"))
-                
+                self.ui.ItemPrice.setText("$" + x.find('item_price').text)
+                self.ui.ItemRating.setText("Rating: " + x.find('item_rating').text)
+                self.ui.ItemImage.setPixmap(QtGui.QPixmap("Images/Item/" + product_num + ".jpg"))
+    
     def list_h_clicked(self):
         item = self.ui.ProductList_h.currentItem()
         product_num = item.text()[0:3]
-        for x in ItemData_Root.findall('Item'):
+        for x in self.ItemData_Root.findall('Item'):
             if(x.get('id') == product_num):
-                self.ItemPrice_h.setText("$" + x.find('item_price').text)
-                self.ItemImage_h.setPixmap(QtGui.QPixmap("Images/Item/" + product_num + ".jpg"))
+                self.ui.ItemPrice_h.setText("$" + x.find('item_price').text)
+                self.ui.ItemImage_h.setPixmap(QtGui.QPixmap("Images/Item/" + product_num + ".jpg"))
 
-    def RemoveFromList_clicked(self):
-        item = self.ui.ProductList.currentItem()
-        if(item==None):
-            self.ui.ProductList.setCurrentRow(0)
-            item = self.ui.ProductList.currentItem()
+    def list_t_clicked(self):
+        _translate = qtc.QCoreApplication.translate
+        item = self.ui.ProductList_t.currentItem()
         product_num = item.text()[0:3]
-        for x in UserData_Root.find('Customers').findall('.//Customer'):
-            if(x.get('id')==userEmail):
-                for y in x.find('cart').findall('.//item'):
-                    if(y.text == product_num):
-                        x.find('cart').remove(y)
-                        UserData_Tree.write('new.xml')
-                        item = self.ui.ProductList.currentItem()
-                        self.ui.ProductList.takeItem(self.ui.ProductList.row(item))
-                        print("item removed")
+        for x in self.trackList:
+            if(x.text == product_num):
+                self.ui.TextBox.setText(_translate("AccountPage", "Estimated arrival date: " + x.get('date')))
 
     def CashIn_clicked(self):
-        user_input = self.BalanceInput.text()
-        if(user_input==""):
-            user_input = "0"
-        num = bankNumber[0:4]+"*"
-        self.BalanceOutput.setText("$" + user_input + ' added from ' + bankName + ' Bank ' + num)
+        balance = float(self.userBalance)
+        try:
+            user_input = float(self.ui.BalanceInput.text())
+        except (ValueError):
+            user_input = 0.0
+        if(user_input>20000):
+            self.ui.BalanceOutput.setText("Unsucessful: Not enough balance in " + self.bankName + ' Bank ' + self.bankNumber[0:4] + '*')
+        else:
+            self.userBalance = str(round((balance+user_input), 2))
+            self.ui.BalanceData.setText("Balance: $" + self.userBalance)
+            self.ui.BalanceOutput.setText("Sucessful: $" + str(user_input) + ' added from ' + self.bankName + ' Bank ' + self.bankNumber[0:4] + '*')
+            for x in self.UserData_Root.findall('.//Customer'):
+                if(x.get('id')==self.login_email):
+                    x.find('balance').text = self.userBalance
+                    self.UserData_Tree.write('new.xml') # change when ready
 
     def CashOut_clicked(self):
-        user_input = self.BalanceInput.text()
-        if(user_input==""):
-            user_input = "0"
-        num = bankNumber[0:4]+"*"
-        self.BalanceOutput.setText("$" + user_input + ' sent to ' + bankName + ' Bank ' + num)
+        balance = float(self.userBalance)
+        try:
+            user_input = float(self.ui.BalanceInput.text())
+        except (ValueError):
+            user_input = 0.0
+        if(user_input>balance):
+            self.ui.BalanceOutput.setText("Unsucessful: Not enough balance in account")
+        else:
+            self.userBalance = str(round((balance-user_input), 2))
+            self.ui.BalanceData.setText("Balance: $" + self.userBalance)
+            self.ui.BalanceOutput.setText("Sucessful: $" + str(user_input) + ' sent to ' + self.bankName + ' Bank ' + self.bankNumber[0:4] + '*')
+            for x in self.UserData_Root.findall('.//Customer'):
+                if(x.get('id')==self.login_email):
+                    x.find('balance').text = self.userBalance
+                    self.UserData_Tree.write('new.xml') # change when ready
 
     def Checkout_clicked(self):
-        pass
+        self.ui.hide()
+        self.homepage.ui.show()
         #goto transaction page
 
     def ReviewProduct_clicked(self):
-        item = self.ui.ProductList_h.currentItem()
-        product_num = item.text()[0:3]
-        #goto discussion page
+        self.ui.hide()
+        self.homepage.ui.tabWidget.setCurrentIndex(3)
+        self.homepage.ui.show()
+    
+    def RemoveFromList_clicked(self):
+        try:
+            item = self.ui.ProductList.currentItem()
+            if(item==None):
+                self.ui.ProductList.setCurrentRow(0)
+                item = self.ui.ProductList.currentItem()
+            product_num = item.text()[0:3]
+            for x in self.UserData_Root.findall('.//Customer'):
+                if(x.get('id')==self.login_email):
+                    for y in x.find('cart').findall('.//item'):
+                        if(y.text == product_num):
+                            x.find('cart').remove(y)
+                            self.UserData_Tree.write('new.xml') # change when ready
+                            item = self.ui.ProductList.currentItem()
+                            self.ui.ProductList.takeItem(self.ui.ProductList.row(item))
+                            self.ui.ItemImage.setText("Item removed from cart")
+        except (AttributeError):
+            pass
 
     def BuyAgain_clicked(self):
-        item = self.ui.ProductList_h.currentItem()
-        if(item==None):
-            self.ui.ProductList_h.setCurrentRow(0)
+        try:
             item = self.ui.ProductList_h.currentItem()
-        product_num = item.text()[0:3]
-        for x in UserData_Root.find('Customers').findall('.//Customer'):
-            if(x.get('id')==userEmail):
-                for y in x.find('purchases').findall('.//item'):
-                    if(y.text == product_num):
-                        _translate = qtc.QCoreApplication.translate
-                        product = ElementTree.SubElement(x.find('cart'), "item")
-                        product.text = product_num
-                        UserData_Tree.write('new.xml')
-                        item = qtw.QListWidgetItem()
-                        self.ui.ProductList.addItem(item)
-                        item.setText(_translate("AccountPage", product_num + ": " + "name"))
-                        print("item added to cart")
-                        #goto transaction page
+            if(item==None):
+                self.ui.ProductList_h.setCurrentRow(0)
+                item = self.ui.ProductList_h.currentItem()
+            product_num = item.text()[0:3]
+            for x in self.UserData_Root.findall('.//Customer'):
+                if(x.get('id')==self.login_email):
+                    for y in x.find('purchases').findall('.//item'):
+                        if(y.text == product_num):
+                            _translate = qtc.QCoreApplication.translate
+                            product = ElementTree.SubElement(x.find('cart'), "item")
+                            product.text = product_num
+                            self.UserData_Tree.write('new.xml') # change when ready
+                            item = qtw.QListWidgetItem()
+                            self.ui.ProductList.addItem(item)
+                            item.setText(_translate("AccountPage", product_num + ": " + "name"))
+                            for z in self.ItemData_Root.findall('Item'):
+                                if(z.get('id') == y.text):
+                                    item.setText(_translate("AccountPage", y.text + ": " + z.find('item_name').text))
+                            self.ui.ItemImage_h.setText(_translate("AccountPage", "Item added to cart"))
+        except (AttributeError):
+            pass
 
     def CancelOrder_clicked(self):
-        item = self.ui.ProductList_t.currentItem()
-        if(item==None):
-            self.ui.ProductList_t.setCurrentRow(0)
+        try:
             item = self.ui.ProductList_t.currentItem()
-        product_num = item.text()[0:3]
-        for x in UserData_Root.find('Customers').findall('.//Customer'):
-            if(x.get('id')==userEmail):
-                for y in x.find('orders').findall('.//item'):
-                    if(y.text == product_num):
-                        x.find('orders').remove(y)
-                        UserData_Tree.write('new.xml')
-                        item = self.ui.ProductList_t.currentItem()
-                        self.ui.ProductList_t.takeItem(self.ui.ProductList_t.row(item))
-                        print("order canceled")
+            if(item==None):
+                self.ui.ProductList_t.setCurrentRow(0)
+                item = self.ui.ProductList_t.currentItem()
+            product_num = item.text()[0:3]
+            for x in self.UserData_Root.findall('.//Customer'):
+                if(x.get('id')==self.login_email):
+                    for y in x.find('orders').findall('.//item'):
+                        if(y.text == product_num):
+                            x.find('orders').remove(y)
+                            self.UserData_Tree.write('new.xml') # change when ready
+                            item = self.ui.ProductList_t.currentItem()
+                            self.ui.ProductList_t.takeItem(self.ui.ProductList_t.row(item))
+                            self.ui.TextBox.setText("Order canceled, money will be added to your account balance in 3-5 business days")
+        except (AttributeError):
+            pass
 
     def Logout_clicked(self):
         self.ui.hide()
+        self.homepage.ui.tabWidget.setCurrentIndex(0)
         self.homepage.ui.show()
-        #goto main page
-'''
 
 class TransactionPage(qtw.QWidget):
     # Inputs: current Customer
