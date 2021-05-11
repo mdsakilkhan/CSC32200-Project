@@ -101,7 +101,7 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_logIn.clicked.connect(self.goto_login_form)
         self.ui.pButton_register.clicked.connect(self.goto_new_user_form)
         self.ui.pButton_logOut.clicked.connect(self.logout)
-        self.ui.label_currentlyVisiting.mouseReleaseEvent = self.test
+        self.ui.pButton_deliverySystem.clicked.connect(self.test)
         # Joshua END
         # Huihong START
 
@@ -195,7 +195,7 @@ class Homepage(qtw.QWidget):
     # Nana END
     # Joshua START
     def test(self, event):
-        print("label clicked")
+        self.transactionPage = TransactionPage(self)
 
     def goto_new_user_form(self):
         self.newUserForm = NewUserForm(self) # Pass in current instance of homepage
@@ -205,7 +205,7 @@ class Homepage(qtw.QWidget):
 
     def load_customers(self):
         try:
-            with open("Data/Customers2.xml") as file:
+            with open("Data/Customers.xml") as file:
                 xml = file.read()
                 root_xml = objectify.fromstring(xml)
         except:
@@ -219,20 +219,22 @@ class Homepage(qtw.QWidget):
                 purchases = []
                 cart = []
                 orders = []
-                itemWithDate = Users.ItemWithDate()
                 if attribute.tag == "purchases" and len(attribute):
                     for item in attribute.getchildren():
+                        itemWithDate = Users.ItemWithDate()
                         itemWithDate.id = item.text
                         itemWithDate.date = item.get('date')
                         purchases.append(itemWithDate)
                     self.cust_attrs.update({attribute.tag: purchases})
                 elif attribute.tag == "cart" and len(attribute):
                     for item in attribute.getchildren():
+                        itemWithDate = Users.ItemWithDate()
                         itemWithDate.id = item.text
                         cart.append(itemWithDate)
                     self.cust_attrs.update({attribute.tag: cart})
                 elif attribute.tag == "orders" and len(attribute):
                     for item in attribute.getchildren():
+                        itemWithDate = Users.ItemWithDate()
                         itemWithDate.id = item.text
                         itemWithDate.date = item.get('date')
                         orders.append(itemWithDate)
@@ -284,7 +286,6 @@ class Homepage(qtw.QWidget):
     # Huihong END
     # Sakil START
     def goto_account_page(self):
-        pass
         self.accountPage = AccountPage(self)
 
 
@@ -714,9 +715,51 @@ class AccountPage(qtw.QWidget):
         self.homepage.ui.show()
 
 class TransactionPage(qtw.QWidget):
-    # Inputs: current Customer
-    pass
+    def __init__(self, homepage):
+        super().__init__()
+        self.homepage= homepage
+        self.customer = self.homepage.current_customer
+        self.ui = loadUi("UiFiles/TransactionPage.ui")
 
+        self.ItemData_fileName = 'Items.xml'
+        self.ItemData_filePath = os.path.abspath(os.path.join('Data', self.ItemData_fileName))
+        self.ItemData_Tree = ElementTree.parse(self.ItemData_filePath)
+        self.ItemData_Root = self.ItemData_Tree.getroot()
+
+        self.ui.pButton_close.clicked.connect(self.ui.close)
+        self.generate_transaction()
+
+        self.ui.show()
+
+        # itemWithDate = Users.ItemWithDate()
+        # itemWithDate.id = x.text
+        # homepage.current_customer.cart.append(itemWithDate)
+
+    def generate_transaction(self):
+        self.ui.lineEdit_orderNumber.setText(None)
+        self.ui.lineEdit_datePurchased.setText(self.customer.cart[0].date) 
+        self.ui.lineEdit_fullName.setText(self.customer.first_name + " " + self.customer.last_name) 
+        self.ui.lineEdit_contactNumber.setText(self.customer.contact_num)
+        self.ui.lineEdit_address.setText(self.customer.address)
+        self.ui.lineEdit_email.setText(self.customer.email_address)
+        self.ui.lineEdit_cardNum.setText(self.customer.contact_num[-4:])
+
+        self.ui.tableWidget_items.setRowCount(len(self.customer.cart)+1)
+        self.ui.tableWidget_items.setColumnCount(3)
+
+        total = 0
+        i = 0
+        for x in self.customer.cart:
+            for y in self.ItemData_Root.findall('Item'):
+                if(y.get('id') == x.id):
+                    total += float(y.find('item_price').text)
+                    self.ui.tableWidget_items.setItem(i, 0, qtw.QTableWidgetItem(y.find('item_name').text))
+                    self.ui.tableWidget_items.setItem(i, 1, qtw.QTableWidgetItem(y.find('item_type').text))
+                    self.ui.tableWidget_items.setItem(i, 2, qtw.QTableWidgetItem(y.find('item_price').text))
+            i += 1
+        
+        self.ui.label_totalCost.setText(str(total))
+    
 class CustomerListModel(qtc.QAbstractListModel):
     def __init__(self, customer):
         super.__init__(self)

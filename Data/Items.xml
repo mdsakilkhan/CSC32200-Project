@@ -50,31 +50,31 @@
   <Item id="107">
     <item_name>RTX 3070</item_name>
     <item_type>GPU</item_type>
-    <item_price>600.00"></item_price>
+    <item_price>600.00</item_price>
     <item_rating>4/5</item_rating>
   </Item>
   <Item id="108">
     <item_name>RTX 2070</item_name>
     <item_type>GPU</item_type>
-    <item_price>400"></item_price>
+    <item_price>400</item_price>
     <item_rating>4/5</item_rating>
   </Item>
   <Item id="109">
     <item_name>GTX 1660 Super</item_name>
     <item_type>GPU</item_type>
-    <item_price>249.99"></item_price>
+    <item_price>249.99</item_price>
     <item_rating>4/5</item_rating>
   </Item>
   <Item id="110">
     <item_name>RX 5700XT</item_name>
     <item_type>GPU</item_type>
-    <item_price>349.99"></item_price>
+    <item_price>349.99</item_price>
     <item_rating>5/5</item_rating>
   </Item>
   <Item id="111">
     <item_name>RX 6700XT</item_name>
     <item_type>GPU</item_type>
-    <item_price>809.99"></item_price>
+    <item_price>809.99</item_price>
     <item_rating>4/5</item_rating>
   </Item>
 
