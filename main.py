@@ -26,7 +26,9 @@ class Homepage(qtw.QWidget):
         self.ui = loadUi("UiFiles/Homepage.ui")
         # Nana START
         self.componentPic = ["100.jpg","101.jpg","102.jpg","103.jpg","104.jpg","105.jpg","106.jpg","107.jpg","108.jpg","109.jpg","110.jpg","111.jpg","112.jpg","113.jpg","114.jpg","115.jpg","116.jpg","117.jpg","118.jpg","119.jpg","120.jpg","121.jpg","122.jpg","123.jpg","124.jpg","125.jpg","126.jpg","127.jpg","128.jpg","129.jpg","130.jpg",]
-        self.listOfDicts = self.parse("/Users/nanabonsu/Documents/CSC32200-Project/Data/Items.xml")
+        self.items_path = os.path.abspath("Data/Items.xml")
+        self.listOfDicts = self.parse(self.items_path)
+        
         #print(self.listOfDicts)
         listOfItemCategories = self.returnItemCategories(self.listOfDicts)
         
@@ -181,7 +183,7 @@ class Homepage(qtw.QWidget):
                 targetImage = pic
         
         pixString = "/Users/nanabonsu/Documents/CSC32200-Project/Pics/" + targetImage
-        pixImage = QPixmap(pixString)
+        pixImage = QtGui.QPixmap(pixString)
         scaledPix = pixImage.scaled(150,150)
         self.ui.label_11.setPixmap(scaledPix)
 
@@ -203,7 +205,7 @@ class Homepage(qtw.QWidget):
 
     def load_customers(self):
         try:
-            with open("Data/Customers.xml") as file:
+            with open("Data/Customers2.xml") as file:
                 xml = file.read()
                 root_xml = objectify.fromstring(xml)
         except:
@@ -217,17 +219,23 @@ class Homepage(qtw.QWidget):
                 purchases = []
                 cart = []
                 orders = []
+                itemWithDate = Users.ItemWithDate()
                 if attribute.tag == "purchases" and len(attribute):
                     for item in attribute.getchildren():
-                        purchases.append(item)
+                        itemWithDate.id = item.text
+                        itemWithDate.date = item.get('date')
+                        purchases.append(itemWithDate)
                     self.cust_attrs.update({attribute.tag: purchases})
                 elif attribute.tag == "cart" and len(attribute):
                     for item in attribute.getchildren():
-                        cart.append(item)
+                        itemWithDate.id = item.text
+                        cart.append(itemWithDate)
                     self.cust_attrs.update({attribute.tag: cart})
                 elif attribute.tag == "orders" and len(attribute):
                     for item in attribute.getchildren():
-                        orders.append(item)
+                        itemWithDate.id = item.text
+                        itemWithDate.date = item.get('date')
+                        orders.append(itemWithDate)
                     self.cust_attrs.update({attribute.tag: orders})
                 else:
                     self.cust_attrs.update({attribute.tag: attribute.text})
@@ -248,6 +256,7 @@ class Homepage(qtw.QWidget):
                                            orders=self.cust_attrs.get('orders'))
             self.id_pword_dict.update({incoming_cust.id : incoming_cust.password})   
             self.id_customer_dict.update({incoming_cust.id : incoming_cust})
+        
         return
 
     def logout(self):
@@ -414,7 +423,7 @@ class NewUserForm(qtw.QDialog):
                 pass
             # Remove encoding declaration--was such a b*&%ch... 
             # The encoding declaration renders the lxml module unable to read it. Hence it had to be removed.
-            Utils.remove_encoding_dec("Data/CustomersTemp.xml","Data/Customers.xml")
+            Utils.remove_encoding_dec("Data/CustomersTemp.xml","Data/Customers2.xml")
             # Refresh customers
             self.homepage.load_customers()
             # Show success message

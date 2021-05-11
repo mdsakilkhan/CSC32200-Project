@@ -42,3 +42,7 @@ class Order():
         self.subtotal = subtotal
         self.total = total
 
+class ItemWithDate():
+    def __init__(self):
+        self.id = None
+        self.date = None

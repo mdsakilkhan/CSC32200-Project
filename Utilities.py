@@ -7,10 +7,14 @@ def serialize_object(obj, obj_name):
     for key, val in obj.__dict__.items():
         if val == None:
             attr = elem_maker(key, "")
-        elif type(val) == list:
+        elif not type(val) == str:
             attr = elem_maker(key)
             for elt in val:
-                item = elem_maker("item",str(elt))
+                item = elem_maker("item",elt.id)
+                if elt.date == None:
+                    item.set('date',"")
+                else:
+                    item.set('date',elt.date)
                 attr.append(item)
         else:
             attr = elem_maker(key, val)

@@ -1,74 +1,96 @@
 <?xml version="1.0"?>
 <Customers>
-    <Customer id="email1">
-      <first_name>first1</first_name>
-      <last_name>last1</last_name>
-      <date_of_birth>dob1</date_of_birth>
-      <contact_num>phone1</contact_num>
-      <email_address>email1</email_address>
-      <address>address1</address>
-      <card_number>card1</card_number>
-      <bank>bank1</bank>
-      <security_num>cvv1</security_num>
-      <balance>money1</balance>
-      <purchases>
-        <item date="date">100</item>
-        <item date="date">101</item>
-      </purchases>
-      <cart>
-        <item>103</item>
-        <item>102</item>
-        <item>108</item>
-      </cart>
-      <orders>
-        <item date="date">106</item>
-        <item date="date">105</item>
-      </orders>
-    </Customer>
-    <Customer id="email2">
-      <first_name>first2</first_name>
-      <last_name>last2</last_name>
-      <date_of_birth>dob2</date_of_birth>
-      <contact_num>phone2</contact_num>
-      <email_address>email2</email_address>
-      <address>address2</address>
-      <card_number>card2</card_number>
-      <bank>bank2</bank>
-      <security_num>cvv2</security_num>
-      <balance>money2</balance>
-      <purchases>
-        <item date="date">100</item>
-        <item date="date">101</item>
-      </purchases>
-      <cart>
-        <item>103</item>
-        <item>102</item>
-        <item>108</item>
-      </cart>
-      <orders>
-        <item date="date">106</item>
-        <item date="date">105</item>
-      </orders>
-    </Customer>
-    <Customer id="email3">
-      <first_name>first3</first_name>
-      <last_name>last3</last_name>
-      <date_of_birth>dob3</date_of_birth>
-      <contact_num>phone3</contact_num>
-      <email_address>email3</email_address>
-      <address>address3</address>
-      <card_number>card3</card_number>
-      <bank>bank3</bank>
-      <security_num>cvv3</security_num>
-      <balance>money3</balance>
-      <purchases>
-        <item date="date">100</item>
-        <item date="date">101</item>
-      </purchases>
-      <cart>
-        <item>103</item>
-      </cart>
-      <orders>
-      </orders>
-    </Customer>
-  </Customers>
+  <Customer>
+    <id>email1</id>
+    <first_name>first1</first_name>
+    <last_name>last1</last_name>
+    <date_of_birth>dob1</date_of_birth>
+    <contact_num>phone1</contact_num>
+    <email_address>email1</email_address>
+    <address>address1</address>
+    <password></password>
+    <card_number>card1</card_number>
+    <bank>bank1</bank>
+    <security_num>cvv1</security_num>
+    <balance>money1</balance>
+    <purchases>
+      <item date="date">101</item>
+      <item date="date">101</item>
+    </purchases>
+    <cart>
+      <item date="">108</item>
+      <item date="">108</item>
+      <item date="">108</item>
+    </cart>
+    <orders>
+      <item date="date">105</item>
+      <item date="date">105</item>
+    </orders>
+  </Customer>
+  <Customer>
+    <id>email2</id>
+    <first_name>first2</first_name>
+    <last_name>last2</last_name>
+    <date_of_birth>dob2</date_of_birth>
+    <contact_num>phone2</contact_num>
+    <email_address>email2</email_address>
+    <address>address2</address>
+    <password></password>
+    <card_number>card2</card_number>
+    <bank>bank2</bank>
+    <security_num>cvv2</security_num>
+    <balance>money2</balance>
+    <purchases>
+      <item date="date">101</item>
+      <item date="date">101</item>
+    </purchases>
+    <cart>
+      <item date="">108</item>
+      <item date="">108</item>
+      <item date="">108</item>
+    </cart>
+    <orders>
+      <item date="date">105</item>
+      <item date="date">105</item>
+    </orders>
+  </Customer>
+  <Customer>
+    <id>email3</id>
+    <first_name>first3</first_name>
+    <last_name>last3</last_name>
+    <date_of_birth>dob3</date_of_birth>
+    <contact_num>phone3</contact_num>
+    <email_address>email3</email_address>
+    <address>address3</address>
+    <password></password>
+    <card_number>card3</card_number>
+    <bank>bank3</bank>
+    <security_num>cvv3</security_num>
+    <balance>money3</balance>
+    <purchases>
+      <item date="date">101</item>
+      <item date="date">101</item>
+    </purchases>
+    <cart>
+      <item date="">103</item>
+    </cart>
+    <orders/>
+  </Customer>
+  <Customer>
+    <id>q</id>
+    <first_name>q</first_name>
+    <last_name>q</last_name>
+    <date_of_birth>q</date_of_birth>
+    <contact_num>q</contact_num>
+    <email_address>q</email_address>
+    <address>q</address>
+    <password>q</password>
+    <card_number>q</card_number>
+    <bank>qq</bank>
+    <security_num>q</security_num>
+    <balance></balance>
+    <purchases></purchases>
+    <cart></cart>
+    <orders></orders>
+  </Customer>
+</Customers>
