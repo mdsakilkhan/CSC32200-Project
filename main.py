@@ -48,10 +48,10 @@ class Homepage(qtw.QWidget):
         self.id_pword_dict = {} # Key: id | Value: Password. Crucial for checking for login!
         self.id_customer_dict = {} # Key: id | Value: Customer. Used to keep track of existing customers.
         self.load_customers() # Populates id_pword_dict and id_customer_dict
-        
         self.newUserForm = None
         self.ui.pButton_logOut.setDisabled(True)
         self.ui.pButton_account.setDisabled(True)
+        self.avoidList = None
         # Joshua END
 
         listOfDicts = self.parse("Data/Items.xml")
@@ -102,6 +102,7 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_register.clicked.connect(self.goto_new_user_form)
         self.ui.pButton_logOut.clicked.connect(self.logout)
         self.ui.pButton_deliverySystem.clicked.connect(self.test)
+        self.ui.pButton_avoidList.clicked.connect(self.goto_avoid_list)
         # Joshua END
         # Huihong START
 
@@ -202,6 +203,9 @@ class Homepage(qtw.QWidget):
 
     def goto_login_form(self):
         self.loginForm = LoginForm(self)
+
+    def goto_avoid_list(self):
+        self.avoidList = AvoidList()
 
     def load_customers(self):
         try:
@@ -760,6 +764,47 @@ class TransactionPage(qtw.QWidget):
         
         self.ui.label_totalCost.setText(str(total))
     
+class AvoidList(qtw.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.ui = loadUi("UiFiles/AvoidList.ui")
+        self.AvoidList_fileName = 'AvoidList.xml'
+        self.AvoidList_filePath = os.path.abspath(os.path.join('Data', self.AvoidList_fileName))
+        self.AvoidList_Tree = ElementTree.parse(self.AvoidList_filePath)
+        self.AvoidList_Root = self.AvoidList_Tree.getroot()
+        self.avoid_dict = {}
+        self.load_avoid_list()
+
+        # Connect signals and slots
+        self.ui.listWidget_avoidList.itemClicked.connect(self.populate_line_edit)
+        self.ui.pButton_add.clicked.connect(self.add_email)
+
+        self.ui.show()
+
+    def populate_line_edit(self, item):
+        self.ui.lineEdit_add.setText(item.text())
+
+
+    def load_avoid_list(self):
+        # clear items
+        self.ui.listWidget_avoidList.clear()
+        # Populate from xml file
+        for child in self.AvoidList_Root:
+            self.avoid_dict.update({child.get("email"): child.get("email")})
+            self.ui.listWidget_avoidList.addItem(qtw.QListWidgetItem(child.get("email")))
+
+    def add_email(self):
+        new_email = self.ui.lineEdit_add.text()
+        if len(new_email) > 0 and self.avoid_dict.get(new_email) == None:
+            ElementTree.SubElement(self.AvoidList_Root, "email", email=new_email)
+            # self.AvoidList_Tree._setroot(self.AvoidList_Root)
+            self.AvoidList_Tree.write("Data/AvoidList.xml")
+            self.avoid_dict.update({new_email: new_email})
+            msg = qtw.QMessageBox.information(self, '', 'Email added to avoid list')
+        else:
+            msg = qtw.QMessageBox.information(self, '', 'Cannot add email.')
+
+
 class CustomerListModel(qtc.QAbstractListModel):
     def __init__(self, customer):
         super.__init__(self)

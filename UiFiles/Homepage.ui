@@ -201,6 +201,24 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="pButton_avoidList">
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Avoid List</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>

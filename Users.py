@@ -36,10 +36,10 @@ class Customer(Person):
         self.orders = orders
 
 class Order():
-    def __init__(self, items=None, purchase_date=None, subtotal=None, total=None):
+    def __init__(self, items=None, id=None, purchase_date=None, subtotal=None, total=None):
         self.items = items
+        self.id = id
         self.purchase_date = purchase_date
-        self.subtotal = subtotal
         self.total = total
 
 class ItemWithDate():
