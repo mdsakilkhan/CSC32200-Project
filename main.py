@@ -29,18 +29,16 @@ class Homepage(qtw.QWidget):
         self.items_path = os.path.abspath("Data/Items.xml")
         self.pathOfCommentsXML = os.path.abspath("Data/comments.xml")
         self.listOfDicts = self.parse(self.items_path)
-
         self.listofCommentsDicts = self.parseXMLforComments(self.pathOfCommentsXML)
-        self.commentsAboutItems = self.returnlistOfCertainComments('item')
         
-        
+        self.commentsAboutItems = self.returnlistOfCertainComments('item')        
         self.commentsAboutCompanies = self.returnlistOfCertainComments('company')
-        self.commentsaboutClerks = self.returnlistOfCertainComments('clerk')
+        self.commentsAboutClerks = self.returnlistOfCertainComments('clerk')
       
-        listOfItemCategories = self.returnItemCategories(self.listOfDicts)
+        self.listOfItemCategories = self.returnItemCategories(self.listOfDicts)
         
        
-        for itemName in listOfItemCategories:
+        for itemName in self.listOfItemCategories:
             self.ui.listWidget_2.addItem(itemName)
             self.ui.ItemCategory.addItem(itemName)
 
@@ -65,6 +63,7 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_logOut.setDisabled(True)
         self.ui.pButton_account.setDisabled(True)
         self.avoidList = None
+        self.commentForm = None
         # Joshua END
 
         
@@ -93,6 +92,7 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_logOut.clicked.connect(self.logout)
         self.ui.pButton_deliverySystem.clicked.connect(self.test)
         self.ui.pButton_avoidList.clicked.connect(self.goto_avoid_list)
+        self.ui.pButton_writeAReview.clicked.connect(self.goto_comment_form)
         # Joshua END
         # Huihong START
 
@@ -441,6 +441,12 @@ class Homepage(qtw.QWidget):
 
     # Nana END
     # Joshua START
+    def goto_comment_form(self):
+        if self.current_customer == None:
+            msg = qtw.QMessageBox.information(self, '', 'Must be logged in to write a review.')
+            return
+        self.commentForm = CommentForm(self)
+    
     def test(self, event):
         self.transactionPage = TransactionPage(self)
 
@@ -544,6 +550,184 @@ class Homepage(qtw.QWidget):
     # Sakil END
     # EDIT HERE**************************************************************************
 
+class CommentForm(qtw.QWidget):
+    def __init__(self, homepage):
+        super().__init__()
+        # Initialize member variables       
+        self.ui = loadUi("UiFiles/CommentForm.ui")
+        # Save reference to hompage object
+        self.homepage = homepage
+        # Setup 
+        self.populate_combo_boxes()
+        # Connect signals and slots
+        self.ui.cb_itemCategory.activated.connect(self.update_item_cb)
+        self.ui.pButton_submitComment_1.clicked.connect(self.submit_item_comment)
+        self.ui.pButton_submitComment_2.clicked.connect(self.submit_clerk_comment)
+        self.ui.pButton_submitComment_2.clicked.connect(self.submit_company_comment)
+        
+        
+        self.ui.show()
+
+    def populate_combo_boxes(self):
+        # cb_itemCategory
+        for item_category in self.homepage.listOfItemCategories:
+            self.ui.cb_itemCategory.addItem(item_category)
+        # 
+    def update_item_cb(self):
+        self.ui.cb_itemName.clear()
+        category = self.ui.cb_itemCategory.currentText()
+        for d in self.homepage.listOfDicts:
+            if category in d.values():
+                item_name = d.get('item_name')
+                self.ui.cb_itemName.addItem(item_name)
+
+    def submit_item_comment(self):
+        if len(self.ui.textEdit_item.toPlainText()) < 1:
+            msg = qtw.QMessageBox.information(self, '', 'Your review cannot be blank')
+            return
+        # Save new_comment as a comment object
+        new_comment = Users.ItemComment(customer_name=self.homepage.current_customer.first_name + self.homepage.current_customer.last_name,
+                                        item=self.ui.cb_itemName.currentText(),
+                                        description=self.ui.textEdit_item.toPlainText())
+        # Create root tag
+        root = objectify.Element("Comments")
+        # Append existing comments
+        for d in self.homepage.commentsAboutItems:
+            customer_name = d.get('customer_name')
+            var = d.get('item')
+            description = d.get('description')
+            incoming_comment = Users.ItemComment(customer_name=customer_name,
+                                                item=var,
+                                                description=description)
+            root.append(Utils.serialize_object_2(incoming_comment, "Comment"))                                                
+        for d in self.homepage.commentsAboutClerks:
+            customer_name = d.get('customer_name')
+            var = d.get('clerk')
+            description = d.get('description')
+            incoming_comment = Users.ClerkComment(customer_name=customer_name,
+                                                clerk=var,
+                                                description=description)
+            root.append(Utils.serialize_object_2(incoming_comment, "Comment"))                                                
+        for d in self.homepage.commentsAboutCompanies:
+            customer_name = d.get('customer_name')
+            var = d.get('company')
+            description = d.get('description')
+            incoming_comment = Users.CompanyComment(customer_name=customer_name,
+                                                company=var,
+                                                description=description)
+            root.append(Utils.serialize_object_2(incoming_comment, "Comment"))
+        # Append new comment
+        root.append(Utils.serialize_object_2(new_comment, "Comment"))
+        objectify.deannotate(root)
+        etree.cleanup_namespaces(root)
+        # create the xml string
+        obj_xml = etree.tostring(root, pretty_print=True, xml_declaration=True)
+        try:
+            with open("Data/newComments.xml", "wb") as xml_writer:
+                xml_writer.write(obj_xml)
+        except IOError:
+            pass
+        
+        msg = qtw.QMessageBox.information(self, '', 'Comment Posted')
+        self.ui.textEdit_item.clear()
+
+    def submit_clerk_comment(self):
+        if len(self.ui.textEdit_clerk.toPlainText()) < 1:
+            msg = qtw.QMessageBox.information(self, '', 'Your review cannot be blank')
+            return
+        new_comment = Users.ClerkComment(customer_name=self.homepage.current_customer.first_name + self.homepage.current_customer.last_name,
+                                    clerk=self.ui.cb_itemName.currentText(),
+                                    description=self.ui.textEdit_clerk.toPlainText())
+        # Create root tag
+        root = objectify.Element("Comments")
+        # Append existing comments
+        for d in self.homepage.commentsAboutItems:
+            customer_name = d.get('customer_name')
+            var = d.get('item')
+            description = d.get('description')
+            incoming_comment = Users.ItemComment(customer_name=customer_name,
+                                                item=var,
+                                                description=description)
+            root.append(Utils.serialize_object_2(incoming_comment, "Comment"))                                                
+        for d in self.homepage.commentsAboutClerks:
+            customer_name = d.get('customer_name')
+            var = d.get('clerk')
+            description = d.get('description')
+            incoming_comment = Users.ClerkComment(customer_name=customer_name,
+                                                clerk=var,
+                                                description=description)
+            root.append(Utils.serialize_object_2(incoming_comment, "Comment"))                                                
+        for d in self.homepage.commentsAboutCompanies:
+            customer_name = d.get('customer_name')
+            var = d.get('company')
+            description = d.get('description')
+            incoming_comment = Users.CompanyComment(customer_name=customer_name,
+                                                company=var,
+                                                description=description)
+            root.append(Utils.serialize_object_2(incoming_comment, "Comment"))
+        # Append new comment
+        root.append(Utils.serialize_object_2(new_comment, "Comment"))
+        objectify.deannotate(root)
+        etree.cleanup_namespaces(root)
+        # create the xml string
+        obj_xml = etree.tostring(root, pretty_print=True, xml_declaration=True)
+        try:
+            with open("Data/newComments.xml", "wb") as xml_writer:
+                xml_writer.write(obj_xml)
+        except IOError:
+            pass
+        msg = qtw.QMessageBox.information(self, '', 'Comment Posted')
+        self.ui.textEdit_clerk.clear()
+
+    def submit_company_comment(self):
+        if len(self.ui.textEdit_company.toPlainText()) < 1:
+            msg = qtw.QMessageBox.information(self, '', 'Your review cannot be blank')
+            return
+        new_comment = Users.CompanyComment(customer_name=self.homepage.current_customer.first_name + self.homepage.current_customer.last_name,
+                                        company=self.ui.cb_itemName.currentText(),
+                                        description=self.ui.textEdit_company.toPlainText())
+        # Create root tag
+        root = objectify.Element("Comments")
+        # Append existing comments
+        for d in self.homepage.commentsAboutItems:
+            customer_name = d.get('customer_name')
+            var = d.get('item')
+            description = d.get('description')
+            incoming_comment = Users.ItemComment(customer_name=customer_name,
+                                                item=var,
+                                                description=description)
+            root.append(Utils.serialize_object_2(incoming_comment, "Comment"))                                                
+        for d in self.homepage.commentsAboutClerks:
+            customer_name = d.get('customer_name')
+            var = d.get('clerk')
+            description = d.get('description')
+            incoming_comment = Users.ClerkComment(customer_name=customer_name,
+                                                clerk=var,
+                                                description=description)
+            root.append(Utils.serialize_object_2(incoming_comment, "Comment"))                                                
+        for d in self.homepage.commentsAboutCompanies:
+            customer_name = d.get('customer_name')
+            var = d.get('company')
+            description = d.get('description')
+            incoming_comment = Users.CompanyComment(customer_name=customer_name,
+                                                company=var,
+                                                description=description)
+            root.append(Utils.serialize_object_2(incoming_comment, "Comment"))
+        # Append new comment
+        root.append(Utils.serialize_object_2(new_comment, "Comment"))
+        objectify.deannotate(root)
+        etree.cleanup_namespaces(root)
+        # create the xml string
+        obj_xml = etree.tostring(root, pretty_print=True, xml_declaration=True)
+        try:
+            with open("Data/newComments.xml", "wb") as xml_writer:
+                xml_writer.write(obj_xml)
+        except IOError:
+            pass
+        
+        msg = qtw.QMessageBox.information(self, '', 'Comment Posted')
+        self.ui.textEdit_deliveryCompany.clear()
+
 class SelectUserForm(qtw.QWidget):
     def __init__(self, homepage):
         super().__init__()
@@ -553,7 +737,6 @@ class SelectUserForm(qtw.QWidget):
         self.homepage = homepage
 
         # Connect signals and slots
-        
 class LoginForm(qtw.QDialog):
     def __init__(self, homepage):
         super().__init__()
@@ -572,6 +755,12 @@ class LoginForm(qtw.QDialog):
         self.ui.show()
 
     def verify_login(self):
+        # Check avoid list
+        avoid_dict = self.check_avoid_dict()
+        email = self.ui.lineEdit_username.text() 
+        if (avoid_dict.get(email) != None):
+            msg = qtw.QMessageBox.information(self, '', 'This account has been suspended. Please contact a manager.')
+            return
         if (self.id in self.homepage.id_pword_dict.keys() and self.password == self.homepage.id_pword_dict.get(self.id)):
             self.homepage.customer_logged_in = True
             self.homepage.current_customer = self.homepage.id_customer_dict.get(self.id)
@@ -600,6 +789,16 @@ class LoginForm(qtw.QDialog):
 
     def get_password(self):
         self.password = self.ui.lineEdit_password.text()
+
+    def check_avoid_dict(self):
+        AvoidList_fileName = 'AvoidList.xml'
+        AvoidList_filePath = os.path.abspath(os.path.join('Data', AvoidList_fileName))
+        AvoidList_Tree = ElementTree.parse(AvoidList_filePath)
+        AvoidList_Root = AvoidList_Tree.getroot()
+        avoid_dict = {}
+        for child in AvoidList_Root:
+            avoid_dict.update({child.get("email"): child.get("email")})
+        return avoid_dict
 
 class NewUserForm(qtw.QDialog):
     def __init__(self, homepage):

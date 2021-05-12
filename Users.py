@@ -40,11 +40,29 @@ class Manager(Person):
         super().__init__(**kwargs)
 
 class Order():
-    def __init__(self, items=None, id=None, purchase_date=None, subtotal=None, total=None):
+    def __init__(self, items=None, id=None, purchase_date=None, subtotal=None, total=None, **kwargs):
         self.items = items
         self.id = id
         self.purchase_date = purchase_date
         self.total = total
+
+class ItemComment():
+    def __init__(self, customer_name=None, item=None, description=None, **kwargs):
+        self.customer_name = customer_name
+        self.item = item
+        self.description = description
+
+class ClerkComment():
+    def __init__(self, customer_name=None, clerk=None, description=None, **kwargs):
+        self.customer_name = customer_name
+        self.clerk = clerk
+        self.description = description
+
+class CompanyComment():
+    def __init__(self, customer_name=None, company=None, description=None, **kwargs):
+        self.customer_name = customer_name
+        self.company = company
+        self.description = description
 
 class ItemWithDate():
     def __init__(self):

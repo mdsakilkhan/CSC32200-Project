@@ -21,6 +21,17 @@ def serialize_object(obj, obj_name):
         root.append(attr)
     return root
 
+def serialize_object_2(obj, obj_name):
+    elem_maker = ElementMaker(annotate=False)
+    root = elem_maker(obj_name)
+    for key, val in obj.__dict__.items():
+        if val == None:
+            attr = elem_maker(key, "")
+        else:
+            attr = elem_maker(key, val)
+        root.append(attr)
+    return root
+
 def remove_encoding_dec(temp_filename, output_filename):
     with open(temp_filename, 'r') as input_file, open(output_filename, 'w') as output_file:
         for line in input_file:
