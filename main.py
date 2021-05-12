@@ -680,7 +680,7 @@ class AccountPage(qtw.QWidget):
             self.ui.BalanceData.setText("Balance: $" + self.userBalance)
             self.ui.BalanceOutput.setText("Sucessful: $" + str(user_input) + ' added from ' + self.bankName + ' Bank ' + self.bankNumber[0:4] + '*')
             for x in self.UserData_Root.findall('.//Customer'):
-                if(x.get('id')==self.login_email):
+                if(x.find('id').text==self.login_email):
                     x.find('balance').text = self.userBalance
                     self.UserData_Tree.write('new.xml') # change when ready
 
@@ -697,7 +697,7 @@ class AccountPage(qtw.QWidget):
             self.ui.BalanceData.setText("Balance: $" + self.userBalance)
             self.ui.BalanceOutput.setText("Sucessful: $" + str(user_input) + ' sent to ' + self.bankName + ' Bank ' + self.bankNumber[0:4] + '*')
             for x in self.UserData_Root.findall('.//Customer'):
-                if(x.get('id')==self.login_email):
+                if(x.find('id').text==self.login_email):
                     x.find('balance').text = self.userBalance
                     self.UserData_Tree.write('new.xml') # change when ready
 
@@ -719,7 +719,7 @@ class AccountPage(qtw.QWidget):
                 item = self.ui.ProductList.currentItem()
             product_num = item.text()[0:3]
             for x in self.UserData_Root.findall('.//Customer'):
-                if(x.get('id')==self.login_email):
+                if(x.find('id').text==self.login_email):
                     for y in x.find('cart').findall('.//item'):
                         if(y.text == product_num):
                             x.find('cart').remove(y)
@@ -738,7 +738,7 @@ class AccountPage(qtw.QWidget):
                 item = self.ui.ProductList_h.currentItem()
             product_num = item.text()[0:3]
             for x in self.UserData_Root.findall('.//Customer'):
-                if(x.get('id')==self.login_email):
+                if(x.find('id').text==self.login_email):
                     for y in x.find('purchases').findall('.//item'):
                         if(y.text == product_num):
                             _translate = qtc.QCoreApplication.translate
@@ -763,7 +763,7 @@ class AccountPage(qtw.QWidget):
                 item = self.ui.ProductList_t.currentItem()
             product_num = item.text()[0:3]
             for x in self.UserData_Root.findall('.//Customer'):
-                if(x.get('id')==self.login_email):
+                if(x.find('id').text==self.login_email):
                     for y in x.find('orders').findall('.//item'):
                         if(y.text == product_num):
                             x.find('orders').remove(y)
