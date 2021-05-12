@@ -35,6 +35,10 @@ class Customer(Person):
         self.cart = cart
         self.orders = orders
 
+class Manager(Person):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
 class Order():
     def __init__(self, items=None, id=None, purchase_date=None, subtotal=None, total=None):
         self.items = items

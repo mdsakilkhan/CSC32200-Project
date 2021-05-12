@@ -359,6 +359,16 @@ class Homepage(qtw.QWidget):
     # Sakil END
     # EDIT HERE**************************************************************************
 
+class SelectUserForm(qtw.QWidget):
+    def __init__(self, homepage):
+        super().__init__()
+        # Initialize member variables       
+        self.ui = loadUi("UiFiles/SelectUserForm.ui")
+        # Save reference to hompage object
+        self.homepage = homepage
+
+        # Connect signals and slots
+        
 class LoginForm(qtw.QDialog):
     def __init__(self, homepage):
         super().__init__()
@@ -903,8 +913,6 @@ class AvoidList(qtw.QWidget):
         else:
             msg = qtw.QMessageBox.information(self, '', 'Please provide an email.')
             
-
-
 class CustomerListModel(qtc.QAbstractListModel):
     def __init__(self, customer):
         super.__init__(self)
@@ -912,10 +920,6 @@ class CustomerListModel(qtc.QAbstractListModel):
 
     def rowCount(self, parent):
         return len(self.customer.__dict__)
-
-
-
-
 
 if __name__ == '__main__':
     app = qtw.QApplication(sys.argv)
