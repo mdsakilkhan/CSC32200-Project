@@ -113,11 +113,25 @@ class Homepage(qtw.QWidget):
         self.ItemData_Tree = ElementTree.parse("Data/Items.xml")
         self.ItemData_Root = self.ItemData_Tree.getroot()
 
-        cartList = None
-        historyList = None
+        self.cartList = None
+        self.historyList = None
         self.trackList = None
         
-        self.mostPop = ["125","111","103"]        
+        tempArr = []
+        for x in self.ItemData_Root:
+            tempArr.append(int(x.find('item_sold').text))
+        tempArr.sort()
+
+        self.mostPop = []
+        for x in self.ItemData_Root:
+            if(x.find('item_sold').text == str(tempArr[len(tempArr)-1])):
+                self.mostPop.append(x.get('id'))
+        for x in self.ItemData_Root:
+            if(x.find('item_sold').text == str(tempArr[len(tempArr)-2])):
+                self.mostPop.append(x.get('id'))
+        for x in self.ItemData_Root:
+            if(x.find('item_sold').text == str(tempArr[len(tempArr)-3])):
+                self.mostPop.append(x.get('id'))
         self.adminRec = ["116","104","127"]
 
         for y in self.ItemData_Root.findall('Item'):
@@ -166,78 +180,106 @@ class Homepage(qtw.QWidget):
     # Sakil START
     def buy_1(self):
         try:
+            self.UserData_fileName = 'Customers.xml'
+            self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+            self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+            self.UserData_Root = self.UserData_Tree.getroot()
             product_num = self.mostPop[0]
             for x in self.UserData_Root.findall('.//Customer'):
                 if(x.find('id').text==self.current_customer.email_address):
                     product = ElementTree.SubElement(x.find('cart'), "item")
                     product.text = product_num
-                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.UserData_Tree.write('Data/Customers.xml') 
                     self.ui.label_17.setText("Item added to cart")
         except (AttributeError):
             self.ui.label_17.setText("You need to login to buy")
                 
     def buy_2(self):
         try:
+            self.UserData_fileName = 'Customers.xml'
+            self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+            self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+            self.UserData_Root = self.UserData_Tree.getroot()
             product_num = self.mostPop[1]
             for x in self.UserData_Root.findall('.//Customer'):
                 if(x.find('id').text==self.current_customer.email_address):
                     product = ElementTree.SubElement(x.find('cart'), "item")
                     product.text = product_num
-                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.UserData_Tree.write('Data/Customers.xml') 
                     self.ui.label_17.setText("Item added to cart")
         except (AttributeError):
             self.ui.label_17.setText("You need to login to buy")
                 
     def buy_3(self):
         try:
+            self.UserData_fileName = 'Customers.xml'
+            self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+            self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+            self.UserData_Root = self.UserData_Tree.getroot()
             product_num = self.mostPop[2]
             for x in self.UserData_Root.findall('.//Customer'):
                 if(x.find('id').text==self.current_customer.email_address):
                     product = ElementTree.SubElement(x.find('cart'), "item")
                     product.text = product_num
-                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.UserData_Tree.write('Data/Customers.xml') 
                     self.ui.label_17.setText("Item added to cart")
         except (AttributeError):
             self.ui.label_17.setText("You need to login to buy")
                 
     def buy_4(self):
         try:
+            self.UserData_fileName = 'Customers.xml'
+            self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+            self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+            self.UserData_Root = self.UserData_Tree.getroot()
             product_num = self.adminRec[0]
             for x in self.UserData_Root.findall('.//Customer'):
                 if(x.find('id').text==self.current_customer.email_address):
                     product = ElementTree.SubElement(x.find('cart'), "item")
                     product.text = product_num
-                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.UserData_Tree.write('Data/Customers.xml') 
                     self.ui.label_17.setText("Item added to cart")
         except (AttributeError):
             self.ui.label_17.setText("You need to login to buy")
                 
     def buy_5(self):
         try:
+            self.UserData_fileName = 'Customers.xml'
+            self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+            self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+            self.UserData_Root = self.UserData_Tree.getroot()
             product_num = self.adminRec[1]
             for x in self.UserData_Root.findall('.//Customer'):
                 if(x.find('id').text==self.current_customer.email_address):
                     product = ElementTree.SubElement(x.find('cart'), "item")
                     product.text = product_num
-                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.UserData_Tree.write('Data/Customers.xml') 
                     self.ui.label_17.setText("Item added to cart")
         except (AttributeError):
             self.ui.label_17.setText("You need to login to buy")
                 
     def buy_6(self):
         try:
+            self.UserData_fileName = 'Customers.xml'
+            self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+            self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+            self.UserData_Root = self.UserData_Tree.getroot()
             product_num = self.adminRec[2]
             for x in self.UserData_Root.findall('.//Customer'):
                 if(x.find('id').text==self.current_customer.email_address):
                     product = ElementTree.SubElement(x.find('cart'), "item")
                     product.text = product_num
-                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.UserData_Tree.write('Data/Customers.xml') 
                     self.ui.label_17.setText("Item added to cart")
         except (AttributeError):
             self.ui.label_17.setText("You need to login to buy")
 
     def AddCart_Parts(self):
         try:
+            self.UserData_fileName = 'Customers.xml'
+            self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+            self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+            self.UserData_Root = self.UserData_Tree.getroot()
             product_num = None
             for x in self.ItemData_Root:
                 if(x.find('item_name').text == self.ui.listWidget_3.currentItem().text()):
@@ -246,13 +288,17 @@ class Homepage(qtw.QWidget):
                 if(x.find('id').text == self.current_customer.email_address):
                     product = ElementTree.SubElement(x.find('cart'), "item")
                     product.text = product_num
-                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.UserData_Tree.write('Data/Customers.xml') 
                     self.ui.label_17.setText("Item added to cart")
         except (AttributeError):
             print("You need to login to buy")
             
     def AddCart_PreBuild(self):
         try:
+            self.UserData_fileName = 'Customers.xml'
+            self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+            self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+            self.UserData_Root = self.UserData_Tree.getroot()
             product_num = None
             for x in self.ItemData_Root:
                 if(x.find('item_name').text == self.ui.listWidget.currentItem().text()):
@@ -261,7 +307,7 @@ class Homepage(qtw.QWidget):
                 if(x.find('id').text == self.current_customer.email_address):
                     product = ElementTree.SubElement(x.find('cart'), "item")
                     product.text = product_num
-                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.UserData_Tree.write('Data/Customers.xml') 
                     self.ui.label_17.setText("Item added to cart")
         except (AttributeError):
             print("You need to login to buy")
@@ -524,16 +570,16 @@ class LoginForm(qtw.QDialog):
             self.homepage.ui.pButton_account.setDisabled(False)
             self.homepage.enable_or_diable_register()
             msg = qtw.QMessageBox.information(self, '', 'Login Successful')
-
+            '''
             for x in self.homepage.UserData_Root.findall('Customer'):
                 if(x.get('id') == self.homepage.current_customer.id):
                     if(len(x.find('cart').findall('item'))>0):
                         self.cartList = x.find('cart').findall('item')
                     if(len(x.find('purchases').findall('item'))>0):
-                        self.historyList = x.find('purchases').findall('item')
+                        self.self.historyList = x.find('purchases').findall('item')
                     if(len(x.find('orders').findall('item'))>0):
-                        self.trackList = x.find('orders').findall('item')
-            
+                        trackList = x.find('orders').findall('item')
+            '''            
             self.homepage.ui.label_currentlyVisiting.hide()
             self.ui.close()
         else:
@@ -674,12 +720,7 @@ class AccountPage(qtw.QWidget):
         self.ItemData_filePath = os.path.abspath(os.path.join('Data', self.ItemData_fileName))
         self.ItemData_Tree = ElementTree.parse(self.ItemData_filePath)
         self.ItemData_Root = self.ItemData_Tree.getroot()
-        ''' 
-        self.UserData_Tree = ElementTree.parse("Data/Customers.xml")
-        self.UserData_Root = self.UserData_Tree.getroot()
-        self.ItemData_Tree = ElementTree.parse("Data/Items.xml")
-        self.ItemData_Root = self.ItemData_Tree.getroot()
-        '''
+
         self.login_email = homepage.current_customer.email_address
 
         self.firstName = homepage.current_customer.first_name
@@ -689,21 +730,21 @@ class AccountPage(qtw.QWidget):
         self.bankName = homepage.current_customer.bank
         self.bankNumber = homepage.current_customer.card_number
 
-        cartList = None
-        historyList = None
+        self.cartList = None
+        self.historyList = None
         self.trackList = None
 
         for x in self.UserData_Root.findall('Customer'):
             if(x.find('id').text == self.login_email):
                 if(len(x.find('cart').findall('item'))>0):
-                    cartList = x.find('cart').findall('item')
+                    self.cartList = x.find('cart').findall('item')
                 if(len(x.find('purchases').findall('item'))>0):
-                    historyList = x.find('purchases').findall('item')
+                    self.historyList = x.find('purchases').findall('item')
                 if(len(x.find('orders').findall('item'))>0):
                     self.trackList = x.find('orders').findall('item')
         
         try:
-            for x in cartList:
+            for x in self.cartList:
                 item = qtw.QListWidgetItem()
                 self.ui.ProductList.addItem(item)
         except (AttributeError, TypeError):
@@ -714,7 +755,7 @@ class AccountPage(qtw.QWidget):
             pass  
         try:
             i = 0
-            for x in cartList:
+            for x in self.cartList:
                 item = self.ui.ProductList.item(0+i)
                 for y in self.ItemData_Root.findall('Item'):
                     if(y.get('id') == x.text):
@@ -724,7 +765,7 @@ class AccountPage(qtw.QWidget):
             pass
 
         try:
-            for x in historyList:
+            for x in self.historyList:
                 item = qtw.QListWidgetItem()
                 self.ui.ProductList_h.addItem(item)
         except (AttributeError, TypeError, NameError):
@@ -735,7 +776,7 @@ class AccountPage(qtw.QWidget):
             pass 
         try:
             i = 0
-            for x in historyList:
+            for x in self.historyList:
                 item = self.ui.ProductList_h.item(0+i)
                 for y in self.ItemData_Root.findall('Item'):
                     if(y.get('id') == x.text):
@@ -776,9 +817,9 @@ class AccountPage(qtw.QWidget):
         self.ui.ItemImage_h.setText(_translate("AccountPage", "Select Item"))
         self.ui.TextBox.setText(_translate("AccountPage", "Select Item"))
         
-        if (cartList==None):
+        if (self.cartList==None):
             self.ui.ItemImage.setText(_translate("AccountPage", "No Items Available"))
-        if (historyList==None):
+        if (self.historyList==None):
             self.ui.ItemImage_h.setText(_translate("AccountPage", "No Items Available"))
         if (self.trackList==None):
             self.ui.TextBox.setText(_translate("AccountPage", "No Items Available"))
@@ -823,6 +864,10 @@ class AccountPage(qtw.QWidget):
                 self.ui.TextBox.setText(_translate("AccountPage", "Estimated arrival date: " + x.get('date')))
 
     def CashIn_clicked(self):
+        self.UserData_fileName = 'Customers.xml'
+        self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+        self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+        self.UserData_Root = self.UserData_Tree.getroot()
         balance = float(self.userBalance)
         try:
             user_input = float(self.ui.BalanceInput.text())
@@ -837,9 +882,13 @@ class AccountPage(qtw.QWidget):
             for x in self.UserData_Root.findall('.//Customer'):
                 if(x.find('id').text==self.login_email):
                     x.find('balance').text = self.userBalance
-                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.UserData_Tree.write('Data/Customers.xml') 
 
     def CashOut_clicked(self):
+        self.UserData_fileName = 'Customers.xml'
+        self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+        self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+        self.UserData_Root = self.UserData_Tree.getroot()
         balance = float(self.userBalance)
         try:
             user_input = float(self.ui.BalanceInput.text())
@@ -854,11 +903,11 @@ class AccountPage(qtw.QWidget):
             for x in self.UserData_Root.findall('.//Customer'):
                 if(x.find('id').text==self.login_email):
                     x.find('balance').text = self.userBalance
-                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.UserData_Tree.write('Data/Customers.xml') 
 
     def Checkout_clicked(self):
-        self.ui.hide()
-        self.homepage.ui.show()
+        #self.ui.hide()
+        self.homepage.test(self.homepage)
         #goto transaction page
 
     def ReviewProduct_clicked(self):
@@ -867,6 +916,10 @@ class AccountPage(qtw.QWidget):
         self.homepage.ui.show()
     
     def RemoveFromList_clicked(self):
+        self.UserData_fileName = 'Customers.xml'
+        self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+        self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+        self.UserData_Root = self.UserData_Tree.getroot()
         try:
             item = self.ui.ProductList.currentItem()
             if(item==None):
@@ -875,17 +928,22 @@ class AccountPage(qtw.QWidget):
             product_num = item.text()[0:3]
             for x in self.UserData_Root.findall('.//Customer'):
                 if(x.find('id').text==self.login_email):
-                    for y in x.find('cart').findall('.//item'):
+                    for y in x.find('cart').findall('item'):
                         if(y.text == product_num):
                             x.find('cart').remove(y)
-                            self.UserData_Tree.write('new.xml') # change when ready
+                            self.UserData_Tree.write('Data/Customers.xml') 
                             item = self.ui.ProductList.currentItem()
                             self.ui.ProductList.takeItem(self.ui.ProductList.row(item))
                             self.ui.ItemImage.setText("Item removed from cart")
+                            return
         except (AttributeError):
             pass
 
     def BuyAgain_clicked(self):
+        self.UserData_fileName = 'Customers.xml'
+        self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+        self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+        self.UserData_Root = self.UserData_Tree.getroot()
         try:
             item = self.ui.ProductList_h.currentItem()
             if(item==None):
@@ -899,7 +957,7 @@ class AccountPage(qtw.QWidget):
                             _translate = qtc.QCoreApplication.translate
                             product = ElementTree.SubElement(x.find('cart'), "item")
                             product.text = product_num
-                            self.UserData_Tree.write('new.xml') # change when ready
+                            self.UserData_Tree.write('Data/Customers.xml') 
                             item = qtw.QListWidgetItem()
                             self.ui.ProductList.addItem(item)
                             item.setText(_translate("AccountPage", product_num + ": " + "name"))
@@ -911,6 +969,10 @@ class AccountPage(qtw.QWidget):
             pass
 
     def CancelOrder_clicked(self):
+        self.UserData_fileName = 'Customers.xml'
+        self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+        self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+        self.UserData_Root = self.UserData_Tree.getroot()
         try:
             item = self.ui.ProductList_t.currentItem()
             if(item==None):
@@ -922,10 +984,11 @@ class AccountPage(qtw.QWidget):
                     for y in x.find('orders').findall('.//item'):
                         if(y.text == product_num):
                             x.find('orders').remove(y)
-                            self.UserData_Tree.write('new.xml') # change when ready
+                            self.UserData_Tree.write('Data/Customers.xml') 
                             item = self.ui.ProductList_t.currentItem()
                             self.ui.ProductList_t.takeItem(self.ui.ProductList_t.row(item))
                             self.ui.TextBox.setText("Order canceled, money will be added to your account balance in 3-5 business days")
+                            return
         except (AttributeError):
             pass
 
