@@ -449,6 +449,12 @@ class NewUserForm(qtw.QDialog):
             self.ui.pButton_create.setEnabled(False)
 
     def create_customer(self):
+        # Check avoid list
+        avoid_dict = self.check_avoid_dict()
+        email = self.ui.lineEdit_emailAddress.text() 
+        if (avoid_dict.get(email) != None):
+            msg = qtw.QMessageBox.information(self, '', 'This email has been suspended. Please contact a manager.')
+            return
         # Check if user already exists
         customer_already_exists = self.ui.lineEdit_emailAddress.text() in self.homepage.id_pword_dict
         if (customer_already_exists):
@@ -495,6 +501,16 @@ class NewUserForm(qtw.QDialog):
             # Show success message
             msg = qtw.QMessageBox.information(self, '', 'User registration successful')
             self.return_to_homepage()
+
+    def check_avoid_dict(self):
+        AvoidList_fileName = 'AvoidList.xml'
+        AvoidList_filePath = os.path.abspath(os.path.join('Data', AvoidList_fileName))
+        AvoidList_Tree = ElementTree.parse(AvoidList_filePath)
+        AvoidList_Root = AvoidList_Tree.getroot()
+        avoid_dict = {}
+        for child in AvoidList_Root:
+            avoid_dict.update({child.get("email"): child.get("email")})
+        return avoid_dict
 
     def return_to_homepage(self):
         self.homepage.ui.show()
@@ -834,19 +850,37 @@ class AvoidList(qtw.QWidget):
         self.AvoidList_Tree = ElementTree.parse(self.AvoidList_filePath)
         self.AvoidList_Root = self.AvoidList_Tree.getroot()
         self.avoid_dict = {}
-        self.load_avoid_list()
+        self.refresh_avoid_list()
+        self.current_selection = None
 
         # Connect signals and slots
-        self.ui.listWidget_avoidList.itemClicked.connect(self.populate_line_edit)
+        self.ui.listWidget_avoidList.itemClicked.connect(self.get_current_selection)
         self.ui.pButton_add.clicked.connect(self.add_email)
+        self.ui.pButton_remove.clicked.connect(self.remove_email)
 
         self.ui.show()
 
-    def populate_line_edit(self, item):
-        self.ui.lineEdit_add.setText(item.text())
+    def get_current_selection(self, item):
+        self.current_selection = item.text()
 
+    def remove_email(self):
+        if self.current_selection == None:
+            msg = qtw.QMessageBox.information(self, '', 'Please select an email to remove.')
+            return
+        for child in self.AvoidList_Root:
+            if child.get("email") == self.current_selection:
+                self.AvoidList_Root.remove(child)
+        # Update tree 
+        self.AvoidList_Tree._setroot(self.AvoidList_Root)
+        # Use updated tree to write xml
+        self.AvoidList_Tree.write("Data/AvoidList.xml")
+        # Update dictionary
+        self.avoid_dict.pop(self.current_selection)
+        self.refresh_avoid_list()
+        self.current_selection = None
+        msg = qtw.QMessageBox.information(self, '', 'Email removed successfully.')
 
-    def load_avoid_list(self):
+    def refresh_avoid_list(self):
         # clear items
         self.ui.listWidget_avoidList.clear()
         # Populate from xml file
@@ -861,9 +895,14 @@ class AvoidList(qtw.QWidget):
             # self.AvoidList_Tree._setroot(self.AvoidList_Root)
             self.AvoidList_Tree.write("Data/AvoidList.xml")
             self.avoid_dict.update({new_email: new_email})
-            msg = qtw.QMessageBox.information(self, '', 'Email added to avoid list')
+            msg = qtw.QMessageBox.information(self, '', 'Email added to avoid list.')
+            self.refresh_avoid_list()
+            self.ui.lineEdit_add.clear()
+        elif self.avoid_dict.get(new_email) != None:
+            msg = qtw.QMessageBox.information(self, '', 'Email is already in the list.')
         else:
-            msg = qtw.QMessageBox.information(self, '', 'Cannot add email.')
+            msg = qtw.QMessageBox.information(self, '', 'Please provide an email.')
+            
 
 
 class CustomerListModel(qtc.QAbstractListModel):

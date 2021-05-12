@@ -106,8 +106,8 @@
     <bank>chase</bank>
     <security_num>123</security_num>
     <balance>0</balance>
-    <purchases></purchases>
-    <cart></cart>
-    <orders></orders>
+    <purchases/>
+    <cart/>
+    <orders/>
   </Customer>
 </Customers>
