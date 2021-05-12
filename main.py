@@ -661,7 +661,7 @@ class AccountPage(qtw.QWidget):
         self.trackList = None
 
         for x in self.UserData_Root.findall('Customer'):
-            if(x.get('id') == self.login_email):
+            if(x.find('id').text == self.login_email):
                 if(len(x.find('cart').findall('item'))>0):
                     cartList = x.find('cart').findall('item')
                 if(len(x.find('purchases').findall('item'))>0):
