@@ -153,6 +153,9 @@ class Homepage(qtw.QWidget):
         self.ui.pushButton_5.clicked.connect(self.buy_5)
         self.ui.pushButton_6.clicked.connect(self.buy_6)
 
+        self.ui.pushButton_9.clicked.connect(self.AddCart_Parts)
+        self.ui.pushButton_7.clicked.connect(self.AddCart_PreBuild)
+
         # Sakil END
         # EDIT HERE**************************************************************************
         self.ui.show()    
@@ -232,6 +235,36 @@ class Homepage(qtw.QWidget):
                     self.ui.label_17.setText("Item added to cart")
         except (AttributeError):
             self.ui.label_17.setText("You need to login to buy")
+
+    def AddCart_Parts(self):
+        try:
+            product_num = None
+            for x in self.ItemData_Root:
+                if(x.find('item_name').text == self.ui.listWidget_3.currentItem().text()):
+                    product_num = x.get('id')
+            for x in self.UserData_Root.findall('.//Customer'):
+                if(x.find('id').text == self.current_customer.email_address):
+                    product = ElementTree.SubElement(x.find('cart'), "item")
+                    product.text = product_num
+                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.ui.label_17.setText("Item added to cart")
+        except (AttributeError):
+            print("You need to login to buy")
+            
+    def AddCart_PreBuild(self):
+        try:
+            product_num = None
+            for x in self.ItemData_Root:
+                if(x.find('item_name').text == self.ui.listWidget.currentItem().text()):
+                    product_num = x.get('id')
+            for x in self.UserData_Root.findall('.//Customer'):
+                if(x.find('id').text == self.current_customer.email_address):
+                    product = ElementTree.SubElement(x.find('cart'), "item")
+                    product.text = product_num
+                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.ui.label_17.setText("Item added to cart")
+        except (AttributeError):
+            print("You need to login to buy")
                 
     # Sakil END
 
