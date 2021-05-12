@@ -1,31 +1,31 @@
 <?xml version="1.0"?>
 <Customers>
-  <Customer id="sakil@gmail.com">
-      <id>sakil@gmail.com</id>
-      <first_name>Sakil</first_name>
-      <last_name>Khan</last_name>
-      <date_of_birth>01/01/1900</date_of_birth>
-      <contact_num>1234567890</contact_num>
-      <email_address>sakil@gmail.com</email_address>
-      <address>123-45 123st</address>
-      <password></password>
-      <card_number>123456789</card_number>
-      <bank>chase</bank>
-      <security_num>678</security_num>
-      <balance>100.00</balance>
-      <purchases>
-        <item date="01/22/2020">100</item>
-        <item date="01/22/2020">101</item>
-      </purchases>
-      <cart>
-        <item>103</item>
-        <item>102</item>
-        <item>108</item>
-      </cart>
-      <orders>
-        <item date="05/22/2020">106</item>
-        <item date="05/22/2020">105</item>
-      </orders>
+  <Customer>
+    <id>sakil@gmail.com</id>
+    <first_name>Sakil</first_name>
+    <last_name>Khan</last_name>
+    <date_of_birth>01/01/1900</date_of_birth>
+    <contact_num>1234567890</contact_num>
+    <email_address>sakil@gmail.com</email_address>
+    <address>123-45 123st</address>
+    <password>123</password>
+    <card_number>123456789</card_number>
+    <bank>chase</bank>
+    <security_num>678</security_num>
+    <balance>100.00</balance>
+    <purchases>
+      <item date="01/22/2020">100</item>
+      <item date="01/22/2020">101</item>
+    </purchases>
+    <cart>
+      <item date="">103</item>
+      <item date="">102</item>
+      <item date="">108</item>
+    </cart>
+    <orders>
+      <item date="05/22/2020">106</item>
+      <item date="05/22/2020">105</item>
+    </orders>
   </Customer>
   <Customer>
     <id>email2</id>
@@ -41,17 +41,17 @@
     <security_num>cvv2</security_num>
     <balance>money2</balance>
     <purchases>
-      <item>100</item>
-      <item>101</item>
+      <item date="">100</item>
+      <item date="">101</item>
     </purchases>
     <cart>
-      <item>103</item>
-      <item>102</item>
-      <item>108</item>
+      <item date="">103</item>
+      <item date="">102</item>
+      <item date="">108</item>
     </cart>
     <orders>
-      <item>106</item>
-      <item>105</item>
+      <item date="">106</item>
+      <item date="">105</item>
     </orders>
   </Customer>
   <Customer>
@@ -68,11 +68,11 @@
     <security_num>cvv3</security_num>
     <balance>money3</balance>
     <purchases>
-      <item>100</item>
-      <item>101</item>
+      <item date="">100</item>
+      <item date="">101</item>
     </purchases>
     <cart>
-      <item>103</item>
+      <item date="">103</item>
     </cart>
     <orders/>
   </Customer>
@@ -88,7 +88,24 @@
     <card_number>q</card_number>
     <bank>q</bank>
     <security_num>q</security_num>
-    <balance></balance>
+    <balance>0</balance>
+    <purchases/>
+    <cart/>
+    <orders/>
+  </Customer>
+  <Customer>
+    <id>test@gmail.com</id>
+    <first_name>test</first_name>
+    <last_name>test</last_name>
+    <date_of_birth>11/11/1111</date_of_birth>
+    <contact_num>123 123 1234</contact_num>
+    <email_address>test@gmail.com</email_address>
+    <address>some street</address>
+    <password>123</password>
+    <card_number>1234 1234 1234 1234</card_number>
+    <bank>chase</bank>
+    <security_num>123</security_num>
+    <balance>0</balance>
     <purchases></purchases>
     <cart></cart>
     <orders></orders>

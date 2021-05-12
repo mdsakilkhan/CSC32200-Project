@@ -196,7 +196,7 @@ class Homepage(qtw.QWidget):
             if itemId in pic:
                 targetImage = pic
         
-        pixString = "/Users/nanabonsu/Documents/CSC32200-Project/Pics/" + targetImage
+        pixString = "Pics/" + targetImage
         pixImage = QtGui.QPixmap(pixString)
         scaledPix = pixImage.scaled(150,150)
         self.ui.label_11.setPixmap(scaledPix)
@@ -489,7 +489,7 @@ class NewUserForm(qtw.QDialog):
                 pass
             # Remove encoding declaration--was such a b*&%ch... 
             # The encoding declaration renders the lxml module unable to read it. Hence it had to be removed.
-            Utils.remove_encoding_dec("Data/CustomersTemp.xml","Data/Customers2.xml")
+            Utils.remove_encoding_dec("Data/CustomersTemp.xml","Data/Customers.xml")
             # Refresh customers
             self.homepage.load_customers()
             # Show success message
