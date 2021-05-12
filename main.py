@@ -27,17 +27,30 @@ class Homepage(qtw.QWidget):
         # Nana START
         self.componentPic = ["100.jpg","101.jpg","102.jpg","103.jpg","104.jpg","105.jpg","106.jpg","107.jpg","108.jpg","109.jpg","110.jpg","111.jpg","112.jpg","113.jpg","114.jpg","115.jpg","116.jpg","117.jpg","118.jpg","119.jpg","120.jpg","121.jpg","122.jpg","123.jpg","124.jpg","125.jpg","126.jpg","127.jpg","128.jpg","129.jpg","130.jpg",]
         self.items_path = os.path.abspath("Data/Items.xml")
+        self.pathOfCommentsXML = os.path.abspath("Data/comments.xml")
         self.listOfDicts = self.parse(self.items_path)
+
+        self.listofCommentsDicts = self.parseXMLforComments(self.pathOfCommentsXML)
+        self.commentsAboutItems = self.returnlistOfCertainComments('item')
         
-        #print(self.listOfDicts)
+        
+        self.commentsAboutCompanies = self.returnlistOfCertainComments('company')
+        self.commentsaboutClerks = self.returnlistOfCertainComments('clerk')
+      
         listOfItemCategories = self.returnItemCategories(self.listOfDicts)
         
+       
         for itemName in listOfItemCategories:
             self.ui.listWidget_2.addItem(itemName)
+            self.ui.ItemCategory.addItem(itemName)
 
         self.ui.listWidget_2.itemClicked.connect(self.showItemsInListView)
 
         self.ui.listWidget_3.itemClicked.connect(self.showImagesandDescription)
+        
+        self.ui.ItemCategory.itemClicked.connect(self.showItemsInSecondListView)
+
+        self.ui.PartList.itemClicked.connect(self.showItemComment)
         # Nana END
         # Joshua START
         self.clerk_logged_in = False
@@ -54,17 +67,10 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_account.setDisabled(True)
         # Joshua END
 
-        listOfDicts = self.parse("Data/Items.xml")
-       # print(listOfDicts)
-        listOfItemCategories = self.returnItemCategories(listOfDicts)
         
-        for itemName in listOfItemCategories:
-            self.ui.listWidget_2.addItem(itemName)
 
-       # self.ui.listWidget_2.item(0).connect(self.print)
 
-        def print(self):
-            print("Item 1 clicked")
+   
         # Huihong START
         self.loginForm = None
 
@@ -130,6 +136,13 @@ class Homepage(qtw.QWidget):
         for item in listofItems:
             self.ui.listWidget_3.addItem(item['item_name'])
 
+    def showItemsInSecondListView(self):
+        itemName = self.ui.ItemCategory.currentItem().text()
+        listofItems = self.returnListOfDictItems(itemName,self.listOfDicts)
+        self.ui.PartList.clear()
+        for item in listofItems:
+            self.ui.PartList.addItem(item['item_name'])
+
     def parse(self,xmlFile):
 
         with open(xmlFile) as opedml:
@@ -188,9 +201,57 @@ class Homepage(qtw.QWidget):
         self.ui.label_11.setPixmap(scaledPix)
 
         #now descriptuonn..
-
+        for item in self.listOfDicts:
+            if (item['item_name'] == itemPicked):
+                    itemPrice = item['item_price']
+                    itemRating = item['item_rating']
+        
+        DescriptionString = "Price: " + itemPrice +  "\n Rating: " + itemRating
+        self.ui.plainTextEdit_2.clear()
+        self.ui.plainTextEdit_2.appendPlainText(DescriptionString)
 
         #find the id of that item?
+    def parseXMLforComments(self,xmlFile):
+        with open(xmlFile) as opedml:
+            xml = opedml.read().encode()
+        
+        root = etree.fromstring(xml)
+        comment_dict = {}
+        commentsgotten = []
+        for item in root.getchildren():
+            for elem in item.getchildren():
+                if elem.text:
+                    text = elem.text
+                comment_dict[elem.tag] = text
+            if item.tag == "Comment":
+                commentsgotten.append(comment_dict)
+                comment_dict = {}
+        return commentsgotten
+
+    def returnlistOfCertainComments(self,identifier):
+
+        listofCertainComments = []
+        for comment in self.listofCommentsDicts:
+            if identifier in comment:
+                listofCertainComments.append(comment)
+        return listofCertainComments
+
+
+    def showItemComment(self):
+        itemSelected = self.ui.PartList.currentItem().text()
+        userName = ""
+        commentString = ""
+        self.ui.commentList.clear()
+        for comment in self.commentsAboutItems:
+            if itemSelected in comment.values():
+                userName = comment["customer_name"]
+                commentString = comment["description"]
+                fullString = "Name: " + userName + "\nComment " + commentString
+                #print(fullString)
+                self.ui.commentList.addItem(fullString)
+                userName = ""
+                commentStirng = ""
+        
 
     # Nana END
     # Joshua START
