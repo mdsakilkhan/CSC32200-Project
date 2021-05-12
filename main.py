@@ -74,23 +74,7 @@ class Homepage(qtw.QWidget):
         # Huihong START
         self.loginForm = None
 
-        # Huihong END
-        # Sakil START
-        self.UserData_fileName = 'Customers.xml'
-        self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
-        self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
-        self.UserData_Root = self.UserData_Tree.getroot()
-
-        self.ItemData_fileName = 'Items.xml'
-        self.ItemData_filePath = os.path.abspath(os.path.join('Data', self.ItemData_fileName))
-        self.ItemData_Tree = ElementTree.parse("Data/Items.xml")
-        self.ItemData_Root = self.ItemData_Tree.getroot()
-
-        cartList = None
-        historyList = None
-        self.trackList = None
-        # Sakil End
-        
+        # Huihong END     
 
 
 
@@ -118,10 +102,56 @@ class Homepage(qtw.QWidget):
 
         # Huihong END
         # Sakil START
+        
+        self.UserData_fileName = 'Customers.xml'
+        self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
+        self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
+        self.UserData_Root = self.UserData_Tree.getroot()
+
+        self.ItemData_fileName = 'Items.xml'
+        self.ItemData_filePath = os.path.abspath(os.path.join('Data', self.ItemData_fileName))
+        self.ItemData_Tree = ElementTree.parse("Data/Items.xml")
+        self.ItemData_Root = self.ItemData_Tree.getroot()
+
+        cartList = None
+        historyList = None
+        self.trackList = None
+        
+        self.mostPop = ["125","111","103"]        
+        self.adminRec = ["116","104","127"]
+
+        for y in self.ItemData_Root.findall('Item'):
+            if(y.get('id') == self.mostPop[0]):
+                self.ui.ItemInfo.setText("$ " + y.find('item_price').text + "   " + y.find('item_name').text)
+        self.ui.ItemImage.setPixmap(QtGui.QPixmap("Images/Item/" + self.mostPop[0] + ".jpg"))
+        for y in self.ItemData_Root.findall('Item'):
+            if(y.get('id') == self.mostPop[1]):
+                self.ui.ItemInfo_2.setText("$ " + y.find('item_price').text + "   " + y.find('item_name').text)
+        self.ui.ItemImage_2.setPixmap(QtGui.QPixmap("Images/Item/" + self.mostPop[1] + ".jpg"))
+        for y in self.ItemData_Root.findall('Item'):
+            if(y.get('id') == self.mostPop[2]):
+                self.ui.ItemInfo_3.setText("$ " + y.find('item_price').text + "   " + y.find('item_name').text)
+        self.ui.ItemImage_3.setPixmap(QtGui.QPixmap("Images/Item/" + self.mostPop[2] + ".jpg"))
+        for y in self.ItemData_Root.findall('Item'):
+            if(y.get('id') == self.adminRec[0]):
+                self.ui.ItemInfo_4.setText("$ " + y.find('item_price').text + "   " + y.find('item_name').text)
+        self.ui.ItemImage_4.setPixmap(QtGui.QPixmap("Images/Item/" + self.adminRec[0] + ".jpg"))
+        for y in self.ItemData_Root.findall('Item'):
+            if(y.get('id') == self.adminRec[1]):
+                self.ui.ItemInfo_5.setText("$ " + y.find('item_price').text + "   " + y.find('item_name').text)
+        self.ui.ItemImage_5.setPixmap(QtGui.QPixmap("Images/Item/" + self.adminRec[1] + ".jpg"))
+        for y in self.ItemData_Root.findall('Item'):
+            if(y.get('id') == self.adminRec[2]):
+                self.ui.ItemInfo_6.setText("$ " + y.find('item_price').text + "   " + y.find('item_name').text)
+        self.ui.ItemImage_6.setPixmap(QtGui.QPixmap("Images/Item/" + self.adminRec[2] + ".jpg"))
+
         self.ui.pButton_account.clicked.connect(self.goto_account_page)
-
-
-
+        self.ui.pushButton.clicked.connect(self.buy_1)
+        self.ui.pushButton_2.clicked.connect(self.buy_2)
+        self.ui.pushButton_3.clicked.connect(self.buy_3)
+        self.ui.pushButton_4.clicked.connect(self.buy_4)
+        self.ui.pushButton_5.clicked.connect(self.buy_5)
+        self.ui.pushButton_6.clicked.connect(self.buy_6)
 
         # Sakil END
         # EDIT HERE**************************************************************************
@@ -129,6 +159,82 @@ class Homepage(qtw.QWidget):
     # EDIT HERE**************************************************************************
 
     # DEFINE CUSTOM METHODS HERE
+
+    # Sakil START
+    def buy_1(self):
+        try:
+            product_num = self.mostPop[0]
+            for x in self.UserData_Root.findall('.//Customer'):
+                if(x.find('id').text==self.current_customer.email_address):
+                    product = ElementTree.SubElement(x.find('cart'), "item")
+                    product.text = product_num
+                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.ui.label_17.setText("Item added to cart")
+        except (AttributeError):
+            self.ui.label_17.setText("You need to login to buy")
+                
+    def buy_2(self):
+        try:
+            product_num = self.mostPop[1]
+            for x in self.UserData_Root.findall('.//Customer'):
+                if(x.find('id').text==self.current_customer.email_address):
+                    product = ElementTree.SubElement(x.find('cart'), "item")
+                    product.text = product_num
+                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.ui.label_17.setText("Item added to cart")
+        except (AttributeError):
+            self.ui.label_17.setText("You need to login to buy")
+                
+    def buy_3(self):
+        try:
+            product_num = self.mostPop[2]
+            for x in self.UserData_Root.findall('.//Customer'):
+                if(x.find('id').text==self.current_customer.email_address):
+                    product = ElementTree.SubElement(x.find('cart'), "item")
+                    product.text = product_num
+                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.ui.label_17.setText("Item added to cart")
+        except (AttributeError):
+            self.ui.label_17.setText("You need to login to buy")
+                
+    def buy_4(self):
+        try:
+            product_num = self.adminRec[0]
+            for x in self.UserData_Root.findall('.//Customer'):
+                if(x.find('id').text==self.current_customer.email_address):
+                    product = ElementTree.SubElement(x.find('cart'), "item")
+                    product.text = product_num
+                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.ui.label_17.setText("Item added to cart")
+        except (AttributeError):
+            self.ui.label_17.setText("You need to login to buy")
+                
+    def buy_5(self):
+        try:
+            product_num = self.adminRec[1]
+            for x in self.UserData_Root.findall('.//Customer'):
+                if(x.find('id').text==self.current_customer.email_address):
+                    product = ElementTree.SubElement(x.find('cart'), "item")
+                    product.text = product_num
+                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.ui.label_17.setText("Item added to cart")
+        except (AttributeError):
+            self.ui.label_17.setText("You need to login to buy")
+                
+    def buy_6(self):
+        try:
+            product_num = self.adminRec[2]
+            for x in self.UserData_Root.findall('.//Customer'):
+                if(x.find('id').text==self.current_customer.email_address):
+                    product = ElementTree.SubElement(x.find('cart'), "item")
+                    product.text = product_num
+                    self.UserData_Tree.write('new.xml') # change when ready
+                    self.ui.label_17.setText("Item added to cart")
+        except (AttributeError):
+            self.ui.label_17.setText("You need to login to buy")
+                
+    # Sakil END
+
     # Nana START
     def showItemsInListView(self):
         itemName = self.ui.listWidget_2.currentItem().text()
@@ -196,7 +302,7 @@ class Homepage(qtw.QWidget):
             if itemId in pic:
                 targetImage = pic
         
-        pixString = "Pics/" + targetImage
+        pixString = "Images/Item/" + targetImage
         pixImage = QtGui.QPixmap(pixString)
         scaledPix = pixImage.scaled(150,150)
         self.ui.label_11.setPixmap(scaledPix)
@@ -565,7 +671,7 @@ class AccountPage(qtw.QWidget):
         self.trackList = None
 
         for x in self.UserData_Root.findall('Customer'):
-            if(x.get('id') == self.login_email):
+            if(x.find('id').text == self.login_email):
                 if(len(x.find('cart').findall('item'))>0):
                     cartList = x.find('cart').findall('item')
                 if(len(x.find('purchases').findall('item'))>0):
