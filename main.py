@@ -70,7 +70,7 @@ class Homepage(qtw.QWidget):
 
         # Huihong END
         # Sakil START
-        self.UserData_fileName = 'Customers2.xml'
+        self.UserData_fileName = 'Customers.xml'
         self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
         self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
         self.UserData_Root = self.UserData_Tree.getroot()
@@ -445,7 +445,7 @@ class AccountPage(qtw.QWidget):
         
         _translate = qtc.QCoreApplication.translate
         
-        self.UserData_fileName = 'Customers2.xml'
+        self.UserData_fileName = 'Customers.xml'
         self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
         self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
         self.UserData_Root = self.UserData_Tree.getroot()
@@ -455,7 +455,7 @@ class AccountPage(qtw.QWidget):
         self.ItemData_Tree = ElementTree.parse(self.ItemData_filePath)
         self.ItemData_Root = self.ItemData_Tree.getroot()
         ''' 
-        self.UserData_Tree = ElementTree.parse("Data/Customers2.xml")
+        self.UserData_Tree = ElementTree.parse("Data/Customers.xml")
         self.UserData_Root = self.UserData_Tree.getroot()
         self.ItemData_Tree = ElementTree.parse("Data/Items.xml")
         self.ItemData_Root = self.ItemData_Tree.getroot()
