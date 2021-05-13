@@ -30,10 +30,18 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QComboBox" name="cb_itemCategory"/>
+        <widget class="QComboBox" name="cb_itemCategory">
+         <property name="placeholderText">
+          <string>Item Category</string>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="cb_itemName"/>
+        <widget class="QComboBox" name="cb_itemName">
+         <property name="placeholderText">
+          <string>Item</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QTextEdit" name="textEdit_item">

@@ -6,6 +6,7 @@ from lxml import etree
 from lxml import objectify
 from PyQt5 import QtCore as qtc, QtGui, QtWidgets as qtw
 from PyQt5.uic import loadUi
+from datetime import date
 # Custom modules 
 import Users
 import Utilities as Utils
@@ -445,8 +446,8 @@ class Homepage(qtw.QWidget):
             return
         self.commentForm = CommentForm(self)
     
-    def test(self, event):
-        self.transactionPage = TransactionPage(self)
+    def test(self, accountPage):
+        self.transactionPage = TransactionPage(self, accountPage)
 
     def goto_new_user_form(self):
         self.newUserForm = NewUserForm(self) # Pass in current instance of homepage
@@ -1129,9 +1130,21 @@ class AccountPage(qtw.QWidget):
                     self.UserData_Tree.write('Data/Customers.xml') 
 
     def Checkout_clicked(self):
-        #self.ui.hide()
-        self.homepage.test(self.homepage)
-        #goto transaction page
+        total = 0
+        for x in self.cartList:
+            for y in self.ItemData_Root.findall('Item'):
+                if(y.get('id') == x.text):
+                    total += float(y.find('item_price').text)
+        if float(total) > float(self.userBalance):
+            msg = qtw.QMessageBox.information(self, '', 'Insufficient account balance.')
+            return
+        else:
+            #self.ui.hide()
+            self.homepage.test(self)
+            self.userBalance = float(self.userBalance)
+            self.userBalance -= float(total)
+            self.userBalance = str(self.userBalance)
+            #goto transaction page
 
     def ReviewProduct_clicked(self):
         self.ui.hide()
@@ -1221,8 +1234,9 @@ class AccountPage(qtw.QWidget):
         self.homepage.ui.show()
 
 class TransactionPage(qtw.QWidget):
-    def __init__(self, homepage):
+    def __init__(self, homepage, transactionPage):
         super().__init__()
+        self.transpage = transactionPage
         self.homepage= homepage
         self.customer = self.homepage.current_customer
         self.ui = loadUi("UiFiles/TransactionPage.ui")
@@ -1242,15 +1256,15 @@ class TransactionPage(qtw.QWidget):
         # homepage.current_customer.cart.append(itemWithDate)
 
     def generate_transaction(self):
-        self.ui.lineEdit_orderNumber.setText(None)
-        self.ui.lineEdit_datePurchased.setText(self.customer.cart[0].date) 
+        today = date.today().strftime("%m/%d/%Y")
+        self.ui.lineEdit_datePurchased.setText(today) 
         self.ui.lineEdit_fullName.setText(self.customer.first_name + " " + self.customer.last_name) 
         self.ui.lineEdit_contactNumber.setText(self.customer.contact_num)
         self.ui.lineEdit_address.setText(self.customer.address)
         self.ui.lineEdit_email.setText(self.customer.email_address)
         self.ui.lineEdit_cardNum.setText(self.customer.contact_num[-4:])
 
-        self.ui.tableWidget_items.setRowCount(len(self.customer.cart)+1)
+        self.ui.tableWidget_items.setRowCount(len(self.customer.cart))
         self.ui.tableWidget_items.setColumnCount(3)
 
         total = 0
@@ -1265,6 +1279,30 @@ class TransactionPage(qtw.QWidget):
             i += 1
         
         self.ui.label_totalCost.setText(str(total))
+
+    def refresh_cart(self):
+        _translate = qtc.QCoreApplication.translate
+        self.transpage.ui.ProductList.clear()
+        try:
+            for x in self.transpage.cartList:
+                item = qtw.QListWidgetItem()
+                self.transpage.ui.ProductList.addItem(item)
+        except (AttributeError, TypeError):
+            pass
+        # try:
+        #      self.transpage.ui.ProductList.clicked.connect(self.transpage.list_clicked)
+        # except (TypeError):
+        #     pass  
+        try:
+            i = 0
+            for x in self.transpage.cartList:
+                item = self.transpage.ui.ProductList.item(0+i)
+                for y in self.transpage.ItemData_Root.findall('Item'):
+                    if(y.get('id') == x.text):
+                        item.setText(_translate("AccountPage", x.text + ": " + y.find('item_name').text))
+                i += 1
+        except (AttributeError, TypeError):
+            pass
     
 class AvoidList(qtw.QWidget):
     def __init__(self):
