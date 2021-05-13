@@ -1,50 +1,53 @@
 <?xml version='1.0' encoding='ASCII'?>
 <Comments>
-    <Comment id="201">
-        <customer_name>Michael</customer_name>
-        <item>Corsair Vengeance RGB pro 32GB</item>
-        <description> works great very good product</description>
-    </Comment>
-    <Comment id="202">
-        <customer_name>Sakil</customer_name>
-        <item>Seagate BarraCuda 2TB</item>
-        <description> It  was defected I want a refund</description>
-    </Comment>
-    <Comment id="203">
-        <customer_name>Joshua</customer_name>
-        <item>Redragon 700W</item>
-        <description>It worked for a little but then started having problems</description>
-    </Comment>
-
-    <Comment id="204">
+  <Comment>
+    <customer_name>Michael</customer_name>
+    <item>Corsair Vengeance RGB pro 32GB</item>
+    <description> works great very good product</description>
+  </Comment>
+  <Comment>
+    <customer_name>Sakil</customer_name>
+    <item>Seagate BarraCuda 2TB</item>
+    <description> It  was defected I want a refund</description>
+  </Comment>
+  <Comment>
+    <customer_name>Joshua</customer_name>
+    <item>Redragon 700W</item>
+    <description>It worked for a little but then started having problems</description>
+  </Comment>
+  <Comment>
     <customer_name>Lucy</customer_name>
     <item>Gigabyte Aorus Elite</item>
     <description>A genuine product not like the ones from other sites</description>
-    </Comment>
-
-    <Comment id="301">
-    <customer_name>Dipankar</customer_name>
-    <company>MyComputerParts</company>
-    <description>Mediocre customer service and slow delivery</description>
-    </Comment>
-
-    <Comment id="302">
-    <customer_name>George</customer_name>
-    <company>PCExperts</company>
-    <description>Fast delivery</description>
-    </Comment>
-    
-    <Comment id="303">
+  </Comment>
+  <Comment>
+    <customer_name>qq</customer_name>
+    <item>Corsair Vengeance RGB pro 32GB</item>
+    <description>new comment</description>
+  </Comment>
+  <Comment>
     <customer_name>George</customer_name>
     <clerk>Nana Bonsu</clerk>
     <description>Very kind and friendly</description>
-    </Comment>
-
-    <Comment id="304">
+  </Comment>
+  <Comment>
     <customer_name>Freddy</customer_name>
     <clerk>Huihong Yu</clerk>
     <description>Very knowledgable, helped me resolve my problem</description>
-    </Comment>
-    
-
+  </Comment>
+  <Comment>
+    <customer_name>Dipankar</customer_name>
+    <company>MyComputerParts</company>
+    <description>Mediocre customer service and slow delivery</description>
+  </Comment>
+  <Comment>
+    <customer_name>George</customer_name>
+    <company>PCExperts</company>
+    <description>Fast delivery</description>
+  </Comment>
+  <Comment>
+    <customer_name>qq</customer_name>
+    <item>Corsair Vengeance RGB pro 32GB</item>
+    <description>another comment</description>
+  </Comment>
 </Comments>

@@ -7,6 +7,8 @@ def serialize_object(obj, obj_name):
     for key, val in obj.__dict__.items():
         if val == None:
             attr = elem_maker(key, "")
+        elif type(val) == bool:
+            attr = elem_maker(key, val)
         elif not type(val) == str:
             attr = elem_maker(key)
             for elt in val:

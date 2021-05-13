@@ -13,6 +13,7 @@
     <bank>chase</bank>
     <security_num>678</security_num>
     <balance>100.00</balance>
+    <is_manager>True</is_manager>
     <purchases>
       <item date="01/22/2020">100</item>
       <item date="01/22/2020">101</item>
@@ -40,6 +41,7 @@
     <bank>bank2</bank>
     <security_num>cvv2</security_num>
     <balance>money2</balance>
+    <is_manager>false</is_manager>
     <purchases>
       <item date="">100</item>
       <item date="">101</item>
@@ -67,6 +69,7 @@
     <bank>bank3</bank>
     <security_num>cvv3</security_num>
     <balance>money3</balance>
+    <is_manager>false</is_manager>
     <purchases>
       <item date="">100</item>
       <item date="">101</item>
@@ -89,6 +92,7 @@
     <bank>q</bank>
     <security_num>q</security_num>
     <balance>0</balance>
+    <is_manager>false</is_manager>
     <purchases/>
     <cart/>
     <orders/>
@@ -106,8 +110,27 @@
     <bank>chase</bank>
     <security_num>123</security_num>
     <balance>0</balance>
+    <is_manager>false</is_manager>
     <purchases/>
     <cart/>
     <orders/>
+  </Customer>
+  <Customer>
+    <id>d</id>
+    <first_name>d</first_name>
+    <last_name>d</last_name>
+    <date_of_birth>dd</date_of_birth>
+    <contact_num>dd</contact_num>
+    <email_address>d</email_address>
+    <address>d</address>
+    <password>d</password>
+    <card_number>d</card_number>
+    <bank>d</bank>
+    <security_num>d</security_num>
+    <balance>0</balance>
+    <is_manager>True</is_manager>
+    <purchases></purchases>
+    <cart></cart>
+    <orders></orders>
   </Customer>
 </Customers>

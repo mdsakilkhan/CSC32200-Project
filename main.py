@@ -64,19 +64,8 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_account.setDisabled(True)
         self.avoidList = None
         self.commentForm = None
+        self.ui.pButton_avoidList.hide()
         # Joshua END
-
-        
-
-
-   
-        # Huihong START
-        self.loginForm = None
-
-        # Huihong END     
-
-
-
 
         # CONNECT SIGNALS AND SLOTS (CUSTOM DEFINED METHODS)
         # Nana START
@@ -90,7 +79,7 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_logIn.clicked.connect(self.goto_login_form)
         self.ui.pButton_register.clicked.connect(self.goto_new_user_form)
         self.ui.pButton_logOut.clicked.connect(self.logout)
-        self.ui.pButton_deliverySystem.clicked.connect(self.test)
+        # self.ui.pButton_deliverySystem.clicked.connect(self.test)
         self.ui.pButton_avoidList.clicked.connect(self.goto_avoid_list)
         self.ui.pButton_writeAReview.clicked.connect(self.goto_comment_form)
         # Joshua END
@@ -421,8 +410,7 @@ class Homepage(qtw.QWidget):
             if identifier in comment:
                 listofCertainComments.append(comment)
         return listofCertainComments
-
-
+    
     def showItemComment(self):
         itemSelected = self.ui.PartList.currentItem().text()
         userName = ""
@@ -438,6 +426,16 @@ class Homepage(qtw.QWidget):
                 userName = ""
                 commentStirng = ""
         
+    def refresh_dicts_and_lists(self):
+        self.listofCommentsDicts = self.parseXMLforComments(self.pathOfCommentsXML)
+        self.commentsAboutItems = self.returnlistOfCertainComments('item')        
+        self.commentsAboutCompanies = self.returnlistOfCertainComments('company')
+        self.commentsAboutClerks = self.returnlistOfCertainComments('clerk')
+        self.ui.listWidget_2.clear()
+        self.ui.ItemCategory.clear()
+        for itemName in self.listOfItemCategories:
+            self.ui.listWidget_2.addItem(itemName)
+            self.ui.ItemCategory.addItem(itemName)
 
     # Nana END
     # Joshua START
@@ -460,6 +458,9 @@ class Homepage(qtw.QWidget):
         self.avoidList = AvoidList()
 
     def load_customers(self):
+        def parseBoolString(theString):
+            return theString[0].upper()=='T'
+
         try:
             with open("Data/Customers.xml") as file:
                 xml = file.read()
@@ -498,6 +499,7 @@ class Homepage(qtw.QWidget):
                 else:
                     self.cust_attrs.update({attribute.tag: attribute.text})
             # Instantiate customer object
+            is_manager = parseBoolString(self.cust_attrs.get('is_manager'))
             incoming_cust = Users.Customer(first_name=self.cust_attrs.get('first_name'), 
                                            last_name=self.cust_attrs.get('last_name'), 
                                            date_of_birth=self.cust_attrs.get('date_of_birth'), 
@@ -509,13 +511,14 @@ class Homepage(qtw.QWidget):
                                            bank=self.cust_attrs.get('bank'), 
                                            security_num=self.cust_attrs.get('security_num'), 
                                            balance=self.cust_attrs.get('balance'), 
+                                           is_manager=is_manager,
                                            purchases=self.cust_attrs.get('purchases'), 
                                            cart=self.cust_attrs.get('cart'), 
                                            orders=self.cust_attrs.get('orders'))
             self.id_pword_dict.update({incoming_cust.id : incoming_cust.password})   
             self.id_customer_dict.update({incoming_cust.id : incoming_cust})
         
-        return
+        
 
     def logout(self):
         self.current_customer = None
@@ -523,15 +526,23 @@ class Homepage(qtw.QWidget):
         self.ui.pButton_logIn.setEnabled(True)
         self.ui.pButton_logOut.setEnabled(False)
         self.ui.pButton_account.setEnabled(False)
-        self.enable_or_diable_register()
+        self.enable_or_disable_register()
+        self.check_is_manager()
         msg = qtw.QMessageBox.information(self, '', 'Log out successful')
         self.ui.label_currentlyVisiting.show()
 
-    def enable_or_diable_register(self):
+    def enable_or_disable_register(self):
         if self.customer_logged_in == False:
             self.ui.pButton_register.setEnabled(True)
         else:
             self.ui.pButton_register.setEnabled(False)
+
+    def check_is_manager(self):
+        if self.current_customer != None:
+            if self.current_customer.is_manager:
+                self.ui.pButton_avoidList.show()
+        else:
+            self.ui.pButton_avoidList.hide()
     # Joshua END
     # Huihong START
 
@@ -565,7 +576,6 @@ class CommentForm(qtw.QWidget):
         self.ui.pButton_submitComment_2.clicked.connect(self.submit_clerk_comment)
         self.ui.pButton_submitComment_2.clicked.connect(self.submit_company_comment)
         
-        
         self.ui.show()
 
     def populate_combo_boxes(self):
@@ -586,7 +596,7 @@ class CommentForm(qtw.QWidget):
             msg = qtw.QMessageBox.information(self, '', 'Your review cannot be blank')
             return
         # Save new_comment as a comment object
-        new_comment = Users.ItemComment(customer_name=self.homepage.current_customer.first_name + self.homepage.current_customer.last_name,
+        new_comment = Users.ItemComment(customer_name=self.homepage.current_customer.first_name + " " + self.homepage.current_customer.last_name,
                                         item=self.ui.cb_itemName.currentText(),
                                         description=self.ui.textEdit_item.toPlainText())
         # Create root tag
@@ -623,19 +633,20 @@ class CommentForm(qtw.QWidget):
         # create the xml string
         obj_xml = etree.tostring(root, pretty_print=True, xml_declaration=True)
         try:
-            with open("Data/newComments.xml", "wb") as xml_writer:
+            with open("Data/comments.xml", "wb") as xml_writer:
                 xml_writer.write(obj_xml)
         except IOError:
             pass
         
         msg = qtw.QMessageBox.information(self, '', 'Comment Posted')
         self.ui.textEdit_item.clear()
+        self.homepage.refresh_dicts_and_lists()
 
     def submit_clerk_comment(self):
         if len(self.ui.textEdit_clerk.toPlainText()) < 1:
             msg = qtw.QMessageBox.information(self, '', 'Your review cannot be blank')
             return
-        new_comment = Users.ClerkComment(customer_name=self.homepage.current_customer.first_name + self.homepage.current_customer.last_name,
+        new_comment = Users.ClerkComment(customer_name=self.homepage.current_customer.first_name + " " + self.homepage.current_customer.last_name,
                                     clerk=self.ui.cb_itemName.currentText(),
                                     description=self.ui.textEdit_clerk.toPlainText())
         # Create root tag
@@ -678,12 +689,13 @@ class CommentForm(qtw.QWidget):
             pass
         msg = qtw.QMessageBox.information(self, '', 'Comment Posted')
         self.ui.textEdit_clerk.clear()
+        self.homepage.refresh_dicts_and_lists()
 
     def submit_company_comment(self):
         if len(self.ui.textEdit_company.toPlainText()) < 1:
             msg = qtw.QMessageBox.information(self, '', 'Your review cannot be blank')
             return
-        new_comment = Users.CompanyComment(customer_name=self.homepage.current_customer.first_name + self.homepage.current_customer.last_name,
+        new_comment = Users.CompanyComment(customer_name=self.homepage.current_customer.first_name + " " + self.homepage.current_customer.last_name,
                                         company=self.ui.cb_itemName.currentText(),
                                         description=self.ui.textEdit_company.toPlainText())
         # Create root tag
@@ -727,6 +739,7 @@ class CommentForm(qtw.QWidget):
         
         msg = qtw.QMessageBox.information(self, '', 'Comment Posted')
         self.ui.textEdit_deliveryCompany.clear()
+        self.homepage.refresh_dicts_and_lists()
 
 class SelectUserForm(qtw.QWidget):
     def __init__(self, homepage):
@@ -767,7 +780,8 @@ class LoginForm(qtw.QDialog):
             self.homepage.ui.pButton_logIn.setDisabled(True)
             self.homepage.ui.pButton_logOut.setDisabled(False)
             self.homepage.ui.pButton_account.setDisabled(False)
-            self.homepage.enable_or_diable_register()
+            self.homepage.enable_or_disable_register()
+            self.homepage.check_is_manager()
             msg = qtw.QMessageBox.information(self, '', 'Login Successful')
             '''
             for x in self.homepage.UserData_Root.findall('Customer'):
@@ -1268,6 +1282,7 @@ class AvoidList(qtw.QWidget):
         self.ui.listWidget_avoidList.itemClicked.connect(self.get_current_selection)
         self.ui.pButton_add.clicked.connect(self.add_email)
         self.ui.pButton_remove.clicked.connect(self.remove_email)
+        self.ui.pButton_homepage.clicked.connect(self.ui.close)
 
         self.ui.show()
 

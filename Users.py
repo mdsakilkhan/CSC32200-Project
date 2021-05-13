@@ -24,13 +24,14 @@ class StoreClerk(Person):
         super().__init__(**kwargs)
 
 class Customer(Person):
-    def __init__(self, password=None, card_number=None, bank=None, security_num=None, balance="0", purchases=None, cart=None, orders=None, **kwargs):
+    def __init__(self, password=None, card_number=None, bank=None, security_num=None, balance="0", is_manager=None, purchases=None, cart=None, orders=None, **kwargs):
         super().__init__(**kwargs)
         self.password = password
         self.card_number = card_number
         self.bank = bank
         self.security_num = security_num
         self.balance = balance
+        self.is_manager = is_manager
         self.purchases = purchases
         self.cart = cart
         self.orders = orders
