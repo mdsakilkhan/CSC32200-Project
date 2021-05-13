@@ -33,3 +33,35 @@ PyQt
 
 	Master PyQt5 part 5: Moving data between windows
 		- 
+
+	PyQt4 Model View Tutorial Part 01_1
+		- Why you should use listview widget over list widget
+
+	PyQt4 Model View Tutorial Part 02_0
+		- Create abstractListModel 
+		- Requires implementation of rowCount and data methods
+
+	PyQt4 Model View Tutorial Part 02_1******************
+		- implementation of data method
+		- explanation of various roles
+		- Dataheader
+
+	PyQt4 Model View Tutorial Part 02_2
+		- editing data in models
+		- not really useful
+		- Emit 
+
+	PyQt4 Model View Tutorial Part 03_0 
+		- Inserting and removing items from models
+		- Implement insertRows(self, position, rows, parent = QtCore.QModelIndex) and removeRows methods
+		insertRows(self, position, rows, parent):
+			self.beginInsertRows(parent, position, position + rows - 1)
+
+			self.endInsertRows()
+
+		model.insertRows(0, 1)
+	
+	PyQt4 Model View Tutorial Part 06_2
+		- Using DataMapper to connect data to widgets
+
+	

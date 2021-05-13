@@ -5,4 +5,8 @@ The main.py file is where all of the logic is. .ui files are loaded into the .py
 
 Please use the naming convention described in the link: https://namingconvention.org/python/
 
-Check out this pretty good tutorial on serializing/deserializing from xml: https://www.python101.pythonlibrary.org/chapter31_lxml.html
+These good xml resources: 
+  https://www.python101.pythonlibrary.org/chapter31_lxml.html
+  
+  https://lxml.de/tutorial.html
+
