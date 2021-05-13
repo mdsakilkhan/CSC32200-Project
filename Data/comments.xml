@@ -26,6 +26,11 @@
     <description>new comment</description>
   </Comment>
   <Comment>
+    <customer_name>qq</customer_name>
+    <item>Corsair Vengeance RGB pro 32GB</item>
+    <description>another comment</description>
+  </Comment>
+  <Comment>
     <customer_name>George</customer_name>
     <clerk>Nana Bonsu</clerk>
     <description>Very kind and friendly</description>
@@ -46,8 +51,8 @@
     <description>Fast delivery</description>
   </Comment>
   <Comment>
-    <customer_name>qq</customer_name>
-    <item>Corsair Vengeance RGB pro 32GB</item>
-    <description>another comment</description>
+    <customer_name>Bonsu Bonsu</customer_name>
+    <item>AMD Ryzen 9 5900X</item>
+    <description>ibnibiibibi</description>
   </Comment>
 </Comments>
