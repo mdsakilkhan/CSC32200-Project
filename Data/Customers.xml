@@ -90,10 +90,10 @@
     <card_number>q</card_number>
     <bank>q</bank>
     <security_num>q</security_num>
-    <balance>1000.0</balance>
+    <balance>2000.0</balance>
     <is_manager>false</is_manager>
     <purchases />
-    <cart />
+    <cart><item>128</item><item>129</item><item>114</item><item>110</item><item>116</item></cart>
     <orders />
   </Customer>
   <Customer>

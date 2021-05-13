@@ -310,14 +310,14 @@ class Homepage(qtw.QWidget):
             print("You need to login to buy")
             
     def AddCart_PreBuild(self):
-        # try:
+        try:
             self.UserData_fileName = 'Customers.xml'
             self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
             self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
             self.UserData_Root = self.UserData_Tree.getroot()
             product_num = None
             for x in self.ItemData_Root:
-                if(x.find('item_name').text == self.ui.listWidget.currentItem().text()):
+                if(x.find('item_name').text == self.ui.fullPCNameList.currentItem().text()):
                     product_num = x.get('id')
             for x in self.UserData_Root.findall('.//Customer'):
                 if(x.find('id').text == self.current_customer.email_address):
@@ -325,8 +325,8 @@ class Homepage(qtw.QWidget):
                     product.text = product_num
                     self.UserData_Tree.write('Data/Customers.xml') 
                     self.ui.label_17.setText("Item added to cart")
-        # except (AttributeError):
-        #     print("You need to login to buy")
+        except (AttributeError):
+            print("You need to login to buy")
                 
     # Sakil END
 
