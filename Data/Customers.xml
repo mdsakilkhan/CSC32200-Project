@@ -11,8 +11,13 @@
     <card_number>123456789</card_number>
     <bank>chase</bank>
     <security_num>678</security_num>
+<<<<<<< HEAD
     <balance>2100.0</balance>
     <is_manager>True</is_manager>
+=======
+    <balance>100.00</balance>
+    <is_manager>true</is_manager>
+>>>>>>> 0671e3a1096a920c6ee4ba677271004fdd55d517
     <purchases>
       <item date="01/22/2020">100</item>
       <item date="01/22/2020">101</item>
@@ -93,7 +98,11 @@
     <balance>0</balance>
     <is_manager>false</is_manager>
     <purchases />
+<<<<<<< HEAD
     <cart><item>118</item></cart>
+=======
+    <cart />
+>>>>>>> 0671e3a1096a920c6ee4ba677271004fdd55d517
     <orders />
   </Customer>
   <Customer>
@@ -127,9 +136,34 @@
     <bank>d</bank>
     <security_num>d</security_num>
     <balance>0</balance>
+<<<<<<< HEAD
     <is_manager>True</is_manager>
+=======
+    <is_manager>true</is_manager>
+>>>>>>> 0671e3a1096a920c6ee4ba677271004fdd55d517
     <purchases />
     <cart />
     <orders />
   </Customer>
+<<<<<<< HEAD
+=======
+  <Customer>
+    <id>Nana@gmail.com</id>
+    <first_name>Bonsu</first_name>
+    <last_name>Bonsu</last_name>
+    <date_of_birth>2/3/232</date_of_birth>
+    <contact_num>432-342-4343</contact_num>
+    <email_address>Nana@gmail.com</email_address>
+    <address>2350 Ryer Avenue</address>
+    <password>1234</password>
+    <card_number>423434343234</card_number>
+    <bank>Bofa</bank>
+    <security_num>232</security_num>
+    <balance>0</balance>
+    <is_manager>False</is_manager>
+    <purchases />
+    <cart><item>118</item></cart>
+    <orders />
+  </Customer>
+>>>>>>> 0671e3a1096a920c6ee4ba677271004fdd55d517
 </Customers>

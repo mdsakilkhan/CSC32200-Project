@@ -37,19 +37,45 @@ class Homepage(qtw.QWidget):
         self.commentsAboutClerks = self.returnlistOfCertainComments('clerk')
       
         self.listOfItemCategories = self.returnItemCategories(self.listOfDicts)
-        
-       
+        listofCommentItemCategories = self.returnlistOfCategoriesWithComments()
+        #Dictionary of PC items
+        listOfPCNames = self.returnListOfDictItems('PC',self.listOfDicts)
+        for item in listOfPCNames:
+            self.ui.fullPCNameList.addItem(item['item_name'])
+
         for itemName in self.listOfItemCategories:
             self.ui.listWidget_2.addItem(itemName)
+
+        for itemName in listofCommentItemCategories: 
             self.ui.ItemCategory.addItem(itemName)
 
+        #add company name
+        for comment in self.commentsAboutCompanies:
+            self.ui.companyNameList.addItem(comment['company'])
+
+        for comment in self.commentsAboutClerks:
+            self.ui.clerkList.addItem(comment['clerk'])
+
+
+    
+        
+        
+        #this shows the items in the parts tab when the list item is clicked
         self.ui.listWidget_2.itemClicked.connect(self.showItemsInListView)
 
+        #shows Image and description
         self.ui.listWidget_3.itemClicked.connect(self.showImagesandDescription)
         
         self.ui.ItemCategory.itemClicked.connect(self.showItemsInSecondListView)
 
+
         self.ui.PartList.itemClicked.connect(self.showItemComment)
+
+        self.ui.companyNameList.itemClicked.connect(self.showCompanyComment)
+
+        self.ui.fullPCNameList.itemClicked.connect(self.showImagesandDescriptionforWholePC)
+
+        self.ui.clerkList.itemClicked.connect(self.showClerkComment)
         # Nana END
         # Joshua START
         self.clerk_logged_in = False
@@ -341,9 +367,19 @@ class Homepage(qtw.QWidget):
     def returnItemCategories(self,itemsDict):
         listOfCategories = []
         for item in itemsDict:
-            if (listOfCategories.count(item['item_type']) == 0):
+            if (listOfCategories.count(item['item_type']) == 0 and (item['item_type'] != 'PC')):
                 listOfCategories.append(item['item_type'])
         return listOfCategories
+    
+     #list of item categories with comments
+    def returnlistOfCategoriesWithComments(self):
+        listOfCategories = []
+        for item in self.listOfDicts:
+            itemName = item['item_name']
+            if self.inComments(itemName) and listOfCategories.count(item['item_type']) == 0:
+                listOfCategories.append(item['item_type'])
+        return listOfCategories
+    
     
     #returns list of items that matches category
     def returnListOfDictItems(self,itemCategory,itemDictList):
@@ -353,6 +389,22 @@ class Homepage(qtw.QWidget):
                 listOfItems.append(items)
         return listOfItems
     
+    #return list of items that matches category and is in comments
+    def returnItemsWithComments(self,itemCategory,itemDictList):
+        listOfItems = []
+        for items in itemDictList:
+            if items['item_type'] == itemCategory and self.inComments(items['item_name']):
+                listOfItems.append(items)
+        return listOfItems
+
+    #funtion to check if a value is in the comments
+    def inComments(self,item):
+        isIn = False
+        for comment in self.listofCommentsDicts:
+            if item in comment.values():
+                isIn = True
+        return isIn
+
     #want to return dictionary of that item
     def returnSpecificItemByName(self,itemName):
         itemdict = {}
@@ -385,6 +437,31 @@ class Homepage(qtw.QWidget):
         DescriptionString = "Price: " + itemPrice +  "\n Rating: " + itemRating
         self.ui.plainTextEdit_2.clear()
         self.ui.plainTextEdit_2.appendPlainText(DescriptionString)
+
+    def showImagesandDescriptionforWholePC(self):
+        itemPicked = self.ui.fullPCNameList.currentItem().text()
+        specificItem = self.returnSpecificItemByName(itemPicked) # will be that item
+
+        itemId = specificItem['id'] # the itemItem
+        targetImage = ""
+        for pic in self.componentPic:
+            if itemId in pic:
+                targetImage = pic
+        
+        pixString = "Images/Item/" + targetImage
+        pixImage = QtGui.QPixmap(pixString)
+        scaledPix = pixImage.scaled(150,150)
+        self.ui.PreBuiltImage.setPixmap(scaledPix)
+
+        #now descriptuonn..
+        for item in self.listOfDicts:
+            if (item['item_name'] == itemPicked):
+                    itemPrice = item['item_price']
+                    itemRating = item['item_rating']
+        
+        DescriptionString = "Price: " + itemPrice +  "\n Rating: " + itemRating
+        self.ui.plainTextEdit.clear()
+        self.ui.plainTextEdit.appendPlainText(DescriptionString)
 
         #find the id of that item?
     def parseXMLforComments(self,xmlFile):
@@ -426,7 +503,34 @@ class Homepage(qtw.QWidget):
                 self.ui.commentList.addItem(fullString)
                 userName = ""
                 commentStirng = ""
-        
+
+    def showCompanyComment(self):
+        companySelected = self.ui.companyNameList.currentItem().text()
+        userName = ""
+        commentString = ""
+        self.ui.companycomment.clear()
+        for comment in self.commentsAboutCompanies:
+             userName = comment["customer_name"]
+             commentString = comment["description"]
+             fullString = "Name: " + userName + "\nComment " + commentString
+             self.ui.companycomment.addItem(fullString)
+             userName = ""
+             commentStirng = ""
+
+    def showClerkComment(self):
+        companySelected = self.ui.clerkList.currentItem().text()
+        userName = ""
+        commentString = ""
+        self.ui.clerkComment.clear()
+        for comment in self.commentsAboutClerks:
+             userName = comment["customer_name"]
+             commentString = comment["description"]
+             fullString = "Name: " + userName + "\nComment " + commentString
+             self.ui.clerkComment.addItem(fullString)
+             userName = ""
+             commentStirng = ""
+
+
     def refresh_dicts_and_lists(self):
         self.listofCommentsDicts = self.parseXMLforComments(self.pathOfCommentsXML)
         self.commentsAboutItems = self.returnlistOfCertainComments('item')        
