@@ -310,7 +310,7 @@ class Homepage(qtw.QWidget):
             print("You need to login to buy")
             
     def AddCart_PreBuild(self):
-        try:
+        # try:
             self.UserData_fileName = 'Customers.xml'
             self.UserData_filePath = os.path.abspath(os.path.join('Data', self.UserData_fileName))
             self.UserData_Tree = ElementTree.parse(self.UserData_filePath)
@@ -325,8 +325,8 @@ class Homepage(qtw.QWidget):
                     product.text = product_num
                     self.UserData_Tree.write('Data/Customers.xml') 
                     self.ui.label_17.setText("Item added to cart")
-        except (AttributeError):
-            print("You need to login to buy")
+        # except (AttributeError):
+        #     print("You need to login to buy")
                 
     # Sakil END
 
@@ -1234,21 +1234,24 @@ class AccountPage(qtw.QWidget):
                     self.UserData_Tree.write('Data/Customers.xml') 
 
     def Checkout_clicked(self):
-        total = 0
-        for x in self.cartList:
-            for y in self.ItemData_Root.findall('Item'):
-                if(y.get('id') == x.text):
-                    total += float(y.find('item_price').text)
-        if float(total) > float(self.userBalance):
-            msg = qtw.QMessageBox.information(self, '', 'Insufficient account balance.')
-            return
-        else:
-            #self.ui.hide()
-            self.homepage.test(self)
-            self.userBalance = float(self.userBalance)
-            self.userBalance -= float(total)
-            self.userBalance = str(self.userBalance)
-            #goto transaction page
+        try:
+            total = 0
+            for x in self.cartList:
+                for y in self.ItemData_Root.findall('Item'):
+                    if(y.get('id') == x.text):
+                        total += float(y.find('item_price').text)
+            if float(total) > float(self.userBalance):
+                msg = qtw.QMessageBox.information(self, '', 'Insufficient account balance.')
+                return
+            else:
+                #self.ui.hide()
+                self.homepage.test(self)
+                self.userBalance = float(self.userBalance)
+                self.userBalance -= float(total)
+                self.userBalance = str(self.userBalance)
+                #goto transaction page
+        except:
+            pass
 
     def ReviewProduct_clicked(self):
         self.ui.hide()
